@@ -5,3 +5,7 @@ input {
 div {
   min-height: 20px;
 }
+
+ul {
+  font-size: 12px;
+}

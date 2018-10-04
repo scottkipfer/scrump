@@ -6,7 +6,7 @@ export const TASKS: Task[] = [
     id: '1',
     summary: 'Ability to remove all images on product pages',
     requirementUrl: 'https://www.pivotaltracker.com/n/projects/944328/stories/156665519',
-    fe: new Owner('1', 'RZ' 'wip'),
+    fe: new Owner('1', 'RZ', 'wip'),
     api: null,
     devOps: null,
     email: null,
