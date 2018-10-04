@@ -1,0 +1,42 @@
+<div id="tasks">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col" width="10"></th>
+        <th scope="col" width="10"></th>
+        <th scope="col" width="400">Summary</th>
+        <th scope="col" width="5%">Req</th>
+        <th scope="col" width="5%">FE</th>
+        <th scope="col" width="5%">API</th>
+        <th scope="col" width="5%">DevOps</th>
+        <th scope="col" width="5%">Email</th>
+        <th scope="col" width="5%">QE</th>
+        <th scope="col" width="5%">ETA</th>
+        <th scope="col" width="5%">Deployed</th>
+        <th scope="col" width="5%">Deadline</th>
+        <th scope="col" width="350">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks; index as i">
+        <td><fa name="bars"></fa></td>
+        <td>{{ i + 1 }}</td>
+        <td class="text-left">
+          <app-text-cell [value]="task.summary" (valueChange)="task.summary=$event; saveChanges(task);"></app-text-cell>
+        </td>
+        <td><a [href]="task.requirementUrl" [hidden]="!task.requirementUrl" target="_blank"><fa name="bullseye"></fa></a></td>
+        <td><app-team-cell [owner]=task.fe (ownerChange)="task.fe=$event; saveChanges(task)"></app-team-cell></td>
+        <td><app-team-cell [owner]=task.api (ownerChange)="task.api=$event; saveChanges(task)"></app-team-cell></td>
+        <td><app-team-cell [owner]=task.devOps (ownerChange)="task.devOps=$event; saveChanges(task)"></app-team-cell></td>
+        <td><app-team-cell [owner]=task.email (ownerChange)="task.email=$event; saveChanges(task)"></app-team-cell></td>
+        <td><app-team-cell [owner]=task.qe (ownerChange)="task.qe=$event; saveChanges(task)"></app-team-cell></td>
+        <td>{{ task.devEta }}</td>
+        <td>{{ task.deployed }}</td>
+        <td>{{ task.deadline }}</td>
+        <td class="text-left">
+          <app-text-cell [value]="task.notes" (valueChange)="task.notes=$event; saveChanges(task);"></app-text-cell>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

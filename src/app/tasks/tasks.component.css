@@ -1,0 +1,17 @@
+#tasks {
+  padding: 10px;
+  font-size: 12px;
+}
+
+th {
+  padding: 3px;
+  background-color: #efefef;
+}
+
+td {
+  padding: 3px;
+}
+
+td:hover {
+  cursor: pointer;
+}

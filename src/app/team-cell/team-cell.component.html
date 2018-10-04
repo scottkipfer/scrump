@@ -1,0 +1,4 @@
+<div class="clickable" [hidden]="isEditing" (dblclick)="edit()">{{ owner.owner }} <i class="fa" [ngClass]="icon"></i></div>
+<div [hidden]="!isEditing">
+  <input [(ngModel)]="owner.owner" (keydown.enter)="finishEdit();" (blur)="finishEdit()">
+</div>
