@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  database:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - './data:/data/db'
+  frontend:
+    build: ./client
+    ports:
+      - "4200:80"
+  backend:
+    build: ./server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    links:
+      - database
+    environment:
+      WAIT_HOSTS: database:27017
+
