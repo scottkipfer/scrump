@@ -1,0 +1,16 @@
+<div>
+  <a [href]="link" [hidden]="!link" target="_blank"><fa name="bullseye"></fa></a>&nbsp;&nbsp;
+  <span class="clickable" (hide.bs.dropdown)="saveLink();">
+    <a data-toggle="dropdown" (click)="prepEdit();">
+      <fa name="caret-down"></fa>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="dropdown-item">
+        <form class="form-inline">
+          <input [(ngModel)]="linkEdit" name="link">
+          <button type="submit" class="btn btn-secondary btn-sm ml-1" (click)="saveLink();">Save</button>
+        </form>
+      </li>
+    </ul>
+  </span>
+</div>
