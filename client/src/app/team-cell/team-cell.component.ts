@@ -14,23 +14,29 @@ export class TeamCellComponent implements OnInit {
   isEditing: boolean;
   icon: string;
   icons: any = {
-    unassigned: 'fa-user-circle',
-
+    na: 'fa-ban',
+    ns: 'fa-hourglass',
+    wip: 'fa-laptop',
+    complete: 'fa-check'
   }
 
   constructor() { }
 
   ngOnInit() {
     if (!this.owner) {
-      this.owner = new Owner('', '', 'unassigned');
+      this.owner = new Owner('', '', 'ns');
     }
     this.getStatusIcon();
-    console.log("icon is: ", this.icon);
   }
 
   getStatusIcon() {
-    console.log("status is: ", this.owner);
-    this.icon = this.icons[this.owner.status] || 'fa-github';
+    this.icon = this.icons[this.owner.status] || 'fa-ban';
+  }
+
+  setStatus(status) {
+    console.log("setting status to ", status);
+    this.owner.status = status;
+    this.getStatusIcon();
   }
 
   edit() {
@@ -40,8 +46,13 @@ export class TeamCellComponent implements OnInit {
   finishEdit() {
     if (this.isEditing) {
       this.ownerChange.emit(this.owner);
+      if (this.owner.owner.toLowerCase() === 'x') {
+        this.owner.status = 'na';
+      } else if (this.owner.status === 'na') {
+        this.owner.status = 'ns';
+      }
+      this.getStatusIcon();
       this.isEditing = false;
     }
   }
-
 }

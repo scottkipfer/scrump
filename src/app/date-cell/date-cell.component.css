@@ -3,9 +3,6 @@ input {
 }
 
 div {
+  width: 100%;
   min-height: 20px;
-}
-
-ul {
-  font-size: 12px;
 }

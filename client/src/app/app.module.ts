@@ -6,13 +6,15 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { TasksComponent } from './tasks/tasks.component';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TextCellComponent } from './text-cell/text-cell.component';
 import { TeamCellComponent } from './team-cell/team-cell.component';
+import { DateCellComponent } from './date-cell/date-cell.component';
+import { LinkCellComponent } from './link-cell/link-cell.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { TeamCellComponent } from './team-cell/team-cell.component';
     TasksComponent,
     TextCellComponent,
     TeamCellComponent,
+    DateCellComponent,
+    LinkCellComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +33,9 @@ import { TeamCellComponent } from './team-cell/team-cell.component';
     AngularFontAwesomeModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

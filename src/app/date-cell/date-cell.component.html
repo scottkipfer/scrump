@@ -1,0 +1,4 @@
+<div>
+  <input type="text" [hidden]="!isEditing" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" (dateSelect)="finishEdit()" (blur)="finishEdit();"/>
+  <div (click)="edit(); d.toggle()" [hidden]="isEditing">{{ date | date:'shortDate' }}</div>
+</div>
