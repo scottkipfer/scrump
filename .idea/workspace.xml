@@ -2,25 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cf3953b9-cf33-4b86-bb34-a460d2f28edf" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/client/nginx/default.conf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/assets/.gitkeep" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/dev.docker-compose.yml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/server/Dockerfile" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/server/app.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/server/core/db.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/server/package.json" />
-      <change beforePath="$PROJECT_DIR$/.editorconfig" afterPath="$PROJECT_DIR$/client/.editorconfig" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/client/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/client/README.md" />
-      <change beforePath="$PROJECT_DIR$/angular.json" afterPath="$PROJECT_DIR$/client/angular.json" />
-      <change beforePath="$PROJECT_DIR$/e2e/protractor.conf.js" afterPath="$PROJECT_DIR$/client/e2e/protractor.conf.js" />
-      <change beforePath="$PROJECT_DIR$/e2e/src/app.e2e-spec.ts" afterPath="$PROJECT_DIR$/client/e2e/src/app.e2e-spec.ts" />
-      <change beforePath="$PROJECT_DIR$/e2e/src/app.po.ts" afterPath="$PROJECT_DIR$/client/e2e/src/app.po.ts" />
-      <change beforePath="$PROJECT_DIR$/e2e/tsconfig.e2e.json" afterPath="$PROJECT_DIR$/client/e2e/tsconfig.e2e.json" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/client/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/client/package.json" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" afterPath="$PROJECT_DIR$/client/tsconfig.json" />
-      <change beforePath="$PROJECT_DIR$/tslint.json" afterPath="$PROJECT_DIR$/client/tslint.json" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/data/WiredTiger" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/WiredTiger.lock" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/WiredTiger.turtle" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/WiredTiger.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/WiredTigerLAS.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/_mdb_catalog.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/collection-0--6378129262047686861.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/collection-2--6378129262047686861.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/collection-4--6378129262047686861.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T00-19-18Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T00-20-59Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T13-59-37Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T14-05-14Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T14-08-19Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T14-15-42Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T14-26-23Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T14-31-37Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T14-32-00Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2018-10-05T14-45-30Z-00000" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.interim" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/index-1--6378129262047686861.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/index-3--6378129262047686861.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/index-5--6378129262047686861.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/index-6--6378129262047686861.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/journal/WiredTigerLog.0000000009" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/journal/WiredTigerLog.0000000010" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/journal/WiredTigerPreplog.0000000001" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/journal/WiredTigerPreplog.0000000002" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/mongod.lock" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/sizeStorer.wt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/storage.bson" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -249,12 +262,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1538676224314</updated>
-      <workItem from="1538676225382" duration="15619000" />
+      <workItem from="1538676225382" duration="15675000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15619000" />
+    <option name="totallyTimeSpent" value="15675000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1280" y="-190" width="1280" height="1376" extended-state="0" />
