@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const config = require('config');
 const mongoLocation = 'mongodb://database/test';
+const mongoOptions = {useNewUrlParser: true};
 
 mongoose.Promise = Promise;
-mongoose.connect(mongoLocation).catch((err) => {
+mongoose.connect(mongoLocation, mongoOptions).catch((err) => {
    console.warn(err);
 });
 
