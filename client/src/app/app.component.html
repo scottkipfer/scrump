@@ -1,8 +1,29 @@
 <!--The content below is only a placeholder and can be replaced.-->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">{{ title }}</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="setActive('current')" [ngClass]="{ 'active': activeTab === 'current' }">Current</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="setActive('preplanning')" [ngClass]="{ 'active': activeTab === 'preplanning' }">Preplanning</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="setActive('backlog')" [ngClass]="{ 'active': activeTab === 'backlog' }">Backlog</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="setActive('icebox')" [ngClass]="{ 'active': activeTab === 'icebox' }">Icebox</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" (click)="setActive('sprints')" [ngClass]="{ 'active': activeTab === 'sprints' }">Past Sprints</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <div style="text-align:center">
-  <h1>
-    {{ title }}
-  </h1>
 
   <app-tasks></app-tasks>
 
