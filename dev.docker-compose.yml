@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 services:
   database:
     image: mongo
@@ -6,11 +6,15 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - './data:/data/db'
+      - './database:/data/db'
   frontend:
-    build: ./client
+    build:
+      context: ./client
+      dockerfile: Dockerfile-dev
+    volumes:
+      - '.:/usr/src/app'
     ports:
-      - "4200:80"
+      - '4200:4200'
   backend:
     build: ./server
     ports:
