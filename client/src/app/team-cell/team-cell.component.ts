@@ -14,10 +14,10 @@ export class TeamCellComponent implements OnInit {
   isEditing: boolean;
   icon: string;
   icons: any = {
-    na: 'fa-ban',
-    ns: 'fa-hourglass',
-    wip: 'fa-laptop',
-    complete: 'fa-check'
+    na: 'fa fa-ban',
+    ns: 'far fa-clock',
+    wip: 'fas fa-laptop-code',
+    complete: 'fa fa-check-circle'
   }
 
   constructor() { }

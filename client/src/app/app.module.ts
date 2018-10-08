@@ -9,8 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule, NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { TasksComponent } from './tasks/tasks.component';
 
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TextCellComponent } from './text-cell/text-cell.component';
 import { TeamCellComponent } from './team-cell/team-cell.component';
 import { DateCellComponent } from './date-cell/date-cell.component';
@@ -19,6 +17,7 @@ import { CurrentTasksComponent } from './current-tasks/current-tasks.component';
 
 import { PropsFilterPipe } from './lib/pipes/props-filter';
 import { StatusCellComponent } from './status-cell/status-cell.component';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 @NgModule({
   declarations: [
@@ -30,15 +29,14 @@ import { StatusCellComponent } from './status-cell/status-cell.component';
     LinkCellComponent,
     CurrentTasksComponent,
     PropsFilterPipe,
-    StatusCellComponent
+    StatusCellComponent,
+    NewTaskComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
     FormsModule,
-    AngularFontAwesomeModule,
-    FontAwesomeModule
   ],
   providers: [
     {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}

@@ -11,11 +11,11 @@ export class StatusCellComponent implements OnInit {
 
   statusIcon: string;
   icons: any = {
-    'Not Started': 'fa-hourglass',
-    'In Progress': 'fa-play-circle',
-    'On Hold': 'fa-pause-circle',
-    'Cancelled': 'fa-stop-circle',
-    'Completed': 'fa-check-circle'
+    'Not Started': 'far fa-clock',
+    'In Progress': 'fas fa-laptop-code',
+    'On Hold': 'far fa-hand-paper',
+    'Cancelled': 'fas fa-ban',
+    'Completed': 'fa fa-check-circle'
   }
 
   constructor() { }

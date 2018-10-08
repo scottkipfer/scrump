@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">{{ title }}</a>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="#" (click)="setActive('current')" [ngClass]="{ 'active': activeTab === 'current' }">Current</a>
       </li>
@@ -20,6 +20,7 @@
         <a class="nav-link disabled" href="#" (click)="setActive('sprints')" [ngClass]="{ 'active': activeTab === 'sprints' }">Past Sprints</a>
       </li>
     </ul>
+    <button class="btn btn-outline-success" data-toggle="modal" data-target="#newTaskModal"><i class="fas fa-plus-circle mr-1"></i>New Task</button>
   </div>
 </nav>
 
@@ -29,5 +30,15 @@
     <app-current-tasks></app-current-tasks>
   </div>
 
+</div>
+
+
+
+<!-- The New Task Modal -->
+
+<div class="modal" tabindex="-1" role="dialog" id="newTaskModal">
+  <div class="modal-dialog" role="document">
+    <app-new-task></app-new-task>
+  </div>
 </div>
 

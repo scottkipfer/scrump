@@ -4,7 +4,7 @@ export class Task {
   _id: string;
   sprintId?: string;
   board?: string;
-  status: string;
+  status: string;   // valid values: 'Not Started', 'In Progress', 'On Hold', 'Completed', 'Cancelled'
   summary: string;
   requirementUrl?: string;
   fe?: Owner;
@@ -16,4 +16,9 @@ export class Task {
   deployed?: Date;
   deadline?: Date;
   notes?: string;
+
+  constructor() {
+    this.status = 'Not Started';
+  }
+
 };
