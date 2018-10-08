@@ -34,7 +34,6 @@ export class TeamCellComponent implements OnInit {
   }
 
   setStatus(status) {
-    console.log("setting status to ", status);
     this.owner.status = status;
     this.getStatusIcon();
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Task } from '../task';
 
@@ -12,9 +12,11 @@ import { TASKS } from '../mock-tasks';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
+  @Input() tasksHeader: string;
+  @Input() statusFilter: string;
   editingSummary: false;
-
   tasks = TASKS;
+
 
   constructor() { }
 
@@ -22,6 +24,11 @@ export class TasksComponent implements OnInit {
   }
 
   saveChanges(task) {
-    console.log("task is now: ", task);
+    console.log("task is now: ", task, "need to call API here to save it");
+  }
+
+  updateStatus(task, status) {
+    task.status = status;
+    console.log("call api here to update status");
   }
 }

@@ -15,6 +15,10 @@ import { TextCellComponent } from './text-cell/text-cell.component';
 import { TeamCellComponent } from './team-cell/team-cell.component';
 import { DateCellComponent } from './date-cell/date-cell.component';
 import { LinkCellComponent } from './link-cell/link-cell.component';
+import { CurrentTasksComponent } from './current-tasks/current-tasks.component';
+
+import { PropsFilterPipe } from './lib/pipes/props-filter';
+import { StatusCellComponent } from './status-cell/status-cell.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,9 @@ import { LinkCellComponent } from './link-cell/link-cell.component';
     TeamCellComponent,
     DateCellComponent,
     LinkCellComponent,
+    CurrentTasksComponent,
+    PropsFilterPipe,
+    StatusCellComponent
   ],
   imports: [
     BrowserModule,
