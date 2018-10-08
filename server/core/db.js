@@ -14,3 +14,6 @@ process.on('SIGINT', () => {
       process.exit(0);
    });
 });
+
+require('../lib/sprint/sprint.model.js');
+require('../lib/task/task.model.js');
