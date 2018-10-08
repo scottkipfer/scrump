@@ -25,7 +25,9 @@
 
 <div style="text-align:center">
 
-  <app-tasks></app-tasks>
+  <div *ngIf="activeTab === 'current'">
+    <app-current-tasks></app-current-tasks>
+  </div>
 
 </div>
 

@@ -1,0 +1,10 @@
+<a data-toggle="dropdown">
+  <i class="fa" [ngClass]="statusIcon"></i>
+  <ul class="dropdown-menu">
+    <li class="dropdown-item" (click)="setStatus('Not Started')"><i class="fa fa-hourglass"></i> - Not Started</li>
+    <li class="dropdown-item" (click)="setStatus('In Progress')"><i class="fa fa-play-circle"></i> - Started</li>
+    <li class="dropdown-item" (click)="setStatus('On Hold')"><i class="fa fa-pause-circle"></i> - On Hold</li>
+    <li class="dropdown-item" (click)="setStatus('Cancelled')"><i class="fa fa-stop-circle"></i> - Cancelled</li>
+    <li class="dropdown-item" (click)="setStatus('Completed')"><i class="fa fa-check-circle"></i> - Completed</li>
+  </ul>
+</a>

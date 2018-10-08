@@ -23,7 +23,6 @@ export class DateCellComponent implements OnInit {
   }
 
   finishEdit() {
-    console.log("the date is now: ", this.date);
     if (this.isEditing) {
       this.dateChange.emit(this.date);
       this.isEditing = false;
