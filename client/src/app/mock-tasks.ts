@@ -3,7 +3,7 @@ import { Owner } from './owner';
 
 export const TASKS: Task[] = [
   {
-    id: '1',
+    _id: '1',
     sprintId: 'banana',
     status: 'Not Started',
     summary: 'Ability to remove all images on product pages',
@@ -19,7 +19,7 @@ export const TASKS: Task[] = [
     notes: 'some note here'
   },
   {
-    id: '90',
+    _id: '90',
     sprintId: 'banana',
     status: 'Not Started',
     summary: 'Prune all css files from everywhere',
@@ -35,7 +35,7 @@ export const TASKS: Task[] = [
     notes: ''
   },
   {
-    id: '89',
+    _id: '89',
     sprintId: 'banana',
     status: 'In Progress',
     summary: 'Destroy all brown bananas',
