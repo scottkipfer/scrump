@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Task } from '../task';
 
+declare var $: any;
+
 @Component({
   selector: 'app-new-task',
   templateUrl: './new-task.component.html',
