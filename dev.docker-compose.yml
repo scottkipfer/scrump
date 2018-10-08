@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.5'
 services:
   database:
     image: mongo
@@ -6,19 +6,27 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - './data:/data/db'
+      - './database:/data/db'
   frontend:
-    build: ./client
+    build:
+      context: ./client
+      dockerfile: Dockerfile-dev
+    volumes:
+      - '.:/usr/src/app'
     ports:
-      - "4200:80"
+      - '4200:4200'
   backend:
-    build: ./server
+    build:
+      context: ./server
+      dockerfile: dev.dockerfile
     ports:
-      - "3000:3000"
+      - "2700:2700"
     depends_on:
       - database
     links:
       - database
+    volumes:
+      - '.:/app'
     environment:
       WAIT_HOSTS: database:27017
 
