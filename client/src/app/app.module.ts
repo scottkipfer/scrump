@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
@@ -22,6 +23,13 @@ import { CurrentTasksComponent } from './current-tasks/current-tasks.component';
 import { PropsFilterPipe } from './lib/pipes/props-filter';
 import { StatusCellComponent } from './status-cell/status-cell.component';
 import { NewTaskComponent } from './new-task/new-task.component';
+import { BoardComponent } from './board/board.component';
+
+const appRoutes: Routes = [
+  { path: 'current', component: CurrentTasksComponent },
+  { path: 'board/:name', component: BoardComponent },
+  { path: '', redirectTo: '/current', pathMatch: 'full'},
+];
 
 @NgModule({
   declarations: [
@@ -34,14 +42,16 @@ import { NewTaskComponent } from './new-task/new-task.component';
     CurrentTasksComponent,
     PropsFilterPipe,
     StatusCellComponent,
-    NewTaskComponent
+    NewTaskComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
   entryComponents: [
     NewTaskComponent
