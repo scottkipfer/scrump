@@ -18,8 +18,12 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  getTasks() {
-    this.http.get<Task[]>(this.tasksUrl).subscribe(
+  getTasks(board) {
+    var url = this.tasksUrl;
+    if (board) {
+      url += `?board=${board}`;
+    }
+    this.http.get<Task[]>(url).subscribe(
       tasks => this._tasks.next(tasks)
     );
   }
