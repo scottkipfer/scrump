@@ -22,10 +22,9 @@ const read = (req, res) => {
 };
 
 const update = (req, res) => {
-  let taskToUpdate = {
-      ...req.task,
+  let taskToUpdate = Object.assign(req.task, {
       ...req.body
-  };
+  });
   taskToUpdate.save().then(task => {
     return res.status(200).json(task)
   }).catch(err => {
@@ -47,7 +46,7 @@ const show = (req, res) => {
 };
 
 const task = (req, res, next, id) => {
-  Task.findOne(id).then(task => {
+  Task.findOne({ _id: id }).then(task => {
     req.task = task;
     next();
   }).catch(err => {

@@ -28,6 +28,7 @@ let TaskSchema = new Schema({
   deployed: Date,
   created: Date,
   updated: Date,
+  notes: String
 });
 
 TaskSchema.pre('save', function (next) {

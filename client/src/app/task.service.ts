@@ -25,7 +25,7 @@ export class TaskService {
   }
 
   public updateTask(task: Task): Observable<Task> {
-    return this.http.post<Task>(`${this.tasksUrl}/${task._id}`, task, httpOptions).pipe(
+    return this.http.put<Task>(`${this.tasksUrl}/${task._id}`, task, httpOptions).pipe(
       tap((taskResult: Task) => {
         let updatedTasks = this._tasks.getValue();
         let index = updatedTasks.findIndex(_task => { return _task._id === task._id});

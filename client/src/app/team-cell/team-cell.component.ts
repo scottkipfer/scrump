@@ -24,7 +24,7 @@ export class TeamCellComponent implements OnInit {
 
   ngOnInit() {
     if (!this.owner) {
-      this.owner = new Owner('', '', 'ns');
+      this.owner = new Owner('', 'ns');
     }
     this.getStatusIcon();
   }
@@ -36,6 +36,7 @@ export class TeamCellComponent implements OnInit {
   setStatus(status) {
     this.owner.status = status;
     this.getStatusIcon();
+    this.ownerChange.emit(this.owner);
   }
 
   edit() {
@@ -44,13 +45,13 @@ export class TeamCellComponent implements OnInit {
 
   finishEdit() {
     if (this.isEditing) {
-      this.ownerChange.emit(this.owner);
       if (this.owner.owner.toLowerCase() === 'x') {
         this.owner.status = 'na';
       } else if (this.owner.status === 'na') {
         this.owner.status = 'ns';
       }
       this.getStatusIcon();
+      this.ownerChange.emit(this.owner);
       this.isEditing = false;
     }
   }

@@ -1,10 +1,8 @@
 export class Owner {
-  _id: string;
   owner: string;
   status: string;
 
-  constructor(id: string, owner: string, status:string) {
-    this._id = id;
+  constructor(owner: string, status:string) {
     this.owner = owner;
     this.status = status;
   }

@@ -16,7 +16,7 @@ export class PropsFilterPipe implements PipeTransform {
             var match = false;
             keys.forEach(function(key) {
                 var keyVal = filter[key];
-                if (item[key] === keyVal) {
+                if (item[key] === keyVal || !keyVal) {
                     match = true;
                 }
             });

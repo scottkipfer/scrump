@@ -27,11 +27,7 @@ export class TasksComponent implements OnInit {
   }
 
   saveChanges(task) {
-    console.log("task is now: ", task, "need to call API here to save it");
+    this.taskService.updateTask(task).subscribe();
   }
 
-  updateStatus(task, status) {
-    task.status = status;
-    console.log("call api here to update status");
-  }
 }
