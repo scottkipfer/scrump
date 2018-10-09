@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-
 import { Task } from './task';
-import { TASKS } from './mock-tasks';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,40 +12,46 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TaskService {
-  tasks: Task[] = TASKS;
+  private _tasks: BehaviorSubject<Task[]> = new BehaviorSubject([]);
+  public readonly tasks: Observable<Task[]> = this._tasks.asObservable();
   tasksUrl: string = 'http://localhost:2700/v1/tasks';
 
   constructor(private http: HttpClient) { }
 
-  getTasks(): Observable<Task[]> {
-    console.log("returning observable of: ", TASKS);
-    return this.http.get<Task[]>(this.tasksUrl);
+  getTasks() {
+    this.http.get<Task[]>(this.tasksUrl).subscribe(
+      tasks => this._tasks.next(tasks)
+    );
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-   
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-   
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-  /** POST: add a new task to the server */
-  addTask (task: Task): Observable<Task> {
-    console.log("in service addTask", task);
-    return this.http.post<Task>(this.tasksUrl, task, httpOptions).pipe(
-      tap(taskResult => this.tasks.push(taskResult)),
+  public updateTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(`${this.tasksUrl}/${task._id}`, task, httpOptions).pipe(
+      tap((taskResult: Task) => {
+        let updatedTasks = this._tasks.getValue();
+        let index = updatedTasks.findIndex(_task => { return _task._id === task._id});
+        updatedTasks.splice(index, 1, taskResult);
+        this._tasks.next(updatedTasks)
+      }),
       catchError(this.handleError<Task>('addTask'))
     );
+  }
+
+  public addTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.tasksUrl, task, httpOptions).pipe(
+      tap((taskResult: Task) => {
+        let updatedTasks = this._tasks.getValue();
+        updatedTasks.push(taskResult);
+        this._tasks.next(updatedTasks)
+      }),
+      catchError(this.handleError<Task>('addTask'))
+    );
+  }
+
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error); // log to console instead
+      return of(result as T);
+    };
   }
 
 }

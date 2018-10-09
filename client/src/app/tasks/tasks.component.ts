@@ -13,7 +13,6 @@ export class TasksComponent implements OnInit {
   @Input() tasksHeader: string;
   @Input() statusFilter: string;
   editingSummary: false;
-  tasks: Task[];
 
   constructor(private taskService: TaskService) {
 
@@ -25,7 +24,6 @@ export class TasksComponent implements OnInit {
 
   getTasks(): void {
     this.taskService.getTasks()
-        .subscribe(tasks => this.tasks = tasks);
   }
 
   saveChanges(task) {
