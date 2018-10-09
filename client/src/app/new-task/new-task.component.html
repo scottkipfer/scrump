@@ -8,7 +8,7 @@
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label for="board">Add to Board {{ task.summary }}</label>
+        <label for="board">Add to Board</label>
         <select class="form-control" id="board" name="board" [(ngModel)]="task.board" required>
           <option>Backlog</option>
           <option>Preplanning</option>
@@ -18,7 +18,6 @@
       <div class="form-group">
         <label for="summary">Summary</label>
         <input type="text" class="form-control" name="summary" id="summary" placeholder="Write a short summary of this task" [(ngModel)]="task.summary" required>
-        {{ task.summary }}
       </div>
       <div class="form-group">
         <label for="requirementUrl">Requirement URL</label>
@@ -27,7 +26,7 @@
   </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="onClose();">Close</button>
-      <button type="submit" class="btn btn-primary" (click)="onSubmit();">Save changes</button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit();">Save changes</button>
     </div>
   </div>
 </form>
