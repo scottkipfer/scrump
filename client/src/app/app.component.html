@@ -5,13 +5,13 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#" (click)="setActive('current')" [ngClass]="{ 'active': activeTab === 'current' }">Current</a>
+        <a class="nav-link"  routerLink="/current" (click)="setActive('current')" [ngClass]="{ 'active': activeTab === 'current' }">Current</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" (click)="setActive('preplanning')" [ngClass]="{ 'active': activeTab === 'preplanning' }">Preplanning</a>
+        <a class="nav-link" routerLink="/board/preplanning" (click)="setActive('preplanning')" [ngClass]="{ 'active': activeTab === 'preplanning' }">Preplanning</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" (click)="setActive('backlog')" [ngClass]="{ 'active': activeTab === 'backlog' }">Backlog</a>
+        <a class="nav-link" routerLink="/board/backlog" (click)="setActive('backlog')" [ngClass]="{ 'active': activeTab === 'backlog' }">Backlog</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#" (click)="setActive('icebox')" [ngClass]="{ 'active': activeTab === 'icebox' }">Icebox</a>
@@ -25,9 +25,9 @@
 </nav>
 
 <div style="text-align:center">
-
-  <div *ngIf="activeTab === 'current'">
+  <router-outlet></router-outlet>
+  <!--<div *ngIf="activeTab === 'current'">
     <app-current-tasks></app-current-tasks>
-  </div>
+  </div>-->
 
 </div>
