@@ -6,7 +6,11 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HttpClientModule }    from '@angular/common/http';
+
 import {NgbModule, NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+
+
 import { TasksComponent } from './tasks/tasks.component';
 
 import { TextCellComponent } from './text-cell/text-cell.component';
@@ -37,6 +41,7 @@ import { NewTaskComponent } from './new-task/new-task.component';
     BrowserAnimationsModule,
     NgbModule,
     FormsModule,
+    HttpClientModule
   ],
   entryComponents: [
     NewTaskComponent

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { TaskService } from '../task.service';
 import { Task } from '../task';
 
 declare var $: any;
@@ -13,7 +14,7 @@ declare var $: any;
 export class NewTaskComponent implements OnInit {
   task: Task = new Task();
 
-  constructor(public activeModal: NgbActiveModal) {
+  constructor(public activeModal: NgbActiveModal, private taskService: TaskService) {
   }
 
   initTask() {
@@ -32,6 +33,7 @@ export class NewTaskComponent implements OnInit {
 
   onSubmit() {
     console.log(this.task);
+    this.taskService.addTask(this.task).subscribe(res => console.log('result is', res));
     this.activeModal.close();
   }
 }

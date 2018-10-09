@@ -2,9 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Task } from '../task';
 
-// fake data
-import { TASKS } from '../mock-tasks';
-
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-tasks',
@@ -15,12 +13,19 @@ export class TasksComponent implements OnInit {
   @Input() tasksHeader: string;
   @Input() statusFilter: string;
   editingSummary: false;
-  tasks = TASKS;
+  tasks: Task[];
 
+  constructor(private taskService: TaskService) {
 
-  constructor() { }
+  }
 
   ngOnInit() {
+    this.getTasks();
+  }
+
+  getTasks(): void {
+    this.taskService.getTasks()
+        .subscribe(tasks => this.tasks = tasks);
   }
 
   saveChanges(task) {
