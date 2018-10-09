@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NewTaskComponent} from './new-task/new-task.component';
 
 @Component({
   selector: 'app-root',
@@ -6,8 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(private modalService: NgbModal) {}
   title : string = 'ScrumP';
   activeTab : string = 'current';
+
+  openModal() {
+    const modalRef = this.modalService.open(NewTaskComponent);
+  }
 
   setActive(tabName) {
     this.activeTab = tabName;

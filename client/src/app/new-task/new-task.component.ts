@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Task } from '../task';
 
@@ -10,39 +11,27 @@ declare var $: any;
   styleUrls: ['./new-task.component.css']
 })
 export class NewTaskComponent implements OnInit {
-  task: Task;
+  task: Task = new Task();
 
-  constructor() {
+  constructor(public activeModal: NgbActiveModal) {
   }
 
   initTask() {
-    console.log("initting the new task", this.task);
-    // if (!this.task) {
-      this.task = null;
-      this.task = new Task();      
-    // }
-    this.task.summary = 'i love bananas';
+    this.task.summary = '';
     this.task.requirementUrl = null;
     this.task.board = 'Backlog';
-
-    console.log("initted it to", this.task);
   }
 
   ngOnInit() {
-    console.log("INITTING THIS");
     this.initTask();
-    var that = this;
-    $('#newTaskModal').on('show.bs.modal', this.initTask);
   }
 
   onClose() {
-    $('#newTaskModal').modal('hide');
-    $('#newTaskModal').modal('dispose');
+    this.activeModal.close()
   }
 
   onSubmit() {
-    console.log("about to create task: ", this.task);
-    $('#newTaskModal').modal('hide');
-    $('#newTaskModal').modal('dispose');
+    console.log(this.task);
+    this.activeModal.close();
   }
 }

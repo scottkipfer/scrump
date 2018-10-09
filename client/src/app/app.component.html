@@ -20,7 +20,7 @@
         <a class="nav-link disabled" href="#" (click)="setActive('sprints')" [ngClass]="{ 'active': activeTab === 'sprints' }">Past Sprints</a>
       </li>
     </ul>
-    <button class="btn btn-outline-success" data-toggle="modal" data-target="#newTaskModal"><i class="fas fa-plus-circle mr-1"></i>New Task</button>
+    <button class="btn btn-outline-success" (click)="openModal()"><i class="fas fa-plus-circle mr-1"></i>New Task</button>
   </div>
 </nav>
 
