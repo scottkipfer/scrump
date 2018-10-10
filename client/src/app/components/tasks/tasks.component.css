@@ -15,3 +15,11 @@ td {
 td:hover {
   cursor: pointer;
 }
+
+.insertFromBelow {
+  border-bottom: 5px solid green;
+}
+
+.insertFromAbove {
+  border-top: 5px solid green;
+}
