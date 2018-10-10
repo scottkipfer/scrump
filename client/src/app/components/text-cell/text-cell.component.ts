@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Task } from '../task'
+import { Task } from '../../models/task'
 
 @Component({
   selector: 'app-text-cell',
@@ -25,7 +25,7 @@ export class TextCellComponent implements OnInit {
   finishEdit() {
     if (this.isEditing) {
       this.valueChange.emit(this.value);
-      this.isEditing = false;      
+      this.isEditing = false;
     }
   }
 

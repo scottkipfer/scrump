@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Owner } from '../owner';
+import { Owner } from '../../models/owner';
 
 @Component({
   selector: 'app-team-cell',

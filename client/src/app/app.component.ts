@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {NewTaskComponent} from './new-task/new-task.component';
+import {NewTaskComponent} from './components/new-task/new-task.component';
 
 @Component({
   selector: 'app-root',

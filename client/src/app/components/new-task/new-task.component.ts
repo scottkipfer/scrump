@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { TaskService } from '../task.service';
-import { Task } from '../task';
-
-declare var $: any;
+import { TaskService } from '../../services/task/task.service';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-new-task',

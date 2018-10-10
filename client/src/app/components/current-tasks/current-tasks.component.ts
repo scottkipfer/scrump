@@ -16,7 +16,6 @@ export class CurrentTasksComponent implements OnInit {
     this.sprintService.getCurrentSprint().pipe(
       tap((currentSprint) => this.taskService.getTasksForSprint(1))
     );
-    this.taskService.getTasksForSprint(1)
   }
 
 }

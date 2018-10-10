@@ -23,11 +23,12 @@ export class SprintService {
     );
   }
 
-  public getCurrentSprint(): void {
+  public getCurrentSprint(): Observable<Sprint> {
     let url = `${this.sprintsUrl}/current`;
-    this.http.get<Sprint>(url).subscribe(
-      currentSprint => this._currentSprint.next(currentSprint)
-    ).unsubscribe();
+    return this.http.get<Sprint>(url).pipe(
+      tap(currentSprint => this._currentSprint.next(currentSprint)),
+      catchError(this.handleError<Sprint>('getCurrentSprint'))
+    );
   }
 
   public completeSprint(sprint:Sprint): Observable<Sprint> {
