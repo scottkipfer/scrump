@@ -13,6 +13,7 @@ export class TaskService {
   private _tasks: BehaviorSubject<Task[]> = new BehaviorSubject([]);
   public readonly tasks: Observable<Task[]> = this._tasks.asObservable();
   tasksUrl: string = 'http://localhost:2700/v1/tasks';
+  board: string;
 
   constructor(private http: HttpClient) { }
 
@@ -20,10 +21,13 @@ export class TaskService {
     let url = this.tasksUrl;
     if (board) {
       url += `?board=${board}`;
+      this.board = board;
+    } else {
+      this.board = null;
     }
     this.http.get<Task[]>(url).subscribe(
       tasks => this._tasks.next(tasks)
-    ).unsubscribe();
+    );
   }
 
   public getTasksForSprint(sprintId) {
@@ -38,8 +42,14 @@ export class TaskService {
       tap((taskResult: Task) => {
         let updatedTasks = this._tasks.getValue();
         let index = updatedTasks.findIndex(_task => { return _task._id === task._id});
-        updatedTasks.splice(index, 1, taskResult);
-        this._tasks.next(updatedTasks)
+
+        if (this.board && this.board === taskResult.board) {
+          updatedTasks.splice(index, 1, taskResult);
+        } else {
+          // it's not on the board we're looking at anymore
+          updatedTasks.splice(index, 1);
+        }
+        this._tasks.next(updatedTasks);
       }),
       catchError(this.handleError<Task>('addTask'))
     );

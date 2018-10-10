@@ -8,6 +8,7 @@
         <th scope="col" width="20"></th>
         <th scope="col" width="20"></th>
         <th scope="col" width="20"></th>
+        <th scope="col" width="20"></th>
         <th scope="col" width="400">Summary</th>
         <th scope="col" width="5%">Req</th>
         <th scope="col" width="5%">FE</th>
@@ -22,8 +23,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let task of (boardTasks$| async) | propsFilter:{ status:statusFilter }; index as i" [ngClass]="{ 'alert-success': task.status === 'Completed', 'alert-warning': task.status === 'On Hold', 'alert-danger': task.status === 'Cancelled' }">
+      <tr *ngFor="let task of (taskService.tasks| async) | propsFilter:{ status:statusFilter }; index as i" [ngClass]="{ 'alert-success': task.status === 'Completed', 'alert-warning': task.status === 'On Hold', 'alert-danger': task.status === 'Cancelled' }">
         <td><i class="fas fa-bars"></i></td>
+        <td><app-board-cell [board]="task.board" (boardChange)="task.board=$event; saveChanges(task);"></app-board-cell></td>
         <td>{{ i + 1 }}</td>
         <td><app-status-cell [status]="task.status" (statusChange)="task.status=$event; saveChanges(task);"></app-status-cell></td>
         <td class="text-left">

@@ -31,6 +31,7 @@ import { BoardComponent } from './components/board/board.component';
 // Services
 import {TaskService} from './services/task/task.service';
 import {SprintService} from './services/sprint/sprint.service';
+import { BoardCellComponent } from './components/board-cell/board-cell.component';
 
 const appRoutes: Routes = [
   { path: 'current', component: CurrentTasksComponent },
@@ -55,7 +56,8 @@ const environment = {
     PropsFilterPipe,
     StatusCellComponent,
     NewTaskComponent,
-    BoardComponent
+    BoardComponent,
+    BoardCellComponent
   ],
   imports: [
     BrowserModule,

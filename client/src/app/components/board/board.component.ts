@@ -21,8 +21,8 @@ export class BoardComponent implements OnInit {
 
     this.boardName$ = this.route.paramMap.pipe(
       tap((params: ParamMap) => {
-        this.store.dispatch(new fromStore.GetTasksByBoard(params.get('name')));
-        //this.taskService.getTasksForBoard(params.get('name'));
+        // this.store.dispatch(new fromStore.GetTasksByBoard(params.get('name')));
+        this.taskService.getTasksForBoard(params.get('name'));
       }),
       map((params: ParamMap) => params.get('name')));
   }
