@@ -20,7 +20,7 @@ export class NewTaskComponent implements OnInit {
   initTask() {
     this.task.summary = '';
     this.task.requirementUrl = null;
-    this.task.board = 'Backlog';
+    this.task.board = 'backlog';
   }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class NewTaskComponent implements OnInit {
 
   onSubmit() {
     console.log(this.task);
-    this.taskService.addTask(this.task).subscribe(res => console.log('result is', res));
+    this.taskService.addTask(this.task).subscribe(res => console.log('result is', res)).unsubscribe();
     this.activeModal.close();
   }
 }

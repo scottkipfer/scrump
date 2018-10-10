@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Task } from '../../models/task';
 
-import { Task } from '../task';
-
-import { TaskService } from '../task.service';
+import { TaskService } from '../../services/task/task.service';
 
 @Component({
   selector: 'app-tasks',
@@ -23,7 +22,6 @@ export class TasksComponent implements OnInit {
   }
 
   getTasks(): void {
-    this.taskService.getTasks()
   }
 
   saveChanges(task) {

@@ -11,8 +11,9 @@ const create = (req, res) => {
 
 const read = (req, res) => {
   let query = {};
-  if(req.params.status) query.status = req.body.status;
-  if(req.params.board) query.board = req.body.board;
+  if(req.query.status) query.status = req.query.status;
+  if(req.query.board) query.board = req.query.board;
+  if(req.query.sprint) query.sprintId = req.query.sprint;
 
   Task.find(query).then((tasks) => {
     return res.status(200).json(tasks)
