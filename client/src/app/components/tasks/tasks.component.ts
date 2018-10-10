@@ -16,6 +16,9 @@ export class TasksComponent implements OnInit {
   @Input() statusFilter: string;
   editingSummary: false;
   public boardTasks$: Observable<Task[]>;
+  draggingIndex: number;
+  draggingHoverIndex: number;
+  draggingDirection: string;
 
   constructor(private taskService: TaskService, private store: Store<fromStore.AppState>) {
 
@@ -33,4 +36,27 @@ export class TasksComponent implements OnInit {
     this.taskService.updateTask(task).subscribe();
   }
 
+  /// experimental
+
+  allowDrop(ev, index) {
+    ev.preventDefault();
+    this.draggingHoverIndex = index;
+    this.draggingDirection = this.draggingIndex > index ? 'down' : 'up';
+  }
+
+  drag(index) {
+    console.log("drag called and event is: ", index);
+    this.draggingIndex = index;
+    // ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  drop(ev, index) {
+    ev.preventDefault();
+    // var data = ev.dataTransfer.getData("text");
+    console.log("drop called and event is: ", index);
+    this.draggingHoverIndex = -1;
+    this.draggingIndex = -1;
+    this.taskService.moveTaskFromTo(this.draggingIndex, index);
+    // ev.target.appendChild(document.getElementById(data));
+  }
 }
