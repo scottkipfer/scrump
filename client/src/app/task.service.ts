@@ -18,7 +18,7 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  getTasks(board) {
+  getTasks(board?) {
     var url = this.tasksUrl;
     if (board) {
       url += `?board=${board}`;
