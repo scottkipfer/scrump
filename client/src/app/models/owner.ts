@@ -6,4 +6,4 @@ export class Owner {
     this.owner = owner;
     this.status = status;
   }
-};
+}

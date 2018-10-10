@@ -14,10 +14,10 @@
         <a class="nav-link" routerLink="/board/backlog" (click)="setActive('backlog')" [ngClass]="{ 'active': activeTab === 'backlog' }">Backlog</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" (click)="setActive('icebox')" [ngClass]="{ 'active': activeTab === 'icebox' }">Icebox</a>
+        <a class="nav-link" routerLink="/board/icebox" (click)="setActive('icebox')" [ngClass]="{ 'active': activeTab === 'icebox' }">Icebox</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" (click)="setActive('sprints')" [ngClass]="{ 'active': activeTab === 'sprints' }">Past Sprints</a>
+        <a class="nav-link disabled" routerLink="/completed" (click)="setActive('sprints')" [ngClass]="{ 'active': activeTab === 'sprints' }">Past Sprints</a>
       </li>
     </ul>
     <button class="btn btn-outline-success" (click)="openModal()"><i class="fas fa-plus-circle mr-1"></i>New Task</button>
@@ -26,8 +26,4 @@
 
 <div style="text-align:center">
   <router-outlet></router-outlet>
-  <!--<div *ngIf="activeTab === 'current'">
-    <app-current-tasks></app-current-tasks>
-  </div>-->
-
 </div>

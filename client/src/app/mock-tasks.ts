@@ -1,5 +1,5 @@
-import { Task } from './task';
-import { Owner } from './owner';
+import { Task } from './models/task';
+import { Owner } from './models/owner';
 
 export const TASKS: Task[] = [
   {

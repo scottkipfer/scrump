@@ -1,35 +1,47 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { HttpClientModule }    from '@angular/common/http';
+import { NgbModule, NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {NgbModule, NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+// NGRX
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers } from './store/reducers';
+import { effects } from './store/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-
-import { TasksComponent } from './tasks/tasks.component';
-
-import { TextCellComponent } from './text-cell/text-cell.component';
-import { TeamCellComponent } from './team-cell/team-cell.component';
-import { DateCellComponent } from './date-cell/date-cell.component';
-import { LinkCellComponent } from './link-cell/link-cell.component';
-import { CurrentTasksComponent } from './current-tasks/current-tasks.component';
-
+// Pipes
 import { PropsFilterPipe } from './lib/pipes/props-filter';
-import { StatusCellComponent } from './status-cell/status-cell.component';
-import { NewTaskComponent } from './new-task/new-task.component';
-import { BoardComponent } from './board/board.component';
+
+// Components
+import { AppComponent } from './app.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { TextCellComponent } from './components/text-cell/text-cell.component';
+import { TeamCellComponent } from './components/team-cell/team-cell.component';
+import { DateCellComponent } from './components/date-cell/date-cell.component';
+import { LinkCellComponent } from './components/link-cell/link-cell.component';
+import { CurrentTasksComponent } from './components/current-tasks/current-tasks.component';
+import { StatusCellComponent } from './components/status-cell/status-cell.component';
+import { NewTaskComponent } from './components/new-task/new-task.component';
+import { BoardComponent } from './components/board/board.component';
+
+// Services
+import {TaskService} from './services/task/task.service';
+import {SprintService} from './services/sprint/sprint.service';
 
 const appRoutes: Routes = [
   { path: 'current', component: CurrentTasksComponent },
   { path: 'board/:name', component: BoardComponent },
   { path: '', redirectTo: '/current', pathMatch: 'full'},
 ];
+
+const environment = {
+  development: true,
+  productions: false,
+};
 
 @NgModule({
   declarations: [
@@ -51,15 +63,20 @@ const appRoutes: Routes = [
     NgbModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects),
+    environment.development ? StoreDevtoolsModule.instrument(): []
   ],
   entryComponents: [
     NewTaskComponent
   ],
   providers: [
     {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},
-    NgbActiveModal
+    NgbActiveModal,
+    TaskService,
+    SprintService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
