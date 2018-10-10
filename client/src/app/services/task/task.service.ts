@@ -60,6 +60,12 @@ export class TaskService {
     return this.http.post<Task>(this.tasksUrl, task, httpOptions);
   }
 
+  public getTasksByBoard(board: string): Observable<Task[]> {
+    const url = `${this.tasksUrl}?board=${board}`;
+    return this.http.get<Task[]>(url, httpOptions);
+  }
+
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

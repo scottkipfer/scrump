@@ -21,6 +21,18 @@ export class TaskEffects {
       })
     );
 
+  @Effect()
+  getTasksByBoard$ = this.actions$
+    .ofType(taskActions.GET_TASKS_BY_BOARD).pipe(
+      map((action: taskActions.GetTasksByBoard) => action.payload),
+      switchMap((board: string) => {
+        return this.taskService.getTasksByBoard(board).pipe(
+          map(tasks => new taskActions.GetTasksByBoardSuccess(tasks)),
+          catchError(error => of(new taskActions.GetTasksByBoardError({error: error})))
+        );
+      })
+    );
+
   constructor(
     private actions$: Actions,
     private taskService: TaskService,
