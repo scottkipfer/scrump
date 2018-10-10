@@ -7,15 +7,6 @@ let OwnerSchema = new Schema({
 });
 
 let TaskSchema = new Schema({
-  sprintId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Sprint'
-  },
-  board: String,
-  status: {
-    type: String,
-    default: 'Not Started'
-  },
   summary: String,
   requirementUrl: String,
   fe: OwnerSchema,

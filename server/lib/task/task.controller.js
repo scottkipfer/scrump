@@ -1,8 +1,29 @@
 const Task = require('mongoose').model('Task');
+const Board = require('mongoose').model('Board');
+const Sprint = require('mongoose').model('Sprint');
 
 const create = (req, res) => {
-  let newTask = new Task(req.body);
+  let newTask = new Task(req.body.task);
   newTask.save().then((task) => {
+    if (req.body.sprint) {
+      Sprint.findOne({_id: id}).then((sprint) => {
+        sprint.notStarted.push(task);
+        sprint.save().then(() => {
+          return res.status(200).json(task);
+        }).catch((err) => {
+          return res.status(500).json(err);
+        })
+      });
+    } else {
+      Board.findOne({name: req.body.board || 'backlog'}) .then((board) => {
+        board.tasks.push(task);
+        board.save().then(() => {
+          return res.status(200).json(task);
+        }).catch((err) =>{
+          return res.status(500).json(err);
+        });
+      });
+    }
     return res.status(200).json(task)
   }).catch((err) => {
     return res.status(500).json(err);
@@ -11,9 +32,9 @@ const create = (req, res) => {
 
 const read = (req, res) => {
   let query = {};
-  if(req.query.status) query.status = req.query.status;
-  if(req.query.board) query.board = req.query.board;
-  if(req.query.sprint) query.sprintId = req.query.sprint;
+  if (req.query.status) query.status = req.query.status;
+  if (req.query.board) query.board = req.query.board;
+  if (req.query.sprint) query.sprintId = req.query.sprint;
 
   Task.find(query).then((tasks) => {
     return res.status(200).json(tasks)
@@ -39,7 +60,7 @@ const remove = (req, res) => {
     return res.status(200)
   }).catch(err => {
     return res.status(500).json(err)
-  })
+  });
 };
 
 const show = (req, res) => {

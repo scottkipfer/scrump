@@ -1,4 +1,5 @@
 const Sprint = require('mongoose').model('Sprint');
+const Board = require('mongoose').model('Board');
 
 const create = (req, res) => {
   let newSprint = new Sprint(req.body);
@@ -45,6 +46,38 @@ const show = (req, res) => {
   res.json(req.sprint);
 };
 
+const current = (req, res) => {
+  Sprint.findOne({active: true}).then(sprint => {
+    req.sprint = sprint;
+    res.status(200).json(sprint);
+  });
+};
+
+const completeSprint = (req, res) => {
+  let sprint = req.sprint;
+  let copySprint = new Sprint();
+  copySprint.inProgress = sprint.inProgress;
+  copySprint.onHold = sprint.onHold;
+  copySprint.notStarted = sprint.notStarted;
+  sprint.active = false;
+  sprint.inProgress = [];
+  sprint.onHold = [];
+  sprint.notStarted = [];
+  sprint.completedDate = Date.now();
+  Board.findOne({name: 'preplanning'}).then((board) => {
+    sprint.save().then(() => {
+      copySprint.notStarted.push(board.tasks);
+      copySprint.save().then((sprint) => {
+        return res.status(200).json(sprint);
+      })
+    }).catch((err) => {
+      return res.status(500).json(err);
+    });
+  }).catch((err) => {
+    return res.status(500).json(err);
+  })
+};
+
 const sprint = (req, res, next, id) => {
   Sprint.findOne(id).then(sprint => {
     req.sprint = sprint;
@@ -60,5 +93,7 @@ module.exports = {
   update: update,
   remove: remove,
   show: show,
-  sprint: sprint
+  sprint: sprint,
+  current: current,
+  completeSprint: completeSprint
 };
