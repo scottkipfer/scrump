@@ -1,6 +1,6 @@
-<div *ngIf="(boardError$ | async)">
-  It seems like {{boardName$ | async}} does not exist.
-  <a href (click)="createBoard()">create board</a>
+<div class="mt-md-4" *ngIf="(boardError$ | async)">
+  It seems like the <span class="font-weight-bold">{{boardName$ | async}}</span> board does not exist.<br>
+  <button class="btn btn-outline-primary mt-md-4" (click)="createBoard()">create board</button>
 </div>
 <div *ngIf="!(boardError$ | async)">
   <app-tasks tasksHeader="{{boardName$ | async | titlecase}}"></app-tasks>
