@@ -17,9 +17,9 @@ td:hover {
 }
 
 .insertFromBelow {
-  border-bottom: 5px solid green;
+  border-bottom: 20px solid lightgray;
 }
 
 .insertFromAbove {
-  border-top: 5px solid green;
+  border-top: 20px solid lightgray;
 }

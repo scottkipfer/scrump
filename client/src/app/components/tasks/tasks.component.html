@@ -27,7 +27,8 @@
           (drop)="drop($event, i)" 
           (dragover)="allowDrop($event, i)"
           draggable="true" 
-          (dragstart)="drag(i)">
+          (dragstart)="drag(i)"
+          (dragend)="dragend()">
         <td><i class="fas fa-bars"></i></td>
         <td><app-board-cell [board]="task.board" (boardChange)="task.board=$event; saveChanges(task);"></app-board-cell></td>
         <td>{{ i + 1 }}</td>
