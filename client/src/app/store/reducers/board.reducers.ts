@@ -23,13 +23,14 @@ export function reducer (state: BoardState = initialState, action: boardActions.
         loaded: false
       };
 
+    case boardActions.CREATE_BOARD_SUCCESS:
     case boardActions.LOAD_BOARD_SUCCESS:
       return {
         ...state,
+        error: '',
         loading: false,
         loaded: true,
         board: action.payload
-
       };
 
     case boardActions.CREATE_BOARD_ERROR:
@@ -40,7 +41,6 @@ export function reducer (state: BoardState = initialState, action: boardActions.
       };
 
     case boardActions.CREATE_BOARD:
-    case boardActions.CREATE_BOARD_SUCCESS:
     default: return state;
   }
 }

@@ -1,1 +1,7 @@
-<app-tasks tasksHeader="{{boardName$ | async | titlecase}}"></app-tasks>
+<div *ngIf="(boardError$ | async)">
+  It seems like {{boardName$ | async}} does not exist.
+  <a href (click)="createBoard()">create board</a>
+</div>
+<div *ngIf="!(boardError$ | async)">
+  <app-tasks tasksHeader="{{boardName$ | async | titlecase}}"></app-tasks>
+</div>

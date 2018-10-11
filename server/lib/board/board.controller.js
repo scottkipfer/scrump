@@ -34,6 +34,9 @@ const show = (req, res) => {
 
 const board = (req, res, next, name) => {
   Board.findOne({name: name}).then(board => {
+    if (!board) {
+      return next({error: 'Board does not exist' })
+    }
     req.board = board;
     next();
   }).catch(err => {
