@@ -85,12 +85,7 @@ export class TaskService {
   public moveTaskFromTo(fromIndex: number, toIndex: number) {
     let updatedTasks = this._tasks.getValue();
     let popped = updatedTasks.splice(fromIndex, 1)[0];
-    console.log("popped is: ", popped);
-    if (toIndex >= updatedTasks.length) {
-      updatedTasks.push(popped);
-    } else {
-      updatedTasks.splice(toIndex, 0, popped);
-    }
+    updatedTasks.splice(toIndex, 0, popped);
     this._tasks.next(updatedTasks)
   }
 }
