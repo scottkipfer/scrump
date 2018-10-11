@@ -22,7 +22,7 @@
         <th scope="col" width="350">Notes</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="bg-white">
       <tr *ngFor="let task of (tasks | async) | propsFilter:{ status:statusFilter }; index as i" [ngClass]="{ 'alert-success': task.status === 'Completed', 'alert-warning': task.status === 'On Hold', 'alert-danger': task.status === 'Cancelled', 'insertFromAbove': draggingHoverIndex === i && draggingDirection === 'down', 'insertFromBelow': draggingHoverIndex === i && draggingDirection === 'up' }"
           (drop)="drop($event, i)"
           (dragover)="allowDrop($event, i)"
