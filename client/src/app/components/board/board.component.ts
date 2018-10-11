@@ -39,5 +39,4 @@ export class BoardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private taskService: TaskService, private store: Store<fromStore.AppState>) { }
 
-
 }
