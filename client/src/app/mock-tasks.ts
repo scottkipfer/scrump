@@ -1,11 +1,8 @@
-import { Task } from './models/task';
-import { Owner } from './models/owner';
+import { Task, Owner } from './models';
 
 export const TASKS: Task[] = [
   {
     _id: '1',
-    sprintId: 'banana',
-    status: 'Not Started',
     summary: 'Ability to remove all images on product pages',
     requirementUrl: 'https://www.pivotaltracker.com/n/projects/944328/stories/156665519',
     fe: new Owner('RZ', 'wip'),
@@ -20,8 +17,6 @@ export const TASKS: Task[] = [
   },
   {
     _id: '90',
-    sprintId: 'banana',
-    status: 'Not Started',
     summary: 'Prune all css files from everywhere',
     requirementUrl: 'https://www.pivotaltracker.com/n/projects/944328/stories/156665519',
     fe: null,
@@ -36,8 +31,6 @@ export const TASKS: Task[] = [
   },
   {
     _id: '89',
-    sprintId: 'banana',
-    status: 'In Progress',
     summary: 'Destroy all brown bananas',
     requirementUrl: 'https://www.pivotaltracker.com/n/projects/944328/stories/156665519',
     fe: new Owner('KE', 'ns'),

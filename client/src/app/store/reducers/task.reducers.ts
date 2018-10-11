@@ -6,7 +6,6 @@ export interface TaskState {
   loading: boolean;
   tasks?: Task[];
   error?: string;
-  board?: string;
 }
 
 const initialState: TaskState = {
@@ -17,19 +16,6 @@ const initialState: TaskState = {
 export function reducer (state: TaskState = initialState, action: taskActions.TaskActions): TaskState {
  switch (action.type) {
 
-   case taskActions.GET_TASKS_BY_BOARD:
-     return {
-       ...state,
-       board: action.payload
-     };
-
-   case taskActions.GET_TASKS_BY_BOARD_SUCCESS:
-     return {
-       ...state,
-       tasks: action.payload
-     };
-
-   case taskActions.GET_TASKS_BY_BOARD_ERROR:
    case taskActions.CREATE_TASK_ERROR:
      return {
        ...state,
@@ -44,6 +30,5 @@ export function reducer (state: TaskState = initialState, action: taskActions.Ta
 
 export const getTasksError = (state: TaskState) => state.error;
 export const getTasks = (state: TaskState) => state.tasks;
-export const getBoard = (state: TaskState) => state.board;
 export const getTasksLoading = (state: TaskState) => state.loading;
 export const getTasksLoaded = (state: TaskState) => state.loaded;

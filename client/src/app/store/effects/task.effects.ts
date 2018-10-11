@@ -5,7 +5,7 @@ import {of} from 'rxjs';
 import {map, tap, switchMap, catchError} from 'rxjs/operators';
 import {TaskService} from '../../services/task/task.service';
 import * as taskActions from '../actions/task.actions';
-import { Task } from '../../models';
+import { Task, CreateTaskModel } from '../../models';
 
 @Injectable()
 export class TaskEffects {
@@ -13,22 +13,10 @@ export class TaskEffects {
   createTask$ = this.actions$
     .ofType(taskActions.CREATE_TASK).pipe(
       map((action: taskActions.CreateTask) => action.payload),
-      switchMap((task: Task) => {
+      switchMap((task: CreateTaskModel) => {
         return this.taskService.createTask(task).pipe(
-          map(task => new taskActions.CreateTask(task)),
+          map(task => new taskActions.CreateTaskSuccess(task)),
           catchError(error => of(new taskActions.CreateTaskError({error: error})))
-        );
-      })
-    );
-
-  @Effect()
-  getTasksByBoard$ = this.actions$
-    .ofType(taskActions.GET_TASKS_BY_BOARD).pipe(
-      map((action: taskActions.GetTasksByBoard) => action.payload),
-      switchMap((board: string) => {
-        return this.taskService.getTasksByBoard(board).pipe(
-          map(tasks => new taskActions.GetTasksByBoardSuccess(tasks)),
-          catchError(error => of(new taskActions.GetTasksByBoardError({error: error})))
         );
       })
     );
