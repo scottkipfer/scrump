@@ -29,7 +29,7 @@ const remove = (req, res) => {
 };
 
 const show = (req, res) => {
-  res.json(req.board);
+  return res.json(req.board);
 };
 
 const board = (req, res, next, name) => {

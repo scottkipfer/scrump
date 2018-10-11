@@ -7,7 +7,8 @@ import {TaskService} from '../../services/task/task.service';
 import * as taskActions from '../actions/task.actions';
 import * as boardActions from '../actions/board.actions';
 import {Task, CreateTaskModel, Board} from '../../models';
-import * as fromStore from '../../store';
+import {AppState} from '../../store/reducers';
+import {getBoard} from '../../store/selectors/board.selectors';
 import {Store} from '@ngrx/store';
 
 @Injectable()
@@ -27,7 +28,7 @@ export class TaskEffects {
   @Effect()
   createTaskSuccess$ = this.actions$
     .ofType(taskActions.CREATE_TASK_SUCCESS).pipe(
-      withLatestFrom(this.store$.select(fromStore.getBoard)),
+      withLatestFrom(this.store$.select(getBoard)),
       map(([action, board]) => new boardActions.LoadBoard(board.name))
     );
 
@@ -35,6 +36,6 @@ export class TaskEffects {
     private actions$: Actions,
     private taskService: TaskService,
     private router: Router,
-    private store$: Store<fromStore.AppState>
+    private store$: Store<AppState>
   ) {}
 }

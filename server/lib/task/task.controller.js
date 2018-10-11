@@ -15,7 +15,7 @@ const create = (req, res) => {
         })
       });
     } else {
-      Board.findOne({name: req.body.board || 'backlog'}) .then((board) => {
+      Board.findOne({name: req.body.board || 'backlog'}).then((board) => {
         board.tasks.push(task);
         board.save().then(() => {
           return res.status(200).json(task);
@@ -24,7 +24,6 @@ const create = (req, res) => {
         });
       });
     }
-    return res.status(200).json(task)
   }).catch((err) => {
     return res.status(500).json(err);
   });
