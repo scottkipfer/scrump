@@ -46,6 +46,7 @@ export function reducer (state: BoardState = initialState, action: boardActions.
 }
 
 export const getBoard = (state: BoardState) => state.board;
+export const getBoardTasks = (state: BoardState) => {return (state.board ? state.board.tasks: [])};
 export const getError = (state: BoardState) => state.error;
 export const getBoardLoaded = (state: BoardState) => state.loaded;
 export const getBoardLoading = (state: BoardState) => state.loading;

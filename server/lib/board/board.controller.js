@@ -33,7 +33,7 @@ const show = (req, res) => {
 };
 
 const board = (req, res, next, name) => {
-  Board.findOne({name: name}).then(board => {
+  Board.findOne({name: name}).populate('tasks').then(board => {
     if (!board) {
       return next({error: 'Board does not exist' })
     }

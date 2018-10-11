@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {map, tap} from 'rxjs/internal/operators';
+import {map, tap, take} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {TaskService} from '../../services/task/task.service';
 import {Store} from '@ngrx/store';
 import * as fromStore from '../../store';
-import {Board} from '../../models';
+import {Board, Task} from '../../models';
 
 @Component({
   selector: 'app-board',
@@ -15,17 +15,22 @@ import {Board} from '../../models';
 export class BoardComponent implements OnInit {
   public boardName$: Observable<string>;
   public board$: Observable<Board>;
+  public boardTasks$: Observable<Task[]>;
   public boardError$: Observable<any>;
   public boardName: string;
 
   ngOnInit() {
     this.boardError$ = this.store.select(fromStore.getBoardError);
     this.board$ = this.store.select(fromStore.getBoard);
+    this.boardTasks$ = this.board$.pipe(
+      map((board: Board) => board? board.tasks : [])
+    );
     this.boardName$ = this.route.paramMap.pipe(
+      take(1),
       tap((params: ParamMap) => {
         this.boardName = params.get('name');
-        //this.store.dispatch(new fromStore.LoadBoard(params.get('name')));
-        this.taskService.getTasksForBoard(params.get('name'));
+        this.store.dispatch(new fromStore.LoadBoard(params.get('name')));
+        //this.taskService.getTasksForBoard(params.get('name'));
       }),
       map((params: ParamMap) => params.get('name')));
   }

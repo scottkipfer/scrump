@@ -2,10 +2,13 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Effect, Actions} from '@ngrx/effects';
 import {of} from 'rxjs';
-import {map, tap, switchMap, catchError} from 'rxjs/operators';
+import {map, tap, switchMap, catchError, withLatestFrom} from 'rxjs/operators';
 import {TaskService} from '../../services/task/task.service';
 import * as taskActions from '../actions/task.actions';
-import { Task, CreateTaskModel } from '../../models';
+import * as boardActions from '../actions/board.actions';
+import {Task, CreateTaskModel, Board} from '../../models';
+import * as fromStore from '../../store';
+import {Store} from '@ngrx/store';
 
 @Injectable()
 export class TaskEffects {
@@ -21,9 +24,17 @@ export class TaskEffects {
       })
     );
 
+  @Effect()
+  createTaskSuccess$ = this.actions$
+    .ofType(taskActions.CREATE_TASK_SUCCESS).pipe(
+      withLatestFrom(this.store$.select(fromStore.getBoard)),
+      map(([action, board]) => new boardActions.LoadBoard(board.name))
+    );
+
   constructor(
     private actions$: Actions,
     private taskService: TaskService,
-    private router: Router
+    private router: Router,
+    private store$: Store<fromStore.AppState>
   ) {}
 }

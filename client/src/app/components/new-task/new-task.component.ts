@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Store} from '@ngrx/store';
+import * as fromStore from '../../store';
 
 import { TaskService } from '../../services/task/task.service';
 import { Task } from '../../models/task';
+import {CreateTaskModel} from '../../models';
 
 @Component({
   selector: 'app-new-task',
@@ -10,14 +13,12 @@ import { Task } from '../../models/task';
   styleUrls: ['./new-task.component.css']
 })
 export class NewTaskComponent implements OnInit {
-  task: Task = new Task();
+  task: CreateTaskModel = new CreateTaskModel();
 
-  constructor(public activeModal: NgbActiveModal, private taskService: TaskService) {
-  }
 
   initTask() {
-    this.task.summary = '';
-    this.task.requirementUrl = null;
+    this.task.task.summary = '';
+    this.task.task.requirementUrl = null;
     this.task.board = 'backlog';
   }
 
@@ -30,8 +31,14 @@ export class NewTaskComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.task);
-    this.taskService.addTask(this.task).subscribe(res => console.log('result is', res));
+    this.store.dispatch(new fromStore.CreateTask(this.task));
+   // this.taskService.addTask(this.task).subscribe(res => console.log('result is', res));
     this.activeModal.close();
+  }
+
+  constructor(
+    public activeModal: NgbActiveModal,
+    private taskService: TaskService,
+    private store: Store<fromStore.AppState>) {
   }
 }

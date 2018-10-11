@@ -17,11 +17,11 @@
       </div>
       <div class="form-group">
         <label for="summary">Summary</label>
-        <input type="text" class="form-control" name="summary" id="summary" placeholder="Write a short summary of this task" [(ngModel)]="task.summary" required>
+        <input type="text" class="form-control" name="summary" id="summary" placeholder="Write a short summary of this task" [(ngModel)]="task.task.summary" required>
       </div>
       <div class="form-group">
         <label for="requirementUrl">Requirement URL</label>
-        <input type="text" class="form-control" name="requirementUrl" id="requirementUrl" [(ngModel)]="task.requirementUrl">
+        <input type="text" class="form-control" name="requirementUrl" id="requirementUrl" [(ngModel)]="task.task.requirementUrl">
       </div>
   </div>
     <div class="modal-footer">

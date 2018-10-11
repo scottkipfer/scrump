@@ -20,4 +20,8 @@ export class CreateTaskModel {
   board?: string;
   sprint?: string;
   task: Task;
+
+  constructor() {
+    this.task = new Task();
+  }
 }

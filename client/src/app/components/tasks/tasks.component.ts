@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Task } from '../../models/task';
+import { Task } from '../../models';
 import * as fromStore from '../../store';
 import {Store} from '@ngrx/store';
-
 import { TaskService } from '../../services/task/task.service';
 import {Observable} from 'rxjs';
 
@@ -14,22 +13,14 @@ import {Observable} from 'rxjs';
 export class TasksComponent implements OnInit {
   @Input() tasksHeader: string;
   @Input() statusFilter: string;
-  editingSummary: false;
+  @Input() tasks: Observable<Task[]>;
+
   public boardTasks$: Observable<Task[]>;
   draggingIndex: number;
   draggingHoverIndex: number;
   draggingDirection: string;
 
-  constructor(private taskService: TaskService, private store: Store<fromStore.AppState>) {
-
-  }
-
   ngOnInit() {
-    this.boardTasks$ =this.store.select(fromStore.getTasks);
-    //this.getTasks();
-  }
-
-  getTasks(): void {
   }
 
   saveChanges(task) {
@@ -56,4 +47,8 @@ export class TasksComponent implements OnInit {
     this.draggingHoverIndex = -1;
     this.draggingIndex = -1;
   }
+
+  constructor(
+    private taskService: TaskService,
+    private store: Store<fromStore.AppState>) {}
 }

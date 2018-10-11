@@ -3,5 +3,5 @@
   <button class="btn btn-outline-primary mt-md-4" (click)="createBoard()">create board</button>
 </div>
 <div *ngIf="!(boardError$ | async)">
-  <app-tasks tasksHeader="{{boardName$ | async | titlecase}}"></app-tasks>
+  <app-tasks tasksHeader="{{boardName$ | async | titlecase}}" [tasks]="boardTasks$"></app-tasks>
 </div>

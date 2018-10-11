@@ -23,10 +23,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let task of (taskService.tasks| async) | propsFilter:{ status:statusFilter }; index as i" [ngClass]="{ 'alert-success': task.status === 'Completed', 'alert-warning': task.status === 'On Hold', 'alert-danger': task.status === 'Cancelled', 'insertFromAbove': draggingHoverIndex === i && draggingDirection === 'down', 'insertFromBelow': draggingHoverIndex === i && draggingDirection === 'up' }"
-          (drop)="drop($event, i)" 
+      <tr *ngFor="let task of (tasks | async) | propsFilter:{ status:statusFilter }; index as i" [ngClass]="{ 'alert-success': task.status === 'Completed', 'alert-warning': task.status === 'On Hold', 'alert-danger': task.status === 'Cancelled', 'insertFromAbove': draggingHoverIndex === i && draggingDirection === 'down', 'insertFromBelow': draggingHoverIndex === i && draggingDirection === 'up' }"
+          (drop)="drop($event, i)"
           (dragover)="allowDrop($event, i)"
-          draggable="true" 
+          draggable="true"
           (dragstart)="drag(i)"
           (dragend)="dragend()">
         <td><i class="fas fa-bars"></i></td>
