@@ -27,11 +27,12 @@ import { CurrentTasksComponent } from './components/current-tasks/current-tasks.
 import { StatusCellComponent } from './components/status-cell/status-cell.component';
 import { NewTaskComponent } from './components/new-task/new-task.component';
 import { BoardComponent } from './components/board/board.component';
+import { BoardCellComponent } from './components/board-cell/board-cell.component';
 
 // Services
 import {TaskService} from './services/task/task.service';
 import {SprintService} from './services/sprint/sprint.service';
-import { BoardCellComponent } from './components/board-cell/board-cell.component';
+import {SocketService} from './services/socket/socket.service'
 
 const appRoutes: Routes = [
   { path: 'current', component: CurrentTasksComponent },
@@ -60,7 +61,7 @@ const environment = {
     BoardCellComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
     FormsModule,
@@ -77,7 +78,8 @@ const environment = {
     {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},
     NgbActiveModal,
     TaskService,
-    SprintService
+    SprintService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })
