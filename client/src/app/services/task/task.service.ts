@@ -67,7 +67,7 @@ export class TaskService {
   }
 
   public createTask(task: CreateTaskModel): Observable<Task> {
-    return this.http.post<Task>(this.tasksUrl, task, httpOptions);
+    return this.http.post<Task>('http://localhost:2700/command/createTask', task, httpOptions);
   }
 
   public getTasksByBoard(board: string): Observable<Task[]> {

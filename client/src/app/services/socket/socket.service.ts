@@ -3,13 +3,12 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import * as socketIo from 'socket.io-client';
 
 
-const SOCKET_URL = 'http://localhost:2700';
+const SOCKET_URL = 'http://localhost:2701';
 
 @Injectable()
 export class SocketService {
   private socket: socketIo.SocketIOClient.Socket
   public connected$ = new BehaviorSubject<boolean>(false);
-
 
   // Events
   taskCreated$: Observable<any>;
@@ -19,10 +18,10 @@ export class SocketService {
     this.socket = socketIo(SOCKET_URL);
     this.socket.on('connect', () => this.connected$.next(true));
     this.socket.on('disconnect', () => this.connected$.next(false));
-    this.socket.join('events');
+    this.join('events');
 
     // Each Observable is used By NGRX
-    this.taskCreated$ = this.socket.listen('TaskCreated');
+    this.taskCreated$ = this.listen('TaskCreated');
    }
 
    join(room: string) {

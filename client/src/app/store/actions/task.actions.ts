@@ -5,6 +5,12 @@ import { Task, CreateTaskModel } from '../../models';
 export const CREATE_TASK = type('[Task] Create Task');
 export const CREATE_TASK_ERROR = type('[Task] Create Task Error');
 export const CREATE_TASK_SUCCESS = type('[Task] Create Task Success');
+export const TASK_CREATED = type('[Task] Task was Created Event');
+
+export class TaskCreated implements Action {
+  public type: string = TASK_CREATED;
+  constructor(public payload: Task) {}
+}
 
 export class CreateTask implements Action {
   public type: string = CREATE_TASK;
@@ -18,7 +24,7 @@ export class CreateTaskError implements Action {
 
 export class CreateTaskSuccess implements Action {
   public type: string = CREATE_TASK_SUCCESS;
-  constructor(public payload: Task) {}
+  constructor(public payload: any) {}
 }
 
 export type TaskActions =

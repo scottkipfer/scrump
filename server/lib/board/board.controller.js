@@ -9,7 +9,6 @@ const create = (req, res) => {
   });
 };
 
-
 const update = (req, res) => {
   let boardToUpdate = Object.assign(req.board, req.body);
   boardToUpdate.save().then(board => {

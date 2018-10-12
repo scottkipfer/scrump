@@ -5,23 +5,23 @@ const socketService = require('../services/socket.service');
 const createBoard = (board) => {
   let newBoard = new Board(board);
   return newBoard.save()
-    .then(sendAction('BoardCreated'));
+    .then(sendEvent('BoardCreated'));
 };
 
 const addTaskToBoard = (boardName, task) => {
   return findBoardByName(boardName)
     .then(addTask(task))
-    .then(sendAction('TaskAddedToBoard', {boardName: boardName, task: task}))
+    .then(() => sendEvent('TaskAddedToBoard', {boardName: boardName, task: task}))
 };
 
 const removeTaskFromBoard = (boardName, taskId) => {
   return findBoardByName(boardName)
-    .then(removeTask(taskId))
-    .then(sendEvent('TaskRemovedFromBoard', {boardName: boardName, taskId: taskId}))
+    .then(removeTask(taskId));
+    //.then(sendEvent('TaskRemovedFromBoard', {boardName: boardName, taskId: taskId}))
 };
 
 const findBoardByName = (boardName) => {
-  return Board.find({ name: boardName })
+  return Board.findOne({ name: boardName });
 };
 
 const addTask = curry((task, board) => {
@@ -34,10 +34,9 @@ const removeTask = curry((taskId, board) => {
   return board.save();
 });
 
-const sendEvent = curry((event, payload) => {
-  socketService.sendEvnet(event, payload);
-});
-
+const sendEvent = (event, payload) => {
+  return socketService.sendEvent(event, payload);
+};
 
 module.exports = {
   createBoard: createBoard,

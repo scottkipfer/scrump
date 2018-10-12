@@ -21,6 +21,7 @@ services:
       dockerfile: dev.dockerfile
     ports:
       - "2700:2700"
+      - "2701:2701"
     depends_on:
       - database
     links:

@@ -3,9 +3,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cors = require('cors');
-const socketio = require('socket.io');
+const http = require('http');
 
 require('./core/db');
+
+process.on('unhandledRejection', (reason) => {
+  console.log('Reason: ' + reason);
+});
 
 let app = express();
 app.use(logger('dev'));
@@ -14,17 +18,13 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended': 'false'}));
 
+const server = http.createServer().listen(2701);
+require('./core/socket').setup(server);
+
 // Set up routes
 require('./core/router')(app);
+require ('./commands')(app);
 
-const server = app.listen(2700);
-global.io = require('./core/socket')(server);
-
-require ('./commands');
+app.listen(2700);
 
 console.log('listening on port 2700...');
-
-
-
-
-

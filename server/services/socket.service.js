@@ -1,5 +1,7 @@
+const { io } = require('../core/socket');
+
 const sendEvent = (eventName, payload) => {
-  global.io.emit(eventName, payload);
+  return io.emit(eventName, payload);
 };
 
 module.exports = {

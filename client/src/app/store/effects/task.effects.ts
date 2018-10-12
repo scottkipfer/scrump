@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Effect, Actions} from '@ngrx/effects';
-import {of} from 'rxjs';
+import {of, Observable} from 'rxjs';
 import {map, tap, switchMap, catchError, withLatestFrom} from 'rxjs/operators';
 import {TaskService} from '../../services/task/task.service';
 import * as taskActions from '../actions/task.actions';
@@ -10,6 +10,7 @@ import {Task, CreateTaskModel, Board} from '../../models';
 import {AppState} from '../../store/reducers';
 import {getBoard} from '../../store/selectors/board.selectors';
 import {Store} from '@ngrx/store';
+import { SocketService } from '../../services/socket/socket.service';
 
 @Injectable()
 export class TaskEffects {
@@ -20,10 +21,18 @@ export class TaskEffects {
       switchMap((task: CreateTaskModel) => {
         return this.taskService.createTask(task).pipe(
           map(task => new taskActions.CreateTaskSuccess(task)),
-          catchError(error => of(new taskActions.CreateTaskError({error: error})))
-        );
-      })
+          catchError(error => of(new taskActions.CreateTaskError({ error: error })))
+      );
+    })
     );
+
+  @Effect()
+  taskCreated$ =
+    this.socketService.taskCreated$.pipe(
+      tap(task => console.log(task)),
+      switchMap(task => of(new taskActions.TaskCreated(task))
+      )
+    )
 
   @Effect()
   createTaskSuccess$ = this.actions$
@@ -35,6 +44,7 @@ export class TaskEffects {
   constructor(
     private actions$: Actions,
     private taskService: TaskService,
+    private socketService: SocketService,
     private router: Router,
     private store$: Store<AppState>
   ) {}
