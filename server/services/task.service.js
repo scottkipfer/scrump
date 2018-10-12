@@ -1,6 +1,7 @@
 const { curry } = require('ramda');
 const Task = require('mongoose').model('Task');
-const boardService = require('../services/board.service.js');
+const boardService = require('../services/board.service');
+const socketService = require('../services/socket.service');
 
 const createTask = (task, boardName, sprintId) => {
   let newTask = new Task(task);
@@ -12,6 +13,7 @@ const updateTask = (task) => {
 }
 
 const placeTaskInBoardOrSprint = curry((boardName, sprintId, task) => {
+  socketService.sendEvent('CreatedTask', task);
   if (sprintId) {
     return placeTaskInSprint(sprintId, task);
   } else {
@@ -19,7 +21,7 @@ const placeTaskInBoardOrSprint = curry((boardName, sprintId, task) => {
   }
 });
 
-const placeTaskInSprint =(task, sprint) => {
+const placeTaskInSprint = (task, sprint) => {
 
 };
 

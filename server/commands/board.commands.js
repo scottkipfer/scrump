@@ -1,4 +1,5 @@
 const boardService = require('../services/board.service');
+const {curry} = require('ramda');
 
 const createBoard = (req, res) => {
   return boardService.createBoard(req.board)

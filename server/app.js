@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cors = require('cors');
+const socketio = require('socket.io');
 
 require('./core/db');
 
@@ -16,5 +17,14 @@ app.use(bodyParser.urlencoded({'extended': 'false'}));
 // Set up routes
 require('./core/router')(app);
 
-app.listen(2700);
+const server = app.listen(2700);
+global.io = require('./core/socket')(server);
+
+require ('./commands');
+
 console.log('listening on port 2700...');
+
+
+
+
+

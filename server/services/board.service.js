@@ -1,5 +1,6 @@
 const Board = require('mongoose').model('Board');
 const { curry, filter } = require('ramda');
+const socketService = require('../services/socket.service');
 
 const createBoard = (board) => {
   let newBoard = new Board(board);
@@ -16,7 +17,7 @@ const addTaskToBoard = (boardName, task) => {
 const removeTaskFromBoard = (boardName, taskId) => {
   return findBoardByName(boardName)
     .then(removeTask(taskId))
-    .then(sendAction('TaskRemovedFromBoard', {boardName: boardName, taskId: taskId}))
+    .then(sendEvent('TaskRemovedFromBoard', {boardName: boardName, taskId: taskId}))
 };
 
 const findBoardByName = (boardName) => {
@@ -33,8 +34,8 @@ const removeTask = curry((taskId, board) => {
   return board.save();
 });
 
-const sendAction = curry((action, payload) => {
-  // send event over socket here
+const sendEvent = curry((event, payload) => {
+  socketService.sendEvnet(event, payload);
 });
 
 
