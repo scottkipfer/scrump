@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {Effect, Actions} from '@ngrx/effects';
 import {of, Observable} from 'rxjs';
 import {map, tap, switchMap, catchError, withLatestFrom} from 'rxjs/operators';
@@ -27,25 +26,61 @@ export class TaskEffects {
     );
 
   @Effect()
-  taskCreated$ =
-    this.socketService.taskCreated$.pipe(
-      tap(task => console.log(task)),
-      switchMap(task => of(new taskActions.TaskCreated(task))
-      )
-    )
-
-  @Effect()
   createTaskSuccess$ = this.actions$
     .ofType(taskActions.CREATE_TASK_SUCCESS).pipe(
       withLatestFrom(this.store$.select(getBoard)),
       map(([action, board]) => new boardActions.LoadBoard(board.name))
     );
 
+  @Effect()
+  taskCreated$ = this.socketService.taskCreated$.pipe(
+    switchMap(task => of(new taskActions.TaskCreated(task)).pipe(
+      withLatestFrom(this.store$.select(getBoard)),
+      map(([action, board]) => new boardActions.LoadBoard(board.name)))
+    )
+  );
+
+  @Effect()
+  updateTask$ = this.actions$
+    .ofType(taskActions.UPDATE_TASK).pipe(
+      map((action: taskActions.UpdateTask) => action.payload),
+      switchMap((task: Task) => {
+        return this.taskService.updateTask(task).pipe(
+          map(task => new taskActions.UpdateTaskSuccess(task)),
+          catchError(error => of(new taskActions.UpdateTaskError({ error: error })))
+        );
+      })
+    );
+
+  @Effect()
+  taskUpdated$ = this.socketService.taskUpdated$.pipe(
+    switchMap(task => of(new taskActions.TaskUpdated(task)).pipe(
+      withLatestFrom(this.store$.select(getBoard)),
+      map(([action, board]) => new boardActions.LoadBoard(board.name))) // TODO: this wont work if there is no board
+    )
+  );
+
+  @Effect()
+  switchBoards$ = this.actions$
+      .ofType(taskActions.SWITCH_BOARDS).pipe(
+        map((action: taskActions.SwitchBoards) => action.payload),
+        withLatestFrom(this.store$.select(getBoard)),
+        switchMap(([switchBoardObj, board]) => {
+          return this.taskService.switchBoards({
+            taskId: switchBoardObj.taskId,
+            newBoard: switchBoardObj.newBoard,
+            oldBoard: board.name
+          }).pipe(
+            map(result => new taskActions.SwitchBoardsSuccess(result)),
+            catchError(error => of(new taskActions.SwitchBoardsError({ error: error})))
+          );
+        })
+      );
+
   constructor(
     private actions$: Actions,
     private taskService: TaskService,
     private socketService: SocketService,
-    private router: Router,
     private store$: Store<AppState>
   ) {}
 }

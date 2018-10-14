@@ -10,7 +10,9 @@ const createTask = (task, boardName, sprintId) => {
 };
 
 const updateTask = (task) => {
-};
+  return task.save()
+    .then(socketService.sendEvent('TaskUpdated', task));
+}
 
 const placeTaskInBoardOrSprint = curry((boardName, sprintId, task) => {
   socketService.sendEvent('TaskCreated', task);
@@ -26,5 +28,6 @@ const placeTaskInSprint = (task, sprint) => {
 };
 
 module.exports = {
-  createTask: createTask
+  createTask: createTask,
+  updateTask: updateTask
 };

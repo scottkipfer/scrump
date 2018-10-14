@@ -11,8 +11,15 @@ export class SocketService {
   public connected$ = new BehaviorSubject<boolean>(false);
 
   // Events
-  taskCreated$: Observable<any>;
+    // Task Events
+    taskCreated$: Observable<any>;
+    taskUpdated$: Observable<any>;
+    taskMoved$: Observable<any>;
 
+    // Board Events
+    boardCreated$: Observable<any>;
+    taskRemovedFromBoard$: Observable<any>;
+    taskAddedToBoard$: Observable<any>;
 
   constructor() {
     this.socket = socketIo(SOCKET_URL);
@@ -22,6 +29,12 @@ export class SocketService {
 
     // Each Observable is used By NGRX
     this.taskCreated$ = this.listen('TaskCreated');
+    this.taskUpdated$ = this.listen('TaskUpdated');
+    this.taskMoved$ = this.listen('TaskMoved');
+    this.taskRemovedFromBoard$ = this.listen('TaskRemovedFromBoard');
+    this.taskAddedToBoard$ = this.listen('TaskAddedToBoard');
+
+    this.boardCreated$ = this.listen('BoardCreated');
    }
 
    join(room: string) {

@@ -8,8 +8,9 @@ const createBoard = (req, res) => {
 }
 
 const switchBoards = (req, res) => {
-  return boardService.removeTaskFromBoard(req.oldBoardName, req.taskId)
-    .then(boardService.addTaskToBoard(req.newBoardName, req.taskId))
+  let {oldBoard, newBoard, taskId} = req.body;
+  return boardService.removeTaskFromBoard(oldBoard, taskId)
+    .then(boardService.addTaskToBoard(newBoard, taskId))
     .then(sendCommandSucceded(res, 'Switch Boards'))
     .catch(sendError);
 }

@@ -19,7 +19,7 @@ const create = (req, res) => {
         board.tasks.push(task);
         board.save().then(() => {
           return res.status(200).json(task);
-        }).catch((err) =>{
+        }).catch((err) => {
           return res.status(500).json(err);
         });
       });

@@ -2,11 +2,23 @@ const taskService = require('../services/task.service.js');
 const {curry} = require('ramda');
 
 const createTask = (req, res) => {
-  return taskService.createTask(req.task, req.boardName, req.sprintId)
-    .then(sendCommandSucceeded(res, 'createTask'))
+  return taskService.createTask(req.body.task, req.body.board, req.body.sprintId)
+    .then(sendCommandSucceeded(res, 'CreateTask'))
     .catch((error) => {
-      sendError(res, error)});
+      sendError(res, error)
+    });
 };
+
+const updateTask = (req, res) => {
+  let taskToUpdate = Object.assign(req.task, {
+    ...req.body
+  });
+  return taskService.updateTask(taskToUpdate)
+    .then(sendCommandSucceeded(res, 'UpdateTask'))
+    .catch((error) => {
+      sendError(res, error)
+    });
+}
 
 const sendCommandSucceeded = (res, command) => {
   return res.json({
@@ -19,5 +31,6 @@ const sendError = curry((res, error) => {
 });
 
 module.exports = {
-  createTask: createTask
+  createTask: createTask,
+  updateTask: updateTask
 };

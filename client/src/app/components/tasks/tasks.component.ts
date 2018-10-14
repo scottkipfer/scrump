@@ -4,6 +4,8 @@ import * as fromStore from '../../store';
 import {Store} from '@ngrx/store';
 import { TaskService } from '../../services/task/task.service';
 import {Observable} from 'rxjs';
+import {take, map} from 'rxjs/operators';
+import { getBoard } from '../../store';
 
 @Component({
   selector: 'app-tasks',
@@ -14,6 +16,7 @@ export class TasksComponent implements OnInit {
   @Input() tasksHeader: string;
   @Input() statusFilter: string;
   @Input() tasks: Observable<Task[]>;
+  private currentBoard$: Observable<string>;
 
   public boardTasks$: Observable<Task[]>;
   draggingIndex: number;
@@ -24,7 +27,14 @@ export class TasksComponent implements OnInit {
   }
 
   saveChanges(task) {
-    this.taskService.updateTask(task).subscribe();
+    this.store.dispatch(new fromStore.UpdateTask(task));
+  }
+
+  changeBoard(task, newBoard) {
+    this.store.dispatch(new fromStore.SwitchBoards({
+      taskId: task._id,
+      newBoard: newBoard,
+    }));
   }
 
   allowDrop(event, index) {

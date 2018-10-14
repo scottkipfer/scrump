@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Effect, Actions} from '@ngrx/effects';
+import {Store} from '@ngrx/store'
 import {of} from 'rxjs';
-import {map, switchMap, catchError, tap} from 'rxjs/operators';
+import {map, switchMap, catchError, tap, withLatestFrom} from 'rxjs/operators';
 import {BoardService} from '../../services/board/board.service';
 import * as boardActions from '../actions/board.actions';
+import * as fromStore from '../../store'
+import {getBoard} from '../../store/selectors/board.selectors';
 import { Board } from '../../models';
 import { SocketService } from '../../services/socket/socket.service';
 
@@ -35,10 +38,26 @@ export class BoardEffects {
       })
     );
 
+    @Effect()
+    taskRemovedFromBoard$ = this.socketService.taskRemovedFromBoard$.pipe(
+      switchMap(task => of(new boardActions.TaskRemovedFromBoard(task)).pipe(
+        withLatestFrom(this.store$.select(getBoard)),
+        map(([action, board]) => new boardActions.LoadBoard(board.name)))
+      )
+    )
+
+    @Effect()
+    taskAddedToBoard$ = this.socketService.taskAddedToBoard$.pipe(
+      switchMap(task => of(new boardActions.TaskAddedToBoard(task)).pipe(
+        withLatestFrom(this.store$.select(getBoard)),
+        map(([action, board]) => new boardActions.LoadBoard(board.name)))
+      )
+    )
+
   constructor(
     private actions$: Actions,
     private boardService: BoardService,
-    private router: Router,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private store$: Store<fromStore.AppState> 
   ) {}
 }

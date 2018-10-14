@@ -32,7 +32,6 @@ export class NewTaskComponent implements OnInit {
 
   onSubmit() {
     this.store.dispatch(new fromStore.CreateTask(this.task));
-   // this.taskService.addTask(this.task).subscribe(res => console.log('result is', res));
     this.activeModal.close();
   }
 

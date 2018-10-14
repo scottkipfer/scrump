@@ -24,6 +24,7 @@ export function reducer (state: TaskState = initialState, action: taskActions.Ta
 
    case taskActions.CREATE_TASK:
    case taskActions.CREATE_TASK_SUCCESS:
+   case taskActions.TASK_UPDATED:
    default: return state;
  }
 }

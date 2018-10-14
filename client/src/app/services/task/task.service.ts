@@ -13,11 +13,64 @@ export class TaskService {
   private _tasks: BehaviorSubject<Task[]> = new BehaviorSubject([]);
   public readonly tasks: Observable<Task[]> = this._tasks.asObservable();
   tasksUrl: string = 'http://localhost:2700/v1/tasks';
+  commandUrl: string ='http://localhost:2700/command'
   board: string;
 
   constructor(private http: HttpClient) { }
 
-  public getTasksForBoard(board) {
+
+  public addTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.tasksUrl, task, httpOptions).pipe(
+      tap((taskResult: Task) => {
+        let updatedTasks = this._tasks.getValue();
+        updatedTasks.push(taskResult);
+        this._tasks.next(updatedTasks)
+      }),
+      catchError(this.handleError<Task>('addTask'))
+    );
+  }
+
+  public createTask(task: CreateTaskModel): Observable<Task> {
+    return this.http.post<Task>(`${this.commandUrl}/createTask`, task, httpOptions);
+  }
+
+  public switchBoards(switchBoardObj): Observable<any> {
+    return this.http.post(`${this.commandUrl}/switchBoards`, switchBoardObj, httpOptions);
+  }
+
+  public updateTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(`${this.commandUrl}/updateTask/${task._id}`, task, httpOptions);
+  }
+
+  public getTasksByBoard(board: string): Observable<Task[]> {
+    const url = `${this.tasksUrl}?board=${board}`;
+    return this.http.get<Task[]>(url, httpOptions);
+  }
+
+  public getTasksForSprint(sprintId) {
+    let url = `${this.tasksUrl}?sprint=${sprintId}`;
+    this.http.get<Task[]>(url).subscribe(
+      tasks => this._tasks.next(tasks)
+    ).unsubscribe();
+  }
+
+  public moveTaskFromTo(fromIndex: number, toIndex: number) {
+    let updatedTasks = this._tasks.getValue();
+    let popped = updatedTasks.splice(fromIndex, 1)[0];
+    updatedTasks.splice(toIndex, 0, popped);
+    this._tasks.next(updatedTasks)
+  }
+
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
+  }
+
+}
+
+  /*public getTasksForBoard(board) {
     let url = this.tasksUrl;
     if (board) {
       url += `?board=${board}`;
@@ -28,16 +81,9 @@ export class TaskService {
     this.http.get<Task[]>(url).subscribe(
       tasks => this._tasks.next(tasks)
     );
-  }
+  }*/
 
-  public getTasksForSprint(sprintId) {
-    let url = `${this.tasksUrl}?sprint=${sprintId}`;
-    this.http.get<Task[]>(url).subscribe(
-      tasks => this._tasks.next(tasks)
-    ).unsubscribe();
-  }
-
-  public updateTask(task: Task): Observable<Task> {
+  /*public updateTask(task: Task): Observable<Task> {
     return this.http.put<Task>(`${this.tasksUrl}/${task._id}`, task, httpOptions).pipe(
       tap((taskResult: Task) => {
         let updatedTasks = this._tasks.getValue();
@@ -53,39 +99,4 @@ export class TaskService {
       }),
       catchError(this.handleError<Task>('addTask'))
     );
-  }
-
-  public addTask(task: Task): Observable<Task> {
-    return this.http.post<Task>(this.tasksUrl, task, httpOptions).pipe(
-      tap((taskResult: Task) => {
-        let updatedTasks = this._tasks.getValue();
-        updatedTasks.push(taskResult);
-        this._tasks.next(updatedTasks)
-      }),
-      catchError(this.handleError<Task>('addTask'))
-    );
-  }
-
-  public createTask(task: CreateTaskModel): Observable<Task> {
-    return this.http.post<Task>('http://localhost:2700/command/createTask', task, httpOptions);
-  }
-
-  public getTasksByBoard(board: string): Observable<Task[]> {
-    const url = `${this.tasksUrl}?board=${board}`;
-    return this.http.get<Task[]>(url, httpOptions);
-  }
-
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
-  }
-
-  public moveTaskFromTo(fromIndex: number, toIndex: number) {
-    let updatedTasks = this._tasks.getValue();
-    let popped = updatedTasks.splice(fromIndex, 1)[0];
-    updatedTasks.splice(toIndex, 0, popped);
-    this._tasks.next(updatedTasks)
-  }
-}
+  }*/
