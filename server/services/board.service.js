@@ -30,10 +30,8 @@ const addTask = curry((task, board) => {
 });
 
 const removeTask = curry((taskId, board) => {
-  console.log('board.tasks', board.tasks);
   let isTask = task => task._id == taskId;
   board.tasks = reject(isTask, board.tasks);
-  console.log('new board.tasks', board.tasks);
   return board.save();
 });
 
