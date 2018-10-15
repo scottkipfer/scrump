@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 import { Task } from '../../models/task'
 
@@ -10,6 +10,7 @@ import { Task } from '../../models/task'
 export class TextCellComponent implements OnInit {
   @Input() value: string;
   @Output() valueChange = new EventEmitter();
+  @ViewChild('summaryInput') summaryInput: ElementRef;
 
   isEditing: boolean;
 
@@ -20,6 +21,9 @@ export class TextCellComponent implements OnInit {
 
   edit() {
     this.isEditing = true;
+    setTimeout(()=>{ // this will make the execution after the above boolean has changed
+      this.summaryInput.nativeElement.focus();
+    },0); 
   }
 
   finishEdit() {

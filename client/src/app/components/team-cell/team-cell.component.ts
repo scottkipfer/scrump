@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 import { Owner } from '../../models/owner';
 
@@ -10,6 +10,7 @@ import { Owner } from '../../models/owner';
 export class TeamCellComponent implements OnInit {
   @Input() owner: Owner;
   @Output() ownerChange = new EventEmitter();
+  @ViewChild('nameInput') nameInput: ElementRef;
 
   isEditing: boolean;
   icon: string;
@@ -41,6 +42,9 @@ export class TeamCellComponent implements OnInit {
 
   edit() {
     this.isEditing = true;
+    setTimeout(()=>{ // this will make the execution after the above boolean has changed
+      this.nameInput.nativeElement.focus();
+    },0); 
   }
 
   finishEdit() {

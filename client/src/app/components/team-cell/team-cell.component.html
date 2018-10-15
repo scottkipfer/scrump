@@ -9,5 +9,5 @@
   </ul>
 </div>
 <div [hidden]="!isEditing">
-  <input [(ngModel)]="owner.owner" (keydown.enter)="finishEdit();" (blur)="finishEdit()">
+  <input #nameInput [(ngModel)]="owner.owner" (keydown.enter)="finishEdit();" (blur)="finishEdit()">
 </div>
