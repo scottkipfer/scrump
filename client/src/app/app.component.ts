@@ -12,6 +12,15 @@ export class AppComponent {
   title : string = 'ScrumP';
   activeTab : string = 'current';
 
+  ngOnInit() {
+    // determine which tab is active
+    var result = /[^/]*$/.exec(window.location.pathname)[0];
+    if (!result) {
+      result = 'current';
+    }
+    this.setActive(result);
+  }
+
   openModal() {
     const modalRef = this.modalService.open(NewTaskComponent);
   }
