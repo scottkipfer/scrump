@@ -35,6 +35,13 @@ const removeTask = curry((taskId, board) => {
   return board.save();
 });
 
+const updateTaskPosition = (board, fromIndex, toIndex) => {
+    let popped = board.tasks.splice(fromIndex, 1)[0];
+    board.tasks.splice(toIndex, 0, popped);
+    return board.save()
+      .then(sendEvent('TaskPositionUpdated', {boardName: board.name}));
+}
+
 const sendEvent = (event, payload) => {
   return socketService.sendEvent(event, payload);
 };
@@ -42,5 +49,6 @@ const sendEvent = (event, payload) => {
 module.exports = {
   createBoard: createBoard,
   addTaskToBoard: addTaskToBoard,
-  removeTaskFromBoard: removeTaskFromBoard
+  removeTaskFromBoard: removeTaskFromBoard,
+  updateTaskPosition: updateTaskPosition
 };

@@ -15,6 +15,14 @@ const switchBoards = (req, res) => {
     .catch(sendError);
 }
 
+const updateTaskPosition = (req, res) => {
+  let {fromIndex, toIndex} = req.body;
+  console.log(req.board, req.body);
+  return boardService.updateTaskPosition(req.board, fromIndex, toIndex)
+    .then(sendCommandSucceded(res, 'Update Task Position'))
+    .catch(sendError);
+}
+
 const sendCommandSucceded = curry((res, command) => {
   return res.status(200).json({
     command: command || 'command'
@@ -27,5 +35,6 @@ const sendError = curry((res, error) => {
 
 module.exports = {
   createBoard: createBoard,
-  switchBoards: switchBoards
+  switchBoards: switchBoards,
+  updateTaskPosition: updateTaskPosition
 }

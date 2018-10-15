@@ -20,6 +20,7 @@ export class SocketService {
     boardCreated$: Observable<any>;
     taskRemovedFromBoard$: Observable<any>;
     taskAddedToBoard$: Observable<any>;
+    taskPositionUpdated$: Observable<any>;
 
   constructor() {
     this.socket = socketIo(SOCKET_URL);
@@ -33,7 +34,7 @@ export class SocketService {
     this.taskMoved$ = this.listen('TaskMoved');
     this.taskRemovedFromBoard$ = this.listen('TaskRemovedFromBoard');
     this.taskAddedToBoard$ = this.listen('TaskAddedToBoard');
-
+    this.taskPositionUpdated$ = this.listen('TaskPositionUpdated');
     this.boardCreated$ = this.listen('BoardCreated');
    }
 

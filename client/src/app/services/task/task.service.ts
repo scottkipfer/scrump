@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { Task, CreateTaskModel } from '../../models';
+import { Board, Task, CreateTaskModel } from '../../models';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,7 +17,6 @@ export class TaskService {
   board: string;
 
   constructor(private http: HttpClient) { }
-
 
   public addTask(task: Task): Observable<Task> {
     return this.http.post<Task>(this.tasksUrl, task, httpOptions).pipe(
@@ -59,6 +58,11 @@ export class TaskService {
     let popped = updatedTasks.splice(fromIndex, 1)[0];
     updatedTasks.splice(toIndex, 0, popped);
     this._tasks.next(updatedTasks)
+  }
+  
+  public updateTaskPostion(fromIndex: number, toIndex: number, board: Board) {
+    const url = `${this.commandUrl}/updateTaskPosition/${board}`;
+    return this.http.post(url, {fromIndex, toIndex}, httpOptions);
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

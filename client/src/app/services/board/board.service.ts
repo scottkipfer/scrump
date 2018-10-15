@@ -10,6 +10,7 @@ const httpOptions = {
 })
 export class BoardService {
   private boardUrl: string = 'http://localhost:2700/v1/boards';
+  commandUrl: string ='http://localhost:2700/command';
 
   public getBoard(boardName: string) {
     const url = `${this.boardUrl}/${boardName}`
@@ -18,6 +19,11 @@ export class BoardService {
 
   public createBoard(board: Board) {
     return this.http.post<Board>(this.boardUrl, board, httpOptions);
+  }
+
+  public updateTaskPosition(fromIndex: number, toIndex: number, board: Board) {
+    const url = `${this.commandUrl}/updateTaskPosition/${board.name}`;
+    return this.http.post(url, {fromIndex, toIndex}, httpOptions);
   }
 
   constructor(private http: HttpClient) { }

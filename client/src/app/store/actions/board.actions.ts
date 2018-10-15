@@ -20,6 +20,12 @@ export const REMOVE_TASK_FROM_BOARD_ERROR = type('[Board] Faied To Remove Task F
 export const REMOVE_TASK_FROM_BOARD_SUCCESS = type('[Board] Successfully Removed Task From Baord');
 export const TASK_REMOVED_FROM_BOARD = type('[Board] Task Removed From Board');
 
+export const UPDATE_TASK_POSITION = type('[Board] Update Task Position');
+export const UPDATE_TASK_POSITION_ERROR = type('[Board] Failed To Update Task Position');
+export const UPDATE_TASK_POSITION_SUCCESS = type('[Board] Successfully Updated Task Position');
+export const TASK_POSITION_UPDATED = type('[Board] Task Position Updated');
+
+
 
 export class CreateBoard implements Action {
   public type: string = CREATE_BOARD;
@@ -91,6 +97,25 @@ export class TaskAddedToBoard implements Action {
   constructor(public payload: any) {}
 }
 
+export class UpdateTaskPosition implements Action {
+  public type: string = UPDATE_TASK_POSITION;
+  constructor(public payload: any) {}
+}
+export class UpdateTaskPositionError implements Action {
+  public type: string = UPDATE_TASK_POSITION_ERROR;
+  constructor(public payload: any) {}
+}
+
+export class UpdateTaskPositionSuccess implements Action {
+  public type: string = UPDATE_TASK_POSITION_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class TaskPositionUpdated implements Action {
+  public type: string = TASK_POSITION_UPDATED;
+  constructor(public payload: any) {}
+}
+
 export type BoardActions =
   | CreateBoard
   | CreateBoardError
@@ -105,5 +130,9 @@ export type BoardActions =
   | TaskRemovedFromBoard
   | RemoveTaskFromBoard
   | RemoveTaskFromBoardError
-  | RemoveTaskFromBoardSuccess;
+  | RemoveTaskFromBoardSuccess
+  | UpdateTaskPosition
+  | UpdateTaskPositionError
+  | UpdateTaskPositionSuccess
+  | TaskPositionUpdated;
 

@@ -49,7 +49,11 @@ export class TasksComponent implements OnInit {
 
   drop(event, index) {
     event.preventDefault();
-    this.taskService.moveTaskFromTo(this.draggingIndex, index);
+    this.store.dispatch(new fromStore.UpdateTaskPosition({
+      fromIndex: this.draggingIndex, 
+      toIndex: index
+    }));
+
   }
 
   dragend() {

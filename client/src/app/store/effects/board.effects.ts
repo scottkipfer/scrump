@@ -31,7 +31,6 @@ export class BoardEffects {
       map((action:boardActions.CreateBoard) => action.payload),
       switchMap((board: Board) => {
         return this.boardService.createBoard(board).pipe(
-          tap((board: Board) => {this.socketService.emit('something')}),
           map((board: Board) => new boardActions.CreateBoardSuccess(board)),
           catchError(error => of(new boardActions.CreateBoardError({error: error})))
         )
@@ -49,6 +48,27 @@ export class BoardEffects {
     @Effect()
     taskAddedToBoard$ = this.socketService.taskAddedToBoard$.pipe(
       switchMap(task => of(new boardActions.TaskAddedToBoard(task)).pipe(
+        withLatestFrom(this.store$.select(getBoard)),
+        map(([action, board]) => new boardActions.LoadBoard(board.name)))
+      )
+    )
+
+   @Effect()
+   updateTaskPostion$ = this.actions$
+     .ofType(boardActions.UPDATE_TASK_POSITION).pipe(
+       map((action: boardActions.UpdateTaskPosition) => action.payload),
+       withLatestFrom(this.store$.select(getBoard)),
+       switchMap(([action, board]) => {
+         return this.boardService.updateTaskPosition(action.fromIndex, action.toIndex, board).pipe(
+           map((board: Board) => new boardActions.UpdateTaskPositionSuccess(board)),
+           catchError(error => of(new boardActions.UpdateTaskPositionError({ error: error })))
+         );
+       })
+     );
+
+    @Effect()
+    taskPositionUpdated$ = this.socketService.taskPositionUpdated$.pipe(
+      switchMap(task => of(new boardActions.TaskPositionUpdated(task)).pipe(
         withLatestFrom(this.store$.select(getBoard)),
         map(([action, board]) => new boardActions.LoadBoard(board.name)))
       )
