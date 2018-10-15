@@ -17,7 +17,6 @@ const switchBoards = (req, res) => {
 
 const updateTaskPosition = (req, res) => {
   let {fromIndex, toIndex} = req.body;
-  console.log(req.board, req.body);
   return boardService.updateTaskPosition(req.board, fromIndex, toIndex)
     .then(sendCommandSucceded(res, 'Update Task Position'))
     .catch(sendError);
