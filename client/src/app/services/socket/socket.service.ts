@@ -22,6 +22,9 @@ export class SocketService {
     taskAddedToBoard$: Observable<any>;
     taskPositionUpdated$: Observable<any>;
 
+    // Sprint Events
+    sprintCreated$: Observable<any>;
+
   constructor() {
     this.socket = socketIo(SOCKET_URL);
     this.socket.on('connect', () => this.connected$.next(true));
@@ -36,6 +39,7 @@ export class SocketService {
     this.taskAddedToBoard$ = this.listen('TaskAddedToBoard');
     this.taskPositionUpdated$ = this.listen('TaskPositionUpdated');
     this.boardCreated$ = this.listen('BoardCreated');
+    this.sprintCreated$ = this.listen('SprintCreated');
    }
 
    join(room: string) {

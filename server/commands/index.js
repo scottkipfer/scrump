@@ -1,5 +1,6 @@
 const board = require('./board.commands');
 const task = require('./task.commands');
+const sprint = require('./sprint.commands');
 
 module.exports = (app) => {
 
@@ -17,5 +18,8 @@ module.exports = (app) => {
 
   app.route('/command/updateTaskPosition/:boardName')
     .post(board.updateTaskPosition);
+
+  app.route('/command/createSprint')
+    .post(sprint.createSprint);
 
 }

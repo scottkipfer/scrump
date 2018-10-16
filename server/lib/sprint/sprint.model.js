@@ -9,23 +9,28 @@ let SprintSchema = new Schema({
   },
   inProgress: [{
     type: Schema.Types.ObjectId,
-    ref: 'Task'
+    ref: 'Task',
+    default: []
   }],
   notStarted: [{
    type: Schema.Types.ObjectId,
-   ref: 'Task'
+   ref: 'Task',
+   default: []
   }],
   onHold: [{
     type: Schema.Types.ObjectId,
-    ref: 'Task'
+    ref: 'Task',
+    default: []
   }],
   completed: [{
     type: Schema.Types.ObjectId,
-    ref: 'Task'
+    ref: 'Task',
+    default: []
   }],
   canceled: [{
     type: Schema.Types.ObjectId,
-    ref: 'Task'
+    ref: 'Task',
+    default: []
   }],
   created: Date,
   updated: Date,

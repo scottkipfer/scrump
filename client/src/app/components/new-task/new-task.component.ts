@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store} from '@ngrx/store';
 import * as fromStore from '../../store';
-
-import { TaskService } from '../../services/task/task.service';
-import { Task } from '../../models/task';
 import {CreateTaskModel} from '../../models';
 
 @Component({
@@ -37,7 +34,6 @@ export class NewTaskComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private taskService: TaskService,
     private store: Store<fromStore.AppState>) {
   }
 }
