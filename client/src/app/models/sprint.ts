@@ -1,9 +1,11 @@
-export class Sprint {
-  owner?: string;
-  status?: string;
+import { Task } from '.'
 
-  constructor(owner: string, status:string) {
-    this.owner = owner;
-    this.status = status;
-  }
+export class Sprint {
+  _id?: string;
+  name?: string;
+  inProgress?: Task[];
+  notStarted?: Task[];
+  onHold?: Task[];
+  cancelled?: Task[];
+  completed?: Task[];
 }

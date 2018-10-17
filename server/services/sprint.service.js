@@ -1,5 +1,6 @@
 const Sprint = require('mongoose').model('Sprint');
 const socketService = require('../services/socket.service');
+const {curry} = require('ramda');
 
 const _createSprint = (sprint) => {
   return getCurrentSprint()
@@ -33,10 +34,26 @@ const createSprint = () => {
   let now = new Date();
   newSprint.name = `Sprint starting - ${now.getMonth()}/${now.getDate()}/${now.getFullYear()}`;
   return newSprint.save()
-    .then((sprint) => socketService.sendEvent('SprintCreated', sprint));
+    .then(sprint => sendEvent('SprintCreated', sprint))
 }
+
+const addTaskToCurrentSprint =  (task) => {
+  return getCurrentSprint()
+    .then(addTask(task))
+    .then(sendEvent('TaskAddedToSprint', task))
+}
+
+const sendEvent = (event, payload) => {
+  return socketService.sendEvent(event, payload);
+};
+
+const addTask = curry((task, sprint) => {
+  sprint.notStated.push(task);
+  return sprint.save();
+})
 
 module.exports = {
   createSprint: createSprint,
-  getCurrentSprint: getCurrentSprint
+  getCurrentSprint: getCurrentSprint,
+  addTaskToCurrentSprint: addTaskToCurrentSprint
 };

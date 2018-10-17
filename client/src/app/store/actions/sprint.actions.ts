@@ -1,6 +1,6 @@
 import { type } from '../../lib/utils';
 import { Action } from '@ngrx/store';
-import { Sprint } from '../../models';
+import { Sprint, Task} from '../../models';
 
 export const CREATE_SPRINT = type('[Sprint] Create Sprint');
 export const CREATE_SPRINT_ERROR = type('[Sprint] Failed To Create Sprint');
@@ -10,6 +10,8 @@ export const SPRINT_CREATED = type('[Sprint] Sprint Created');
 export const LOAD_CURRENT_SPRINT = type('[Sprint] - Load Current Sprint');
 export const LOAD_CURRENT_SPRINT_ERROR = type('[Sprint] - Failed to Load Current Sprint');
 export const LOAD_CURRENT_SPRINT_SUCCESS = type('[Sprint] - Successfully Loaded Current Sprint');
+
+export const TASK_ADDED_TO_SPRINT = type('[Sprint] - Task Added To Sprint');
 
 
 export class CreateSprint implements Action {
@@ -46,6 +48,11 @@ export class LoadCurrentSprintSuccess implements Action {
   public type: string = LOAD_CURRENT_SPRINT_SUCCESS;
   constructor(public payload: Sprint) {}
 }
+
+export class TaskAddedToSprint implements Action {
+  public type: string = TASK_ADDED_TO_SPRINT;
+  constructor(public payload: Task) {}
+}
   
 export type SprintActions = 
   | CreateSprint
@@ -54,4 +61,5 @@ export type SprintActions =
   | SprintCreated
   | LoadCurrentSprint
   | LoadCurrentSprintError
-  | LoadCurrentSprintSuccess;
+  | LoadCurrentSprintSuccess
+  | TaskAddedToSprint;

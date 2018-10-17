@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {map, tap, take} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs'
 import {TaskService} from '../../services/task/task.service';
 import {Store} from '@ngrx/store';
 import * as fromStore from '../../store';

@@ -47,7 +47,7 @@ const show = (req, res) => {
 };
 
 const current = (req, res) => {
-  Sprint.findOne({active: true}).then(sprint => {
+  Sprint.findOne({active: true}).populate('notStarted completed onHold inProgress cancelled').then(sprint => {
     if (!sprint) {
       return res.status(404).send({error: 'No active sprints'});
     }

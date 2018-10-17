@@ -21,6 +21,7 @@ export class SocketService {
     taskRemovedFromBoard$: Observable<any>;
     taskAddedToBoard$: Observable<any>;
     taskPositionUpdated$: Observable<any>;
+    taskAddedToSprint$: Observable<any>;
 
     // Sprint Events
     sprintCreated$: Observable<any>;
@@ -40,6 +41,7 @@ export class SocketService {
     this.taskPositionUpdated$ = this.listen('TaskPositionUpdated');
     this.boardCreated$ = this.listen('BoardCreated');
     this.sprintCreated$ = this.listen('SprintCreated');
+    this.taskAddedToSprint$ = this.listen('TaskAddedToSprint');
    }
 
    join(room: string) {

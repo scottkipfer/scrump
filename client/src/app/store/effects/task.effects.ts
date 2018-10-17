@@ -8,6 +8,7 @@ import * as boardActions from '../actions/board.actions';
 import {Task, CreateTaskModel, Board} from '../../models';
 import {AppState} from '../../store/reducers';
 import {getBoard} from '../../store/selectors/board.selectors';
+import {getCurrentSprint} from '../../store/selectors/sprint.selectors';
 import {Store} from '@ngrx/store';
 import { SocketService } from '../../services/socket/socket.service';
 
@@ -17,19 +18,19 @@ export class TaskEffects {
   createTask$ = this.actions$
     .ofType(taskActions.CREATE_TASK).pipe(
       map((action: taskActions.CreateTask) => action.payload),
-      switchMap((task: CreateTaskModel) => {
+      switchMap((task) => {
         return this.taskService.createTask(task).pipe(
           map(task => new taskActions.CreateTaskSuccess(task)),
           catchError(error => of(new taskActions.CreateTaskError({ error: error })))
-      );
-    })
+        );
+      })
     );
 
   @Effect()
   createTaskSuccess$ = this.actions$
     .ofType(taskActions.CREATE_TASK_SUCCESS).pipe(
-      withLatestFrom(this.store$.select(getBoard)),
-      map(([action, board]) => new boardActions.LoadBoard(board.name))
+      // withLatestFrom(this.store$.select(getBoard)),
+      // map(([action, board]) => new boardActions.LoadBoard(board.name))
     );
 
   @Effect()

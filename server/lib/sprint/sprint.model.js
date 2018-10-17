@@ -27,7 +27,7 @@ let SprintSchema = new Schema({
     ref: 'Task',
     default: []
   }],
-  canceled: [{
+  cancelled: [{
     type: Schema.Types.ObjectId,
     ref: 'Task',
     default: []

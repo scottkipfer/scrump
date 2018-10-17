@@ -3,14 +3,9 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import {map, switchMap, catchError, tap, withLatestFrom} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-
-import * as fromStore from '../../store';
-
 import * as sprintActions from '../actions/sprint.actions';
-
 import { SprintService } from '../../services/sprint/sprint.service';
 import { SocketService } from '../../services/socket/socket.service';
-
 import { Sprint } from '../../models';
 
 @Injectable()
@@ -53,7 +48,13 @@ export class SprintEffects {
 
   @Effect()
   sprintCreated$ = this.socketService.sprintCreated$.pipe(
-    switchMap((sprint) => of(new sprintActions.SprintCreated(sprint)))
+    switchMap(sprint => of(new sprintActions.SprintCreated(sprint)))
   )
-  
+ 
+  @Effect()
+  taskAddedToSprint$ = this.socketService.taskAddedToSprint$.pipe(
+    switchMap(task => of(new sprintActions.TaskAddedToSprint(task)).pipe(
+      map(() => new sprintActions.LoadCurrentSprint(null)))
+    )
+  )
 }

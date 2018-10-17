@@ -2,7 +2,7 @@ const taskService = require('../services/task.service.js');
 const {curry} = require('ramda');
 
 const createTask = (req, res) => {
-  return taskService.createTask(req.body.task, req.body.board, req.body.sprintId)
+  return taskService.createTask(req.body.task, req.body.board)
     .then(sendCommandSucceeded(res, 'CreateTask'))
     .catch((error) => {
       sendError(res, error)
