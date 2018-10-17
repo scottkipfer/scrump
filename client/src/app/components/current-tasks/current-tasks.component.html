@@ -1,6 +1,11 @@
-<app-tasks tasksHeader="In Progress" statusFilter="In Progress"></app-tasks>
-<app-tasks tasksHeader="Not Started" statusFilter="Not Started"></app-tasks>
-<app-tasks tasksHeader="On Hold" statusFilter="On Hold"></app-tasks>
-<app-tasks tasksHeader="Completed" statusFilter="Completed"></app-tasks>
-<app-tasks tasksHeader="Cancelled" statusFilter="Cancelled"></app-tasks>
-
+<div class="mt-md-4" *ngIf="(sprintError$ | async)">
+  It seems like there are no active sprints.<br>
+  <button class="btn btn-outline-primary mt-md-4" (click)="createSprint()">create sprint</button>
+</div>
+<div *ngIf="!(sprintError$ | async)">
+  <app-tasks tasksHeader="In Progress" statusFilter="In Progress"></app-tasks>
+  <app-tasks tasksHeader="Not Started" statusFilter="Not Started"></app-tasks>
+  <app-tasks tasksHeader="On Hold" statusFilter="On Hold"></app-tasks>
+  <app-tasks tasksHeader="Completed" statusFilter="Completed"></app-tasks>
+  <app-tasks tasksHeader="Cancelled" statusFilter="Cancelled"></app-tasks>
+</div>

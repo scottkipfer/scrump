@@ -1,6 +1,5 @@
 import { Sprint } from '../../models/sprint';
 import * as sprintActions from '../actions/sprint.actions';
-import { SprintState } from './sprint.reducers';
 
 export interface SprintState {
   loaded: boolean;
@@ -35,14 +34,16 @@ export function reducer(state: SprintState = initialState, action: sprintActions
         error: action.payload.error
       }
 
-    case sprintActions.LOAD_CURRENT_SPRINT_SUCCESS:
+      case sprintActions.SPRINT_CREATED:
+      case sprintActions.LOAD_CURRENT_SPRINT_SUCCESS:
       return {
         ...state,
         loaded: true,
         loading: false,
-        currentSprint: action.payload
+        currentSprint: action.payload,
+        error: null
       }
-
+    
     case sprintActions.CREATE_SPRINT_SUCCESS:
     case sprintActions.CREATE_SPRINT:
     default: return state;
@@ -50,6 +51,6 @@ export function reducer(state: SprintState = initialState, action: sprintActions
 
 }
 
-export  const getCurrentSprint = (state: SprintState) => state.currentSprint;
-
+export const getCurrentSprint = (state: SprintState) => state.currentSprint;
+export const getCurrentSprintError = (state: SprintState) => state.error || null;
 

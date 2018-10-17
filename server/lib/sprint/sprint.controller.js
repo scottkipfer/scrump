@@ -48,6 +48,9 @@ const show = (req, res) => {
 
 const current = (req, res) => {
   Sprint.findOne({active: true}).then(sprint => {
+    if (!sprint) {
+      return res.status(404).send({error: 'No active sprints'});
+    }
     req.sprint = sprint;
     res.status(200).json(sprint);
   });

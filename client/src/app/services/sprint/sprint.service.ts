@@ -15,20 +15,17 @@ export class SprintService {
   private _currentSprint: BehaviorSubject<Sprint> = new BehaviorSubject<Sprint>({});
   public readonly currentSprint: Observable<Sprint> = this._currentSprint.asObservable();
   sprintsUrl: string = 'http://localhost:2700/v1/sprints';
+  currentSprintUrl: string = 'http://localhost:2700/v1/currentSprint';
+  commandUrl: string = 'http://localhost:2700/command';
 
   public createSprint(sprint: Sprint): Observable<Sprint> {
-    return this.http.post<Sprint>(this.sprintsUrl, sprint, httpOptions).pipe(
-      tap((newSprint: Sprint) => this._currentSprint.next(newSprint)),
-      catchError(this.handleError<Sprint>('createSprint'))
-    );
+    let url = `${this.commandUrl}/createSprint`;
+    return this.http.post<Sprint>(url, sprint, httpOptions);
   }
 
   public getCurrentSprint(): Observable<Sprint> {
-    let url = `${this.sprintsUrl}/current`;
-    return this.http.get<Sprint>(url).pipe(
-      tap(currentSprint => this._currentSprint.next(currentSprint)),
-      catchError(this.handleError<Sprint>('getCurrentSprint'))
-    );
+    let url = `${this.currentSprintUrl}`;
+    return this.http.get<Sprint>(url);
   }
 
   public completeSprint(sprint:Sprint): Observable<Sprint> {
