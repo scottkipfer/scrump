@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Effect, Actions} from '@ngrx/effects';
 import {Store} from '@ngrx/store'
-import {of} from 'rxjs';
+import {of, Observable} from 'rxjs';
 import {map, switchMap, catchError, tap, withLatestFrom} from 'rxjs/operators';
 import {BoardService} from '../../services/board/board.service';
 import * as boardActions from '../actions/board.actions';
@@ -49,7 +49,11 @@ export class BoardEffects {
     taskAddedToBoard$ = this.socketService.taskAddedToBoard$.pipe(
       switchMap(task => of(new boardActions.TaskAddedToBoard(task)).pipe(
         withLatestFrom(this.store$.select(getBoard)),
-        map(([action, board]) => new boardActions.LoadBoard(board.name)))
+        map(([action, board]) => {
+          return board ?
+          new boardActions.LoadBoard(board.name) :
+          new boardActions.LoadBoardError({error: 'No board yet'})
+        }))
       )
     )
 

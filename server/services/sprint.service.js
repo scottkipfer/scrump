@@ -7,7 +7,7 @@ const _createSprint = (sprint) => {
     .then((currentSprint) => {
       let newSprint = new Sprint(sprint);     
       let {inProgress, notStarted, onHold} = currentSprint || {};
-      newSprint.inProgess = inProgess;
+      newSprint.inProgess = inProgress;
       newSprint.notStarted = notStarted;
       newSprint.onHold = onHold;
       return newSprint.save()
@@ -37,10 +37,10 @@ const createSprint = () => {
     .then(sprint => sendEvent('SprintCreated', sprint))
 }
 
-const addTaskToCurrentSprint =  (task) => {
+const addTaskToCurrentSprint = (task) => {
   return getCurrentSprint()
     .then(addTask(task))
-    .then(sendEvent('TaskAddedToSprint', task))
+    .then(() => sendEvent('TaskAddedToSprint', task))
 }
 
 const sendEvent = (event, payload) => {
@@ -48,7 +48,7 @@ const sendEvent = (event, payload) => {
 };
 
 const addTask = curry((task, sprint) => {
-  sprint.notStated.push(task);
+  sprint.notStarted.push(task);
   return sprint.save();
 })
 

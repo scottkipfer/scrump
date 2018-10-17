@@ -5,12 +5,13 @@ import {map, tap, switchMap, catchError, withLatestFrom} from 'rxjs/operators';
 import {TaskService} from '../../services/task/task.service';
 import * as taskActions from '../actions/task.actions';
 import * as boardActions from '../actions/board.actions';
+import * as sprintActions from '../actions/sprint.actions';
 import {Task, CreateTaskModel, Board} from '../../models';
 import {AppState} from '../../store/reducers';
 import {getBoard} from '../../store/selectors/board.selectors';
-import {getCurrentSprint} from '../../store/selectors/sprint.selectors';
 import {Store} from '@ngrx/store';
 import { SocketService } from '../../services/socket/socket.service';
+import { LoadCurrentSprint } from '../actions/sprint.actions';
 
 @Injectable()
 export class TaskEffects {
@@ -27,17 +28,16 @@ export class TaskEffects {
     );
 
   @Effect()
-  createTaskSuccess$ = this.actions$
-    .ofType(taskActions.CREATE_TASK_SUCCESS).pipe(
-      // withLatestFrom(this.store$.select(getBoard)),
-      // map(([action, board]) => new boardActions.LoadBoard(board.name))
-    );
-
-  @Effect()
   taskCreated$ = this.socketService.taskCreated$.pipe(
     switchMap(task => of(new taskActions.TaskCreated(task)).pipe(
       withLatestFrom(this.store$.select(getBoard)),
-      map(([action, board]) => new boardActions.LoadBoard(board.name)))
+      map(([action, board]) => {
+        if(board) {
+         return new boardActions.LoadBoard(board.name || 'backlog')
+        } else {
+          return new sprintActions.LoadCurrentSprint(null)
+        }
+      }))
     )
   );
 
