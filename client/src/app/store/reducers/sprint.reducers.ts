@@ -44,6 +44,9 @@ export function reducer(state: SprintState = initialState, action: sprintActions
         error: null
       }
     
+    case sprintActions.CHANGE_TASK_STATUS:
+    case sprintActions.SPRINT_TASK_POSITION_UPDATED:
+    case sprintActions.UPDATE_SPRINT_TASK_POSITION:
     case sprintActions.CREATE_SPRINT_SUCCESS:
     case sprintActions.CREATE_SPRINT:
     default: return state;

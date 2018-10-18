@@ -25,11 +25,22 @@ export class CurrentTasksComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("getting current sprint");
     this.sprintError$ = this.store.select(fromStore.getCurrentSprintError);
     this.sprint$ = this.store.select(fromStore.getCurrentSprint);
     this.notStartedTasks$ = this.sprint$.pipe(
       map((sprint: Sprint) => sprint? sprint.notStarted : [])
+    )
+    this.inProgressTasks$ = this.sprint$.pipe(
+      map((sprint: Sprint) => sprint? sprint.inProgress : [])
+    )
+    this.onHoldTasks$ = this.sprint$.pipe(
+      map((sprint: Sprint) => sprint? sprint.onHold : [])
+    )
+    this.completedTasks$ = this.sprint$.pipe(
+      map((sprint: Sprint) => sprint? sprint.completed : [])
+    )
+    this.cancelledTasks$ = this.sprint$.pipe(
+      map((sprint: Sprint) => sprint? sprint.cancelled : [])
     )
 
     this.store.dispatch(new fromStore.LoadCurrentSprint(null));

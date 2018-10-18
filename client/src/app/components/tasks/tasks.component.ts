@@ -15,11 +15,13 @@ import { getBoard } from '../../store';
 export class TasksComponent implements OnInit {
   @Input() tasksHeader: string;
   @Input() statusFilter: string;
+  @Input() type: string = 'board'; // sprint | board
+  @Input() listName: string; // inProgress | notStarted | ...etc
   @Input() tasks: Observable<Task[]>;
   private currentBoard$: Observable<string>;
 
   public boardTasks$: Observable<Task[]>;
-  draggingIndex: number;
+  draggingIndex: number = -1;
   draggingHoverIndex: number;
   draggingDirection: string;
 
@@ -37,8 +39,17 @@ export class TasksComponent implements OnInit {
     }));
   }
 
+  changeTaskStatus(task, event) {
+    let action = event;
+    action.taskId = task._id;
+    this.store.dispatch(new fromStore.ChangeTaskStatus(action));
+  }
+
   allowDrop(event, index) {
     event.preventDefault();
+    if (this.draggingIndex === -1) {
+      return false;
+    }
     this.draggingHoverIndex = index;
     this.draggingDirection = this.draggingIndex > index ? 'down' : 'up';
   }
@@ -49,11 +60,18 @@ export class TasksComponent implements OnInit {
 
   drop(event, index) {
     event.preventDefault();
-    this.store.dispatch(new fromStore.UpdateTaskPosition({
-      fromIndex: this.draggingIndex, 
-      toIndex: index
-    }));
-
+    if (this.type === 'sprint') {
+      this.store.dispatch(new fromStore.UpdateSprintTaskPosition({
+        list: this.listName,
+        fromIndex: this.draggingIndex, 
+        toIndex: index
+      }));  
+    } else {
+      this.store.dispatch(new fromStore.UpdateTaskPosition({
+        fromIndex: this.draggingIndex, 
+        toIndex: index
+      }));  
+    }
   }
 
   dragend() {

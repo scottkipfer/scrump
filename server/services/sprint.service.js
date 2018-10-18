@@ -37,6 +37,29 @@ const createSprint = () => {
     .then(sprint => sendEvent('SprintCreated', sprint))
 }
 
+const updateTaskPosition = (fromIndex, toIndex, list) => {
+  return getCurrentSprint()
+    .then(sprint => {
+      let popped = sprint[list].splice(fromIndex, 1)[0];
+      sprint[list].splice(toIndex, 0, popped);
+      return sprint.save()
+        .then(sendEvent('SprintTaskPositionUpdated', {list}));  // TODO: return something else?
+    })
+}
+
+const updateTaskStatus = (fromStatus, toStatus, taskId) => {
+  return getCurrentSprint()
+    .then(sprint => {
+      let taskIndex = sprint[fromStatus].findIndex((task) => task._id == taskId);
+      if (taskIndex > -1) {
+        let popped = sprint[fromStatus].splice(taskIndex, 1)[0];
+        sprint[toStatus].push(popped);
+        return sprint.save()
+          .then(sendEvent('TaskStatusChanged', sprint));
+      }
+    })
+}
+
 const addTaskToCurrentSprint = (task) => {
   return getCurrentSprint()
     .then(addTask(task))
@@ -55,5 +78,7 @@ const addTask = curry((task, sprint) => {
 module.exports = {
   createSprint: createSprint,
   getCurrentSprint: getCurrentSprint,
-  addTaskToCurrentSprint: addTaskToCurrentSprint
+  addTaskToCurrentSprint: addTaskToCurrentSprint,
+  updateTaskPosition: updateTaskPosition,
+  updateTaskStatus: updateTaskStatus,
 };

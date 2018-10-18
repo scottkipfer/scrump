@@ -22,4 +22,10 @@ module.exports = (app) => {
   app.route('/command/createSprint')
     .post(sprint.createSprint);
 
+  app.route('/command/updateSprintTaskPosition')
+    .post(sprint.updateSprintTaskPosition);
+
+  app.route('/command/updateTaskStatus')
+    .post(sprint.updateTaskStatus);
+
 }
