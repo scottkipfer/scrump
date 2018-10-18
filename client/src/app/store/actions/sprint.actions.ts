@@ -13,6 +13,15 @@ export const LOAD_CURRENT_SPRINT_SUCCESS = type('[Sprint] - Successfully Loaded 
 
 export const TASK_ADDED_TO_SPRINT = type('[Sprint] - Task Added To Sprint');
 
+export const UPDATE_SPRINT_TASK_POSITION = type('[Sprint] - Update Task Position');
+export const UPDATE_SPRINT_TASK_POSITION_ERROR = type('[Sprint] - Failed to update task position');
+export const UPDATE_SPRINT_TASK_POSITION_SUCCESS = type('[Sprint] - Successfully updated task position');
+export const SPRINT_TASK_POSITION_UPDATED = type('[Sprint] - Task Position Updated');
+
+export const CHANGE_TASK_STATUS = type('[Sprint] - Change Task Status');
+export const CHANGE_TASK_STATUS_ERROR = type('[Sprint] - Failed to Change Task Status');
+export const CHANGE_TASK_STATUS_SUCCESS = type('[Sprint] - Successfully Changed Task Status');
+export const TASK_STATUS_CHANGED = type('[Sprint] - Task Status Changed');
 
 export class CreateSprint implements Action {
   public type: string = CREATE_SPRINT;
@@ -53,7 +62,47 @@ export class TaskAddedToSprint implements Action {
   public type: string = TASK_ADDED_TO_SPRINT;
   constructor(public payload: Task) {}
 }
-  
+
+export class UpdateSprintTaskPosition implements Action {
+  public type: string = UPDATE_SPRINT_TASK_POSITION;
+  constructor(public payload: any) {};
+}
+
+export class UpdateSprintTaskPositionError implements Action {
+  public type: string = UPDATE_SPRINT_TASK_POSITION_ERROR;
+  constructor(public payload: any) {};
+}
+
+export class UpdateSprintTaskPositionSuccess implements Action {
+  public type: string = UPDATE_SPRINT_TASK_POSITION_SUCCESS;
+  constructor(public payload: any) {};
+}
+
+export class SprintTaskPositionUpdated implements Action {
+  public type: string = SPRINT_TASK_POSITION_UPDATED;
+  constructor(public payload: any) {};
+}
+
+export class ChangeTaskStatus implements Action {
+  public type: string = CHANGE_TASK_STATUS;
+  constructor(public payload: any) {};
+}
+
+export class ChangeTaskStatusError implements Action {
+  public type: string = CHANGE_TASK_STATUS_ERROR;
+  constructor(public payload: any) {};
+}
+
+export class ChangeTaskStatusSuccess implements Action {
+  public type: string = CHANGE_TASK_STATUS_SUCCESS;
+  constructor(public payload: any) {};
+}
+
+export class TaskStatusChanged implements Action {
+  public type: string = TASK_STATUS_CHANGED;
+  constructor(public payload: any) {};
+}
+
 export type SprintActions = 
   | CreateSprint
   | CreateSprintError
@@ -62,4 +111,12 @@ export type SprintActions =
   | LoadCurrentSprint
   | LoadCurrentSprintError
   | LoadCurrentSprintSuccess
-  | TaskAddedToSprint;
+  | TaskAddedToSprint
+  | UpdateSprintTaskPosition
+  | UpdateSprintTaskPositionError
+  | UpdateSprintTaskPositionSuccess
+  | SprintTaskPositionUpdated
+  | ChangeTaskStatus
+  | ChangeTaskStatusError
+  | ChangeTaskStatusSuccess
+  | TaskStatusChanged;

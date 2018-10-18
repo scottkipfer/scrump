@@ -101,6 +101,7 @@ export class UpdateTaskPosition implements Action {
   public type: string = UPDATE_TASK_POSITION;
   constructor(public payload: any) {}
 }
+
 export class UpdateTaskPositionError implements Action {
   public type: string = UPDATE_TASK_POSITION_ERROR;
   constructor(public payload: any) {}

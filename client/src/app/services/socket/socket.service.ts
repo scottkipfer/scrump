@@ -25,6 +25,8 @@ export class SocketService {
 
     // Sprint Events
     sprintCreated$: Observable<any>;
+    sprintTaskPositionUpdated$: Observable<any>;
+    taskStatusChanged$: Observable<any>;
 
   constructor() {
     this.socket = socketIo(SOCKET_URL);
@@ -42,6 +44,8 @@ export class SocketService {
     this.boardCreated$ = this.listen('BoardCreated');
     this.sprintCreated$ = this.listen('SprintCreated');
     this.taskAddedToSprint$ = this.listen('TaskAddedToSprint');
+    this.sprintTaskPositionUpdated$ = this.listen('SprintTaskPositionUpdated');
+    this.taskStatusChanged$ = this.listen('TaskStatusChanged');
    }
 
    join(room: string) {

@@ -36,6 +36,16 @@ export class SprintService {
     );
   }
 
+  public updateTaskPosition(fromIndex: number, toIndex: number, list: string) {
+    const url = `${this.commandUrl}/updateSprintTaskPosition`;
+    return this.http.post(url, {fromIndex, toIndex, list}, httpOptions);
+  }
+
+  public changeTaskStatus(fromStatus: string, toStatus: string, taskId: string) {
+    const url = `${this.commandUrl}/updateTaskStatus`;
+    return this.http.post(url, {fromStatus, toStatus, taskId});
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
