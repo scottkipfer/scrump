@@ -40,12 +40,12 @@ const createSprint = () => {
 const addTaskToCurrentSprint = (task) => {
   return getCurrentSprint()
     .then(addTask(task))
-    .then(() => sendEvent('TaskAddedToSprint', task))
+    .then(sendEvent('TaskAddedToSprint'))
 }
 
-const sendEvent = (event, payload) => {
+const sendEvent = curry((event, payload) => {
   return socketService.sendEvent(event, payload);
-};
+});
 
 const addTask = curry((task, sprint) => {
   sprint.notStarted.push(task);
