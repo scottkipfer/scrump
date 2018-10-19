@@ -1,6 +1,6 @@
 const Sprint = require('mongoose').model('Sprint');
 const socketService = require('../services/socket.service');
-const {curry} = require('ramda');
+const {curry, reject} = require('ramda');
 
 const _createSprint = (sprint) => {
   return getCurrentSprint()
@@ -66,6 +66,22 @@ const addTaskToCurrentSprint = (task) => {
     .then(sendEvent('TaskAddedToSprint'))
 }
 
+const removeTaskFromCurrentSprint = (task) => {
+  return getCurrentSprint()
+    .then(removeTask(task))
+    .then(sendEvent('TaskStatusChanged', {taskId: task}));
+}
+
+const removeTask = curry((taskId, sprint) => {
+  let isTask = task => task == taskId;
+  sprint.inProgress = reject(isTask, sprint.inProgress);
+  sprint.notStarted = reject(isTask, sprint.notStarted);
+  sprint.completed = reject(isTask, sprint.completed);
+  sprint.cancelled = reject(isTask, sprint.cancelled);
+  sprint.onHold = reject(isTask, sprint.onHold);
+  return sprint.save();
+});
+
 const sendEvent = curry((event, payload) => {
   return socketService.sendEvent(event, payload);
 });
@@ -79,6 +95,7 @@ module.exports = {
   createSprint: createSprint,
   getCurrentSprint: getCurrentSprint,
   addTaskToCurrentSprint: addTaskToCurrentSprint,
+  removeTaskFromCurrentSprint: removeTaskFromCurrentSprint,
   updateTaskPosition: updateTaskPosition,
   updateTaskStatus: updateTaskStatus,
 };

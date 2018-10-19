@@ -1,6 +1,7 @@
 const Board = require('mongoose').model('Board');
 const { curry, reject } = require('ramda');
 const socketService = require('../services/socket.service');
+const sprintService = require('../services/sprint.service');
 
 const createBoard = (board) => {
   let newBoard = new Board(board);
@@ -9,15 +10,23 @@ const createBoard = (board) => {
 };
 
 const addTaskToBoard = (boardName, task) => {
+  if (boardName === 'sprint') {
+    return sprintService.addTaskToCurrentSprint(task);
+  } else {
   return findBoardByName(boardName)
     .then(addTask(task))
     .then(sendEvent('TaskAddedToBoard', {boardName: boardName, task: task}))
+  }
 };
 
 const removeTaskFromBoard = (boardName, taskId) => {
+  if (boardName === 'sprint') {
+    return  sprintService.removeTaskFromCurrentSprint(taskId);
+  } else {
   return findBoardByName(boardName)
     .then(removeTask(taskId))
     .then(sendEvent('TaskRemovedFromBoard', {boardName: boardName, taskId: taskId}))
+  }
 };
 
 const findBoardByName = (boardName) => {

@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../../models';
 import * as fromStore from '../../store';
 import {Store} from '@ngrx/store';
-import { TaskService } from '../../services/task/task.service';
 import {Observable} from 'rxjs';
 import {take, map} from 'rxjs/operators';
 import { getBoard } from '../../store';
@@ -36,6 +35,7 @@ export class TasksComponent implements OnInit {
     this.store.dispatch(new fromStore.SwitchBoards({
       taskId: task._id,
       newBoard: newBoard,
+      type: this.type
     }));
   }
 
@@ -81,6 +81,5 @@ export class TasksComponent implements OnInit {
   }
 
   constructor(
-    private taskService: TaskService,
     private store: Store<fromStore.AppState>) {}
 }

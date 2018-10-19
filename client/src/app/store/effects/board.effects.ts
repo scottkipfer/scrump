@@ -6,6 +6,7 @@ import {of, Observable} from 'rxjs';
 import {map, switchMap, catchError, tap, withLatestFrom} from 'rxjs/operators';
 import {BoardService} from '../../services/board/board.service';
 import * as boardActions from '../actions/board.actions';
+import * as sprintActions from '../actions/sprint.actions';
 import * as fromStore from '../../store'
 import {getBoard} from '../../store/selectors/board.selectors';
 import { Board } from '../../models';
@@ -41,7 +42,11 @@ export class BoardEffects {
     taskRemovedFromBoard$ = this.socketService.taskRemovedFromBoard$.pipe(
       switchMap(task => of(new boardActions.TaskRemovedFromBoard(task)).pipe(
         withLatestFrom(this.store$.select(getBoard)),
-        map(([action, board]) => new boardActions.LoadBoard(board.name)))
+        map(([action, board]) => { 
+          return board ? 
+          new boardActions.LoadBoard(board.name) :
+          new sprintActions.LoadCurrentSprint(null)
+        }))
       )
     )
 

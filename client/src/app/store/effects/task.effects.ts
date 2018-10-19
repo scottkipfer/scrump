@@ -70,7 +70,7 @@ export class TaskEffects {
           return this.taskService.switchBoards({
             taskId: switchBoardObj.taskId,
             newBoard: switchBoardObj.newBoard,
-            oldBoard: board.name
+            oldBoard: switchBoardObj.type == 'board' ? board.name: 'sprint'
           }).pipe(
             map(result => new taskActions.SwitchBoardsSuccess(result)),
             catchError(error => of(new taskActions.SwitchBoardsError({ error: error})))
