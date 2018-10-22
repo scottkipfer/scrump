@@ -18,6 +18,9 @@ export class AppComponent {
     if (!result) {
       result = 'current';
     }
+    if (result === 'completed') {
+      result = 'sprints';
+    }
     this.setActive(result);
   }
 
