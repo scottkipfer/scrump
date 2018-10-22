@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule }    from '@angular/common/http';
 import { NgbModule, NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../environments/environment.prod';
 
 // NGRX
 import { StoreModule } from '@ngrx/store';
@@ -42,11 +43,6 @@ const appRoutes: Routes = [
   { path: 'completed', component: PastSprintsComponent },
 ];
 
-const environment = {
-  development: true,
-  productions: false,
-};
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +60,7 @@ const environment = {
     PastSprintsComponent
   ],
   imports: [
-  BrowserModule,
+BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
     FormsModule,
@@ -72,7 +68,7 @@ const environment = {
     RouterModule.forRoot(appRoutes),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    environment.development ? StoreDevtoolsModule.instrument(): []
+    environment.production ? [] : StoreDevtoolsModule.instrument()
   ],
   entryComponents: [
     NewTaskComponent

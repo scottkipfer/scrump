@@ -11,7 +11,6 @@ import {AppState} from '../../store/reducers';
 import {getBoard} from '../../store/selectors/board.selectors';
 import {Store} from '@ngrx/store';
 import { SocketService } from '../../services/socket/socket.service';
-import { LoadCurrentSprint } from '../actions/sprint.actions';
 
 @Injectable()
 export class TaskEffects {
