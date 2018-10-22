@@ -23,6 +23,10 @@ export const CHANGE_TASK_STATUS_ERROR = type('[Sprint] - Failed to Change Task S
 export const CHANGE_TASK_STATUS_SUCCESS = type('[Sprint] - Successfully Changed Task Status');
 export const TASK_STATUS_CHANGED = type('[Sprint] - Task Status Changed');
 
+export const LOAD_PAST_SPRINTS = type('[Sprint] - Load Past Sprints');
+export const LOAD_PAST_SPRINTS_ERROR = type('[Sprint] - Failed to Load Past Sprints');
+export const LOAD_PAST_SPRINTS_SUCCESS = type('[Sprint] - Successfully Loaded Past Sprints');
+
 export class CreateSprint implements Action {
   public type: string = CREATE_SPRINT;
   constructor(public payload: Sprint) {}
@@ -103,6 +107,21 @@ export class TaskStatusChanged implements Action {
   constructor(public payload: any) {};
 }
 
+export class LoadPastSprints implements Action {
+  public type: string = LOAD_PAST_SPRINTS;
+  constructor(public payload: any) {}
+}
+
+export class LoadPastSprintsError implements Action {
+  public type: string = LOAD_PAST_SPRINTS_ERROR;
+  constructor(public payload: any) {}
+}
+
+export class LoadPastSprintsSuccess implements Action {
+  public type: string = LOAD_PAST_SPRINTS_SUCCESS;
+  constructor(public payload: any) {}
+}
+
 export type SprintActions = 
   | CreateSprint
   | CreateSprintError
@@ -119,4 +138,7 @@ export type SprintActions =
   | ChangeTaskStatus
   | ChangeTaskStatusError
   | ChangeTaskStatusSuccess
-  | TaskStatusChanged;
+  | TaskStatusChanged
+  | LoadPastSprints
+  | LoadPastSprintsError
+  | LoadPastSprintsSuccess;

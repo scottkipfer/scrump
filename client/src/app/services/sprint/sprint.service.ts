@@ -28,6 +28,11 @@ export class SprintService {
     return this.http.get<Sprint>(url);
   }
 
+  public getPastSprints(): Observable<Sprint[]> {
+    let url = `${this.sprintsUrl}`;
+    return this.http.get<Sprint[]>(url);
+  }
+
   public completeSprint(sprint:Sprint): Observable<Sprint> {
     const url = `${this.sprintsUrl}/complete`;
     return this.http.post<Sprint>(url, sprint, httpOptions).pipe(

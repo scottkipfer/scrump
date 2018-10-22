@@ -1,0 +1,9 @@
+<div class="mt-md-4" *ngIf="(sprintError$ | async)">
+  There are either no past sprints or there was an error retrieving them.<br>
+</div>
+<div *ngIf="!(sprintError$ | async)">
+  <div *ngFor="let sprint of (sprints$ | async) index as i">
+    Sprint: {{sprint.name}}
+  </div>
+
+</div>
