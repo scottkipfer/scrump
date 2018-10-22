@@ -30,7 +30,7 @@
           (dragend)="dragend()">
         <td>{{ i + 1 }}</td>
         <td><app-board-cell [board]="task.board" (boardChange)="changeBoard(task, $event);"></app-board-cell></td>
-        <td><app-status-cell [list]="listName" (listChange)="changeTaskStatus(task, $event);"></app-status-cell></td>
+        <td><span *ngIf="type === 'sprint'"><app-status-cell [list]="listName" (listChange)="changeTaskStatus(task, $event);"></app-status-cell></span></td>
         <td class="text-left">
           <app-text-cell [value]="task.summary" (valueChange)="task.summary=$event; saveChanges(task);"></app-text-cell>
         </td>
