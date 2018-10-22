@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { Board, Task, CreateTaskModel } from '../../models';
+import { environment } from '../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,8 +13,8 @@ const httpOptions = {
 export class TaskService {
   private _tasks: BehaviorSubject<Task[]> = new BehaviorSubject([]);
   public readonly tasks: Observable<Task[]> = this._tasks.asObservable();
-  tasksUrl: string = 'http://localhost:2700/v1/tasks';
-  commandUrl: string ='http://localhost:2700/command'
+  tasksUrl: string = `${environment.nodeServer}/v1/tasks`;
+  commandUrl: string =`${environment.nodeServer}/command`;
   board: string;
 
   constructor(private http: HttpClient) { }

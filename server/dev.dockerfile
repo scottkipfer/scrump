@@ -11,4 +11,6 @@ EXPOSE 2701
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
 RUN chmod +x /wait
 
+ENV MONGO_URL=mongodb://database/test
+
 CMD /wait && cd server && pm2 start app.js --no-daemon --watch

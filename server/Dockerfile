@@ -6,8 +6,11 @@ COPY . /app
 EXPOSE 2700
 EXPOSE 2701
 
+
 ## THE LIFE SAVER
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
 RUN chmod +x /wait
 
-CMD /wait && node app.js
+ENV MONGO_URL=mongodb://localhost:27017/scrump
+
+CMD node app.js

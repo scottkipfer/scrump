@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import * as socketIo from 'socket.io-client';
+import { environment } from '../../../environments/environment';
 
 
-const SOCKET_URL = 'http://localhost:2701';
+const SOCKET_URL = `${environment.socketServer}`;
 
 @Injectable()
 export class SocketService {

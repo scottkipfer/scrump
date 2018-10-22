@@ -4,13 +4,14 @@ import {Board} from '../../models';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService {
-  private boardUrl: string = 'http://localhost:2700/v1/boards';
-  commandUrl: string ='http://localhost:2700/command';
+  private boardUrl: string = `${environment.nodeServer}/v1/boards`;
+  commandUrl: string =`${environment.nodeServer}/command`;
 
   public getBoard(boardName: string) {
     const url = `${this.boardUrl}/${boardName}`

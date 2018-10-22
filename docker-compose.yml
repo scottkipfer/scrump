@@ -14,7 +14,8 @@ services:
   backend: 
     build: ./server
     ports:
-      - "3000:3000"
+      - "2700:2700"
+      - "2701:2701"
     depends_on:
       - database
     links:

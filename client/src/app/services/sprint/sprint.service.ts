@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/internal/operators';
 import { Sprint } from '../../models/sprint';
+import { environment } from '../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,9 +15,9 @@ const httpOptions = {
 export class SprintService {
   private _currentSprint: BehaviorSubject<Sprint> = new BehaviorSubject<Sprint>({});
   public readonly currentSprint: Observable<Sprint> = this._currentSprint.asObservable();
-  sprintsUrl: string = 'http://localhost:2700/v1/sprints';
-  currentSprintUrl: string = 'http://localhost:2700/v1/currentSprint';
-  commandUrl: string = 'http://localhost:2700/command';
+  sprintsUrl: string = `${environment.nodeServer}/v1/sprints`;
+  currentSprintUrl: string = `${environment.nodeServer}/v1/currentSprint`;
+  commandUrl: string = `${environment.nodeServer}/command`;
 
   public createSprint(sprint: Sprint): Observable<Sprint> {
     let url = `${this.commandUrl}/createSprint`;
