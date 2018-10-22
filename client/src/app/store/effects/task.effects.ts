@@ -57,7 +57,11 @@ export class TaskEffects {
   taskUpdated$ = this.socketService.taskUpdated$.pipe(
     switchMap(task => of(new taskActions.TaskUpdated(task)).pipe(
       withLatestFrom(this.store$.select(getBoard)),
-      map(([action, board]) => new boardActions.LoadBoard(board.name))) // TODO: this wont work if there is no board
+      map(([action, board]) => 
+        board ? 
+        new boardActions.LoadBoard(board.name) :
+        new sprintActions.LoadCurrentSprint(null)
+      ))
     )
   );
 
