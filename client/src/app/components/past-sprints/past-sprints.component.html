@@ -1,0 +1,9 @@
+<div class="mt-md-4" *ngIf="(sprintError$ | async)">
+  There are either no past sprints or there was an error retrieving them.<br>
+</div>
+<div *ngIf="!(sprintError$ | async)" class="mt-3">
+  <div *ngFor="let sprint of (sprints$ | async) index as i">
+    <div class="alert alert-secondary text-left mb-3">{{sprint.name}}</div>
+    <app-tasks [tasks]="getSprintTasks(sprint)" type="sprint" readOnly="true" listName="completed"></app-tasks>
+  </div>
+</div>

@@ -20,7 +20,7 @@
         <a class="nav-link" routerLink="/board/icebox" (click)="setActive('icebox')" [ngClass]="{ 'active': activeTab === 'icebox' }">Icebox</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" routerLink="/completed" (click)="setActive('sprints')" [ngClass]="{ 'active': activeTab === 'sprints' }">Past Sprints</a>
+        <a class="nav-link" routerLink="/completed" (click)="setActive('sprints')" [ngClass]="{ 'active': activeTab === 'sprints' }">Past Sprints</a>
       </li>
     </ul>
     <button class="btn btn-outline-success" (click)="openModal()"><i class="fas fa-plus-circle mr-1"></i>New Task</button>

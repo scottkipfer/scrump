@@ -15,7 +15,13 @@ const read = (req, res) => {
   if (req.query.active) {
     query.active = req.query.active;
   }
-  Sprint.find(query).then((sprints) => {
+  let options = {
+    limit: 10,
+    sort: {
+        created: -1 //Sort by Date Added DESC
+    }
+  }
+  Sprint.find(query, null, options).populate('completed').then((sprints) => {
     return res.status(200).json(sprints)
   }).catch((err) => {
     return res.status(500).json(err);

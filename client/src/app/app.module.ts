@@ -32,12 +32,14 @@ import { BoardCellComponent } from './components/board-cell/board-cell.component
 // Services
 import {TaskService} from './services/task/task.service';
 import {SprintService} from './services/sprint/sprint.service';
-import {SocketService} from './services/socket/socket.service'
+import {SocketService} from './services/socket/socket.service';
+import { PastSprintsComponent } from './components/past-sprints/past-sprints.component'
 
 const appRoutes: Routes = [
   { path: 'current', component: CurrentTasksComponent },
   { path: 'board/:name', component: BoardComponent },
   { path: '', redirectTo: '/current', pathMatch: 'full'},
+  { path: 'completed', component: PastSprintsComponent },
 ];
 
 const environment = {
@@ -58,7 +60,8 @@ const environment = {
     StatusCellComponent,
     NewTaskComponent,
     BoardComponent,
-    BoardCellComponent
+    BoardCellComponent,
+    PastSprintsComponent
   ],
   imports: [
   BrowserModule,

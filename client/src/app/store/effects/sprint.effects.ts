@@ -33,6 +33,19 @@ export class SprintEffects {
       })
     )
 
+  @Effect()
+  loadPastSprints$ = this.actions$
+    .ofType(sprintActions.LOAD_PAST_SPRINTS).pipe(
+      map((action: sprintActions.LoadPastSprints) => action.payload),
+      switchMap((sprint: Sprint) => {
+        return this.sprintService.getPastSprints()
+        .pipe(
+          map((sprints: Sprint[]) => new sprintActions.LoadPastSprintsSuccess(sprints)),
+          catchError(error => of(new sprintActions.LoadPastSprintsError({error: error})))
+        )
+      })
+    )
+  
 
   @Effect()
   createSprint$ = this.actions$
