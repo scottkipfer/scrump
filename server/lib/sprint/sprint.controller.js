@@ -12,8 +12,9 @@ const create = (req, res) => {
 
 const read = (req, res) => {
   let query = {};
-  query.active = req.body.active;
-
+  if (req.query.active) {
+    query.active = req.query.active;
+  }
   Sprint.find(query).then((sprints) => {
     return res.status(200).json(sprints)
   }).catch((err) => {
