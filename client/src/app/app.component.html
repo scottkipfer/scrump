@@ -1,7 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">{{ title }}</a>
+  <a class="navbar-brand mr-0" href="#">
+    {{ title }}
+  </a>
+    <small class="p-1" style="font-size:4px"><i class="fas fa-circle mr-2" [ngClass]="{'text-success': (connected$ | async), 'text-danger': !(connected$ | async)}"></i></small>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

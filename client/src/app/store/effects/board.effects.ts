@@ -1,16 +1,15 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {Effect, Actions} from '@ngrx/effects';
 import {Store} from '@ngrx/store'
-import {of, Observable} from 'rxjs';
+import {of} from 'rxjs';
 import {map, switchMap, catchError, tap, withLatestFrom} from 'rxjs/operators';
 import {BoardService} from '../../services/board/board.service';
 import * as boardActions from '../actions/board.actions';
 import * as sprintActions from '../actions/sprint.actions';
 import * as fromStore from '../../store'
 import {getBoard} from '../../store/selectors/board.selectors';
-import { Board } from '../../models';
-import { SocketService } from '../../services/socket/socket.service';
+import {Board} from '../../models';
+import {SocketService} from '../../services/socket/socket.service';
 
 @Injectable()
 export class BoardEffects {

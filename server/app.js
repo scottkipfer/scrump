@@ -7,10 +7,6 @@ const http = require('http');
 
 require('./core/db');
 
-process.on('unhandledRejection', (reason) => {
-  console.log('Reason: ' + reason);
-});
-
 let app = express();
 app.use(logger('dev'));
 app.use(cors());
