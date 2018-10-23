@@ -34,12 +34,9 @@ export class SprintService {
     return this.http.get<Sprint[]>(url);
   }
 
-  public completeSprint(sprint:Sprint): Observable<Sprint> {
-    const url = `${this.sprintsUrl}/complete`;
-    return this.http.post<Sprint>(url, sprint, httpOptions).pipe(
-      tap((newSprint: Sprint) => this._currentSprint.next(newSprint)),
-      catchError(this.handleError<Sprint>('completeSprint'))
-    );
+  public completeSprint(): Observable<Sprint> {
+    const url = `${this.commandUrl}/completeSprint`;
+    return this.http.post<Sprint>(url, {}, httpOptions)
   }
 
   public updateTaskPosition(fromIndex: number, toIndex: number, list: string) {

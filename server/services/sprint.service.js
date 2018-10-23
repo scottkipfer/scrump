@@ -1,23 +1,36 @@
 const Sprint = require('mongoose').model('Sprint');
+const Board = require('mongoose').model('Board');
 const socketService = require('../services/socket.service');
-const {curry, reject} = require('ramda');
+const boardService = require('../services/board.service');
+const { curry, reject } = require('ramda');
 
-const _createSprint = (sprint) => {
+const completeSprint = (sprint) => {
   return getCurrentSprint()
     .then((currentSprint) => {
-      let newSprint = new Sprint(sprint);     
-      let {inProgress, notStarted, onHold} = currentSprint || {};
+      let newSprint = new Sprint();
+      let { inProgress, notStarted, onHold } = currentSprint || {};
       newSprint.inProgess = inProgress;
       newSprint.notStarted = notStarted;
       newSprint.onHold = onHold;
-      return newSprint.save()
+      newSprint.name = nameSprint();
+      return Board.findOne({name: 'preplanning'}).then(board => {
+        newSprint.notStarted = newSprint.notStarted.concat(board.tasks);
+        console.log(newSprint);
+        return newSprint.save()
+          .then(spirnt => {return Board.findOne({name: 'preplanning'})})
+          .then(board => {
+            board.tasks = [];
+            console.log(board);
+            return board.save()
+          })
+      })
         .then((sprint) => socketService.sendEvent('SprintCreated', sprint))
         .then(completeCurrentSprint(currentSprint));
     });
 };
 
 const getCurrentSprint = () => {
-  return Sprint.findOne({active: true});
+  return Sprint.findOne({ active: true });
 }
 
 const completeCurrentSprint = (currentSprint) => {
@@ -31,10 +44,14 @@ const completeCurrentSprint = (currentSprint) => {
 
 const createSprint = () => {
   let newSprint = new Sprint();
-  let now = new Date();
-  newSprint.name = `Sprint starting - ${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
+  newSprint.name = nameSprint();
   return newSprint.save()
     .then(sprint => sendEvent('SprintCreated', sprint))
+}
+
+const nameSprint = () => {
+  let now = new Date();
+  return `Sprint starting - ${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
 }
 
 const updateTaskPosition = (fromIndex, toIndex, list) => {
@@ -43,7 +60,7 @@ const updateTaskPosition = (fromIndex, toIndex, list) => {
       let popped = sprint[list].splice(fromIndex, 1)[0];
       sprint[list].splice(toIndex, 0, popped);
       return sprint.save()
-        .then(sendEvent('SprintTaskPositionUpdated', {list}));  // TODO: return something else?
+        .then(sendEvent('SprintTaskPositionUpdated', { list }));  // TODO: return something else?
     })
 }
 
@@ -69,7 +86,7 @@ const addTaskToCurrentSprint = (task) => {
 const removeTaskFromCurrentSprint = (task) => {
   return getCurrentSprint()
     .then(removeTask(task))
-    .then(sendEvent('TaskStatusChanged', {taskId: task}));
+    .then(sendEvent('TaskStatusChanged', { taskId: task }));
 }
 
 const removeTask = curry((taskId, sprint) => {
@@ -93,6 +110,7 @@ const addTask = curry((task, sprint) => {
 
 module.exports = {
   createSprint: createSprint,
+  completeSprint: completeSprint,
   getCurrentSprint: getCurrentSprint,
   addTaskToCurrentSprint: addTaskToCurrentSprint,
   removeTaskFromCurrentSprint: removeTaskFromCurrentSprint,

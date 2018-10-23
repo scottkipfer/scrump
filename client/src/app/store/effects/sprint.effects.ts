@@ -5,10 +5,11 @@ import {map, switchMap, catchError, tap, withLatestFrom} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import * as sprintActions from '../actions/sprint.actions';
+import * as boardActions from '../actions/board.actions';
 import { SprintService } from '../../services/sprint/sprint.service';
 import { SocketService } from '../../services/socket/socket.service';
 import { Sprint } from '../../models';
-import { getCurrentSprint } from '../selectors';
+import {getBoard} from '../../store/selectors/board.selectors';
 
 @Injectable()
 export class SprintEffects {
@@ -61,8 +62,12 @@ export class SprintEffects {
     )
 
   @Effect()
-  sprintCreated$ = this.socketService.sprintCreated$.pipe(
-    switchMap(sprint => of(new sprintActions.SprintCreated(sprint)))
+  sprintCompleted$ = this.socketService.sprintCompleted$.pipe(
+    withLatestFrom(this.store$.select(getBoard)),
+    switchMap(([sprint, board]) => [
+      (new sprintActions.LoadCurrentSprint(null)),
+      (new boardActions.LoadBoard(board?board.name : 'backlog'))
+    ])
   )
  
   @Effect()
@@ -102,10 +107,21 @@ export class SprintEffects {
     )
   
 
-    @Effect()
+  @Effect()
   sprintTaskPositionUpdated$ = this.socketService.sprintTaskPositionUpdated$.pipe(
     switchMap(() => of(new sprintActions.SprintTaskPositionUpdated({})).pipe(
       map(() => new sprintActions.LoadCurrentSprint(null)))
     )
   )
+
+  @Effect()
+  completeCurrentSprint$ = this.actions$
+      .ofType(sprintActions.COMPLETE_SPRINT).pipe(
+        map((action: sprintActions.CompleteSprint) => action.payload),
+        switchMap((action) => this.sprintService.completeSprint().pipe(
+          map((sprint) => new sprintActions.CompleteSprintSuccess(sprint)),
+          catchError(error => of(new sprintActions.CompleteSprintError({error: error})))
+        )
+      )
+    )
 }

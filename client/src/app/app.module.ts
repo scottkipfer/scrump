@@ -35,7 +35,8 @@ import {TaskService} from './services/task/task.service';
 import {SprintService} from './services/sprint/sprint.service';
 import {SocketService} from './services/socket/socket.service';
 import { PastSprintsComponent } from './components/past-sprints/past-sprints.component';
-import { TasksRoComponent } from './components/tasks-ro/tasks-ro.component'
+import { TasksRoComponent } from './components/tasks-ro/tasks-ro.component';
+import { CompleteSprintComponent } from './components/complete-sprint/complete-sprint.component'
 
 const appRoutes: Routes = [
   { path: 'current', component: CurrentTasksComponent },
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
     BoardComponent,
     BoardCellComponent,
     PastSprintsComponent,
-    TasksRoComponent
+    TasksRoComponent,
+    CompleteSprintComponent
   ],
   imports: [
 BrowserModule,
@@ -73,7 +75,8 @@ BrowserModule,
     environment.production ? [] : StoreDevtoolsModule.instrument()
   ],
   entryComponents: [
-    NewTaskComponent
+    NewTaskComponent,
+    CompleteSprintComponent
   ],
   providers: [
     {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},

@@ -57,6 +57,7 @@ const sendEvent = (event, payload) => {
 
 module.exports = {
   createBoard: createBoard,
+  findBoardByName: findBoardByName,
   addTaskToBoard: addTaskToBoard,
   removeTaskFromBoard: removeTaskFromBoard,
   updateTaskPosition: updateTaskPosition

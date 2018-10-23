@@ -28,4 +28,7 @@ module.exports = (app) => {
   app.route('/command/updateTaskStatus')
     .post(sprint.updateTaskStatus);
 
+  app.route('/command/completeSprint')
+    .post(sprint.completeSprint);
+
 }

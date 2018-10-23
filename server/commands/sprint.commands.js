@@ -3,7 +3,7 @@ const {curry} = require('ramda');
 
 const createSprint =  (req, res) => {
   return sprintService.createSprint(req.body)
-    .then(sendCommandSucceeded(res, 'CreateSprint'))
+    .then(sendCommandSucceeded(res, 'Create Sprint'))
     .catch((error) => sendError(res, error));
 };
 
@@ -21,6 +21,12 @@ const updateTaskStatus = (req, res) => {
     .catch(error => sendError(res, error));
 };
 
+const completeSprint = (req, res) => {
+  return sprintService.completeSprint()
+    .then(sendCommandSucceeded(res, 'Complete Sprint'))
+    .catch((error) => sendError(res, error))
+}
+
 const sendCommandSucceeded = (res, command) => {
   return res.status(200).json({
     command: command || 'command'
@@ -33,6 +39,7 @@ const sendError = curry((res, error) => {
 
 module.exports = {
   createSprint: createSprint,
+  completeSprint: completeSprint,
   updateSprintTaskPosition: updateSprintTaskPosition,
   updateTaskStatus: updateTaskStatus,
 }
