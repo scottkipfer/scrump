@@ -27,7 +27,7 @@
   </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="onClose();">Close</button>
-      <button type="button" class="btn btn-primary" (click)="onSubmit();">Save changes</button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit();" [disabled]="!newTaskForm.form.valid">Save changes</button>
     </div>
   </div>
 </form>
