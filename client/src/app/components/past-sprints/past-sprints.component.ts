@@ -27,6 +27,14 @@ export class PastSprintsComponent implements OnInit {
   }
 
   getSprintTasks(sprint) {
-    return of(sprint.completed);
+    sprint.cancelled.map(task => {
+      task.cancelled = true;
+    });
+    sprint.completed.map(task => {
+      task.completed = true;
+    });
+
+    let combined = sprint.completed.concat(sprint.cancelled);
+    return of(combined);
   }
 }

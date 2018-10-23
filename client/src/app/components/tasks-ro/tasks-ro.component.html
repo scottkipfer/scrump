@@ -1,0 +1,39 @@
+<div id="tasks">
+  <div class="text-left">
+    <h4>{{ tasksHeader }}</h4>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col" width="20"></th>
+        <th scope="col" width="400">Summary</th>
+        <th scope="col" width="5%">Req</th>
+        <th scope="col" width="5%">FE</th>
+        <th scope="col" width="5%">API</th>
+        <th scope="col" width="5%">DevOps</th>
+        <th scope="col" width="5%">Email</th>
+        <th scope="col" width="5%">QE</th>
+        <th scope="col" width="6%">ETA</th>
+        <th scope="col" width="6%">Deployed</th>
+        <th scope="col" width="6%">Deadline</th>
+        <th scope="col" width="350">Notes</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white">
+      <tr *ngFor="let task of (tasks | async) index as i" [ngClass]="{ 'alert-success': task.completed, 'alert-danger': task.cancelled }">
+        <td>{{ i + 1 }}</td>
+        <td class="text-left">{{ task.summary }}</td>
+        <td><span *ngIf="task.requirementUrl"><a [href]="task.requirementUrl" target="_blank"><i class="fa fa-bullseye"></i></a></span></td>
+        <td><span *ngIf="task.fe">{{ task.fe.owner }}</span></td>
+        <td><span *ngIf="task.api">{{ task.api.owner }}</span></td>
+        <td><span *ngIf="task.devOps">{{ task.devOps.owner }}</span></td>
+        <td><span *ngIf="task.email">{{ task.email.owner }}</span></td>
+        <td><span *ngIf="task.qe">{{ task.qe.owner }}</span></td>
+        <td>{{ task.eta | date:'shortDate' }}</td>
+        <td>{{ task.deployed | date:'shortDate' }}</td>
+        <td>{{ task.deadline | date:'shortDate' }}</td>
+        <td class="text-left">{{ task.notes }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

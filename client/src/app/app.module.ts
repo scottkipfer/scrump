@@ -34,7 +34,8 @@ import { BoardCellComponent } from './components/board-cell/board-cell.component
 import {TaskService} from './services/task/task.service';
 import {SprintService} from './services/sprint/sprint.service';
 import {SocketService} from './services/socket/socket.service';
-import { PastSprintsComponent } from './components/past-sprints/past-sprints.component'
+import { PastSprintsComponent } from './components/past-sprints/past-sprints.component';
+import { TasksRoComponent } from './components/tasks-ro/tasks-ro.component'
 
 const appRoutes: Routes = [
   { path: 'current', component: CurrentTasksComponent },
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
     NewTaskComponent,
     BoardComponent,
     BoardCellComponent,
-    PastSprintsComponent
+    PastSprintsComponent,
+    TasksRoComponent
   ],
   imports: [
 BrowserModule,
