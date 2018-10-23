@@ -17,7 +17,6 @@ export class TasksComponent implements OnInit {
   @Input() type: string = 'board'; // sprint | board
   @Input() listName: string; // inProgress | notStarted | ...etc
   @Input() tasks: Observable<Task[]>;
-  @Input() readOnly: boolean = false;
   private currentBoard$: Observable<string>;
 
   public boardTasks$: Observable<Task[]>;

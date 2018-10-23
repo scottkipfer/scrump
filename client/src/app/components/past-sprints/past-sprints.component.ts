@@ -22,11 +22,18 @@ export class PastSprintsComponent implements OnInit {
   ngOnInit() {
     this.sprintError$ = this.store.select(fromStore.getPastSprintsError);
     this.sprints$ = this.store.select(fromStore.getPastSprints);
-
     this.store.dispatch(new fromStore.LoadPastSprints(null));
   }
 
   getSprintTasks(sprint) {
-    return of(sprint.completed);
+    sprint.cancelled.map(task => {
+      task.cancelled = true;
+    });
+    sprint.completed.map(task => {
+      task.completed = true;
+    });
+
+    let combined = sprint.completed.concat(sprint.cancelled);
+    return of(combined);
   }
 }

@@ -32,7 +32,7 @@ const completeCurrentSprint = (currentSprint) => {
 const createSprint = () => {
   let newSprint = new Sprint();
   let now = new Date();
-  newSprint.name = `Sprint starting - ${now.getMonth()}/${now.getDate()}/${now.getFullYear()}`;
+  newSprint.name = `Sprint starting - ${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
   return newSprint.save()
     .then(sprint => sendEvent('SprintCreated', sprint))
 }

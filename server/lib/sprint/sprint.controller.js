@@ -21,7 +21,7 @@ const read = (req, res) => {
         created: -1 //Sort by Date Added DESC
     }
   }
-  Sprint.find(query, null, options).populate('completed').then((sprints) => {
+  Sprint.find(query, null, options).populate('completed cancelled').then((sprints) => {
     return res.status(200).json(sprints)
   }).catch((err) => {
     return res.status(500).json(err);
