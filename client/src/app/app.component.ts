@@ -20,7 +20,6 @@ export class AppComponent {
     private  store$: Store<fromStore.AppState>
     ) {}
 
-
   ngOnInit() {
     this.currentView$ = this.store$.select(fromStore.getCurrentView).pipe(delay(0));
   }

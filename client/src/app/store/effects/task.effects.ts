@@ -11,6 +11,7 @@ import {SocketService} from '../../services/socket/socket.service';
 import * as taskActions from '../actions/task.actions';
 import * as boardActions from '../actions/board.actions';
 import * as sprintActions from '../actions/sprint.actions';
+import { getCurrentView } from '../selectors/view.selectors';
 
 @Injectable()
 export class TaskEffects {
@@ -29,10 +30,10 @@ export class TaskEffects {
   @Effect()
   taskCreated$ = this.socketService.taskCreated$.pipe(
     switchMap(task => of(new taskActions.TaskCreated(task)).pipe(
-      withLatestFrom(this.store$.select(getBoard)),
-      map(([action, board]) => {
-        return board ?
-        new boardActions.LoadBoard(board.name || 'backlog') :
+      withLatestFrom(this.store$.select(getCurrentView)),
+      map(([action, view]) => {
+        return view !== 'current' ?
+        new boardActions.LoadBoard(view) :
         new sprintActions.LoadCurrentSprint(null)
       }))
     )
@@ -53,10 +54,10 @@ export class TaskEffects {
   @Effect()
   taskUpdated$ = this.socketService.taskUpdated$.pipe(
     switchMap(task => of(new taskActions.TaskUpdated(task)).pipe(
-      withLatestFrom(this.store$.select(getBoard)),
-      map(([action, board]) => 
-        board ? 
-        new boardActions.LoadBoard(board.name) :
+      withLatestFrom(this.store$.select(getCurrentView)),
+      map(([action, view]) => 
+        view !== 'current' ? 
+        new boardActions.LoadBoard(view) :
         new sprintActions.LoadCurrentSprint(null)
       ))
     )
@@ -64,20 +65,20 @@ export class TaskEffects {
 
   @Effect()
   switchBoards$ = this.actions$
-      .ofType(taskActions.SWITCH_BOARDS).pipe(
-        map((action: taskActions.SwitchBoards) => action.payload),
-        withLatestFrom(this.store$.select(getBoard)),
-        switchMap(([switchBoardObj, board]) => {
-          return this.taskService.switchBoards({
-            taskId: switchBoardObj.taskId,
-            newBoard: switchBoardObj.newBoard,
-            oldBoard: switchBoardObj.type == 'board' ? board.name: 'sprint'
-          }).pipe(
-            map(result => new taskActions.SwitchBoardsSuccess(result)),
-            catchError(error => of(new taskActions.SwitchBoardsError({ error: error})))
-          );
-        })
-      );
+    .ofType(taskActions.SWITCH_BOARDS).pipe(
+      map((action: taskActions.SwitchBoards) => action.payload),
+      withLatestFrom(this.store$.select(getBoard)),
+      switchMap(([switchBoardObj, board]) => {
+        return this.taskService.switchBoards({
+          taskId: switchBoardObj.taskId,
+          newBoard: switchBoardObj.newBoard,
+          oldBoard: switchBoardObj.type == 'board' ? board.name: 'sprint'
+        }).pipe(
+          map(result => new taskActions.SwitchBoardsSuccess(result)),
+          catchError(error => of(new taskActions.SwitchBoardsError({ error: error})))
+        );
+      })
+    );
 
   constructor(
     private actions$: Actions,
