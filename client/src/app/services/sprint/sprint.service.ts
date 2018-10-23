@@ -30,7 +30,7 @@ export class SprintService {
   }
 
   public getPastSprints(): Observable<Sprint[]> {
-    let url = `${this.sprintsUrl}`;
+    let url = `${this.sprintsUrl}?active=false`;
     return this.http.get<Sprint[]>(url);
   }
 
