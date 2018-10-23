@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {NewTaskComponent} from './components/new-task/new-task.component';
+import {Store} from '@ngrx/store';
+import * as fromStore from './store';
+import {Observable} from 'rxjs'
+import {delay} from 'rxjs/operators'
 
 @Component({
   selector: 'app-root',
@@ -8,27 +12,21 @@ import {NewTaskComponent} from './components/new-task/new-task.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private modalService: NgbModal) {}
+  public currentView$: Observable<string>;
   title : string = 'ScrumP';
   activeTab : string = 'current';
+  constructor (
+    private modalService: NgbModal,
+    private  store$: Store<fromStore.AppState>
+    ) {}
+
 
   ngOnInit() {
-    // determine which tab is active
-    var result = /[^/]*$/.exec(window.location.pathname)[0];
-    if (!result) {
-      result = 'current';
-    }
-    if (result === 'completed') {
-      result = 'sprints';
-    }
-    this.setActive(result);
+    this.currentView$ = this.store$.select(fromStore.getCurrentView).pipe(delay(0));
   }
 
   openModal() {
     const modalRef = this.modalService.open(NewTaskComponent);
   }
 
-  setActive(tabName) {
-    this.activeTab = tabName;
-  }
 }

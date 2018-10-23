@@ -22,8 +22,8 @@ export class PastSprintsComponent implements OnInit {
   ngOnInit() {
     this.sprintError$ = this.store.select(fromStore.getPastSprintsError);
     this.sprints$ = this.store.select(fromStore.getPastSprints);
-
     this.store.dispatch(new fromStore.LoadPastSprints(null));
+    this.store.dispatch(new fromStore.UpdateView('sprints'));
   }
 
   getSprintTasks(sprint) {

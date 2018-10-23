@@ -29,6 +29,7 @@ export class BoardComponent implements OnInit {
       tap((params: ParamMap) => {
         this.boardName = params.get('name');
         this.store.dispatch(new fromStore.LoadBoard(params.get('name')));
+        this.store.dispatch(new fromStore.UpdateView(this.boardName))
       }),
       map((params: ParamMap) => params.get('name')));
   }

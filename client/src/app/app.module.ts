@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule }    from '@angular/common/http';
 import { NgbModule, NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 
 // NGRX
 import { StoreModule } from '@ngrx/store';

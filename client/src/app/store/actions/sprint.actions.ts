@@ -27,6 +27,11 @@ export const LOAD_PAST_SPRINTS = type('[Sprint] - Load Past Sprints');
 export const LOAD_PAST_SPRINTS_ERROR = type('[Sprint] - Failed to Load Past Sprints');
 export const LOAD_PAST_SPRINTS_SUCCESS = type('[Sprint] - Successfully Loaded Past Sprints');
 
+export const COMPLETE_SPRINT = type('[Sprint] - Complete Sprint');
+export const COMPLETE_SPRINT_SUCCESS = type('[Sprint] - Successfully Completed Sprint');
+export const COMPLETE_SPRINT_ERROR = type('[Sprint] - Failed to Complete Sprint');
+export const SPRINT_COMPLETED = type('[Sprint] - Completed Sprint');
+
 export class CreateSprint implements Action {
   public type: string = CREATE_SPRINT;
   constructor(public payload: Sprint) {}
@@ -122,6 +127,26 @@ export class LoadPastSprintsSuccess implements Action {
   constructor(public payload: any) {}
 }
 
+export class CompleteSprint implements Action {
+  public type: string = COMPLETE_SPRINT;
+  constructor(public payload: any) {}
+}
+
+export class CompleteSprintError implements Action {
+  public type: string = COMPLETE_SPRINT_ERROR;
+  constructor(public payload: any) {}
+}
+
+export class CompleteSprintSuccess implements Action {
+  public type: string = COMPLETE_SPRINT_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class SprintCompleted implements Action {
+  public type: string = SPRINT_COMPLETED;
+  constructor(public payload: any) {}
+}
+
 export type SprintActions = 
   | CreateSprint
   | CreateSprintError
@@ -141,4 +166,8 @@ export type SprintActions =
   | TaskStatusChanged
   | LoadPastSprints
   | LoadPastSprintsError
-  | LoadPastSprintsSuccess;
+  | LoadPastSprintsSuccess
+  | CompleteSprint
+  | CompleteSprintError
+  | CompleteSprintSuccess
+  | SprintCompleted;

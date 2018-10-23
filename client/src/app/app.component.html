@@ -8,22 +8,23 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link"  routerLink="/current" (click)="setActive('current')" [ngClass]="{ 'active': activeTab === 'current' }">Current</a>
+        <a class="nav-link"  routerLink="/current" [ngClass]="{ 'active': (currentView$ | async) === 'current' }">Current</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/board/preplanning" (click)="setActive('preplanning')" [ngClass]="{ 'active': activeTab === 'preplanning' }">Preplanning</a>
+        <a class="nav-link" routerLink="/board/preplanning" [ngClass]="{ 'active': (currentView$ | async) === 'preplanning' }">Preplanning</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/board/backlog" (click)="setActive('backlog')" [ngClass]="{ 'active': activeTab === 'backlog' }">Backlog</a>
+        <a class="nav-link" routerLink="/board/backlog" [ngClass]="{ 'active': (currentView$ | async) === 'backlog' }">Backlog</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/board/icebox" (click)="setActive('icebox')" [ngClass]="{ 'active': activeTab === 'icebox' }">Icebox</a>
+        <a class="nav-link" routerLink="/board/icebox" [ngClass]="{ 'active': (currentView$ | async) === 'icebox' }">Icebox</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/completed" (click)="setActive('sprints')" [ngClass]="{ 'active': activeTab === 'sprints' }">Past Sprints</a>
+        <a class="nav-link" routerLink="/completed" [ngClass]="{ 'active': (currentView$ | async) === 'sprints' }">Past Sprints</a>
       </li>
-    </ul>
-    <button class="btn btn-outline-success" (click)="openModal()"><i class="fas fa-plus-circle mr-1"></i>New Task</button>
+    </ul> 
+    <button *ngIf="(currentView$ | async) === 'current'" class="btn btn-outline-info mr-3" (click)="completeSprint()">Complete Sprint</button>
+    <button *ngIf="(currentView$ | async) !== 'sprints'" class="btn btn-outline-success" (click)="openModal()"><i class="fas fa-plus-circle mr-1"></i>New Task</button>
   </div>
 </nav>
 

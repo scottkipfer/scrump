@@ -44,6 +44,7 @@ export class CurrentTasksComponent implements OnInit {
     )
 
     this.store.dispatch(new fromStore.LoadCurrentSprint(null));
+    this.store.dispatch(new fromStore.UpdateView('current'));
   }
 
   createSprint() {
