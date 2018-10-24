@@ -9,7 +9,7 @@ const completeSprint = (sprint) => {
     .then((currentSprint) => {
       let newSprint = new Sprint();
       let { inProgress, notStarted, onHold } = currentSprint || {};
-      newSprint.inProgess = inProgress;
+      newSprint.inProgress = inProgress;
       newSprint.notStarted = notStarted;
       newSprint.onHold = onHold;
       newSprint.name = nameSprint();
