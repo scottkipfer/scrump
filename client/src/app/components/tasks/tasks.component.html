@@ -21,8 +21,8 @@
         <th scope="col" width="350">Notes</th>
       </tr>
     </thead>
-    <tbody class="bg-white">
-      <tr *ngFor="let task of (tasks | async) index as i" [ngClass]="{ 'alert-success': listName === 'completed', 'alert-warning': listName === 'onHold', 'alert-danger': listName === 'cancelled', 'insertFromAbove': draggingHoverIndex === i && draggingDirection === 'down', 'insertFromBelow': draggingHoverIndex === i && draggingDirection === 'up', 'hide': draggingIndex === i }"
+    <tbody>
+      <tr *ngFor="let task of (tasks | async) index as i" [ngClass]="{ 'alert-success': listName === 'completed', 'alert-warning': listName === 'onHold', 'alert-danger': listName === 'cancelled', 'bg-white': listName === 'notStarted' || listName === 'inProgress', 'insertFromAbove': draggingIndex !== i && draggingHoverIndex === i && draggingDirection === 'down', 'insertFromBelow': draggingIndex !== i && draggingHoverIndex === i && draggingDirection === 'up' }"
           (drop)="drop($event, i)"
           (dragover)="allowDrop($event, i)"
           draggable="true"

@@ -23,7 +23,3 @@ td:hover {
 .insertFromAbove {
   border-top: 20px solid lightgray;
 }
-
-.hide {
-  transform:translateX(-9999px);
-}
