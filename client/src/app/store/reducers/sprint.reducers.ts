@@ -1,5 +1,6 @@
 import { Sprint } from '../../models/sprint';
 import * as sprintActions from '../actions/sprint.actions';
+import { StartEdit } from '../actions';
 
 export interface SprintState {
   loaded: boolean;
@@ -13,6 +14,15 @@ const initialState: SprintState = {
   loaded: false,
   loading: false
 };
+
+const updateTaskInList = (state, list, payload) => {
+  let isTask = task => task._id == payload.task._id;
+  let index = state.currentSprint[list].findIndex(isTask);
+  if (~index) {
+    state.currentSprint[list][index][payload.field] = payload.task[payload.field];
+  }
+  return state;
+}
 
 export function reducer(state: SprintState = initialState, action: sprintActions.SprintActions): SprintState {
   switch(action.type) {
@@ -55,6 +65,13 @@ export function reducer(state: SprintState = initialState, action: sprintActions
       pastSprints: action.payload,
       error: null
     }
+    case sprintActions.UPDATE_TASK_IN_SPRINT:
+      state = updateTaskInList(state, 'notStarted', action.payload);
+      state = updateTaskInList(state, 'inProgress', action.payload);
+      state = updateTaskInList(state, 'onHold', action.payload);
+      state = updateTaskInList(state, 'completed', action.payload);
+      state = updateTaskInList(state, 'cancelled', action.payload);
+      return state;
 
     case sprintActions.CHANGE_TASK_STATUS:
     case sprintActions.SPRINT_TASK_POSITION_UPDATED:

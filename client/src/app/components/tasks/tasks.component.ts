@@ -27,8 +27,9 @@ export class TasksComponent implements OnInit {
   ngOnInit() {
   }
 
-  saveChanges(task) {
-    this.store.dispatch(new fromStore.UpdateTask(task));
+  saveChanges(task, field, value) {
+    task[field] = value;
+    this.store.dispatch(new fromStore.UpdateTask({task, field, value}));
   }
 
   changeBoard(task, newBoard) {

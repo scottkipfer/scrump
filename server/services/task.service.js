@@ -10,9 +10,9 @@ const createTask = (task, boardName) => {
     .then(placeTaskInBoardOrSprint(boardName));
 };
 
-const updateTask = (task) => {
+const updateTask = (task, field) => {
   return task.save()
-    .then(socketService.sendEvent('TaskUpdated', task));
+    .then(socketService.sendEvent('TaskUpdated', {task, field}));
 }
 
 const placeTaskInBoardOrSprint = curry((boardName, task) => {

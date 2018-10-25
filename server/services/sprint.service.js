@@ -72,7 +72,7 @@ const updateTaskStatus = (fromStatus, toStatus, taskId) => {
         let popped = sprint[fromStatus].splice(taskIndex, 1)[0];
         sprint[toStatus].push(popped);
         return sprint.save()
-          .then(sendEvent('TaskStatusChanged', sprint));
+          .then(sendEvent('TaskStatusChanged', {taskId, fromStatus, toStatus}));
       }
     })
 }
@@ -86,7 +86,7 @@ const addTaskToCurrentSprint = (task) => {
 const removeTaskFromCurrentSprint = (task) => {
   return getCurrentSprint()
     .then(removeTask(task))
-    .then(sendEvent('TaskStatusChanged', { taskId: task }));
+    .then(sendEvent('TaskAddedToSprint', { taskId: task }));
 }
 
 const removeTask = curry((taskId, sprint) => {

@@ -38,7 +38,7 @@ export class CreateTaskSuccess implements Action {
 
 export class UpdateTask implements Action {
   public type: string = UPDATE_TASK;
-  constructor(public payload: Task) {}
+  constructor(public payload: {task:Task, field: string, value: any}) {}
 }
 
 export class UpdateTaskError implements Action {
@@ -53,7 +53,7 @@ export class UpdateTaskSuccess implements Action {
 
 export class TaskUpdated implements Action {
   public type: string = TASK_UPDATED;
-  constructor(public payload: Task) {}
+  constructor(public payload: {task: Task, field: string}) {}
 }
 
 export class SwitchBoards implements Action {

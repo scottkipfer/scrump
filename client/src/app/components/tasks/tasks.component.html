@@ -32,19 +32,19 @@
         <td><app-board-cell [board]="task.board" (boardChange)="changeBoard(task, $event);"></app-board-cell></td>
         <td><span *ngIf="type === 'sprint'"><app-status-cell [list]="listName" (listChange)="changeTaskStatus(task, $event);"></app-status-cell></span></td>
         <td class="text-left">
-          <app-text-cell [value]="task.summary" (valueChange)="task.summary=$event; saveChanges(task);"></app-text-cell>
+          <app-text-cell [value]="task.summary" (valueChange)="saveChanges(task, 'summary', $event);"></app-text-cell>
         </td>
-        <td><app-link-cell [link]=task.requirementUrl (linkChange)="task.requirementUrl=$event; saveChanges(task);"></app-link-cell></td>
-        <td><app-team-cell [owner]=task.fe (ownerChange)="task.fe=$event; saveChanges(task)"></app-team-cell></td>
-        <td><app-team-cell [owner]=task.api (ownerChange)="task.api=$event; saveChanges(task)"></app-team-cell></td>
-        <td><app-team-cell [owner]=task.devOps (ownerChange)="task.devOps=$event; saveChanges(task)"></app-team-cell></td>
-        <td><app-team-cell [owner]=task.email (ownerChange)="task.email=$event; saveChanges(task)"></app-team-cell></td>
-        <td><app-team-cell [owner]=task.qe (ownerChange)="task.qe=$event; saveChanges(task)"></app-team-cell></td>
-        <td><app-date-cell [date]=task.eta (dateChange)="task.eta=$event; saveChanges(task);"></app-date-cell></td>
-        <td><app-date-cell [date]=task.deployed (dateChange)="task.deployed=$event; saveChanges(task);"></app-date-cell></td>
-        <td><app-date-cell [date]=task.deadline (dateChange)="task.deadline=$event; saveChanges(task);"></app-date-cell></td>
+        <td><app-link-cell [link]=task.requirementUrl (linkChange)="saveChanges(task, 'requirementUrl', $event);"></app-link-cell></td>
+        <td><app-team-cell [owner]=task.fe (ownerChange)="saveChanges(task, 'fe', $event)"></app-team-cell></td>
+        <td><app-team-cell [owner]=task.api (ownerChange)="saveChanges(task, 'api', $event)"></app-team-cell></td>
+        <td><app-team-cell [owner]=task.devOps (ownerChange)="saveChanges(task, 'devOps', $event)"></app-team-cell></td>
+        <td><app-team-cell [owner]=task.email (ownerChange)="saveChanges(task, 'email', $event)"></app-team-cell></td>
+        <td><app-team-cell [owner]=task.qe (ownerChange)="saveChanges(task, 'qe', $event)"></app-team-cell></td>
+        <td><app-date-cell [date]=task.eta (dateChange)="saveChanges(task, 'eta', $event);"></app-date-cell></td>
+        <td><app-date-cell [date]=task.deployed (dateChange)="saveChanges(task, 'deployed', $event);"></app-date-cell></td>
+        <td><app-date-cell [date]=task.deadline (dateChange)="saveChanges(task, 'deadline', $event);"></app-date-cell></td>
         <td class="text-left">
-          <app-text-cell [value]="task.notes" (valueChange)="task.notes=$event; saveChanges(task);"></app-text-cell>
+          <app-text-cell [value]="task.notes" (valueChange)="saveChanges(task, 'notes', $event);"></app-text-cell>
         </td>
       </tr>
     </tbody>

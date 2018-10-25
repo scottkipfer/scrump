@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
-import { Task } from '../../models/task'
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-text-cell',
@@ -14,13 +15,14 @@ export class TextCellComponent implements OnInit {
 
   isEditing: boolean;
 
-  constructor() { }
+  constructor(private store$: Store<fromStore.AppState>) { }
 
   ngOnInit() {
   }
 
   edit() {
     this.isEditing = true;
+    this.store$.dispatch(new fromStore.StartEdit(null));
     setTimeout(()=>{ // this will make the execution after the above boolean has changed
       this.summaryInput.nativeElement.focus();
     },0); 
@@ -28,6 +30,7 @@ export class TextCellComponent implements OnInit {
 
   finishEdit() {
     if (this.isEditing) {
+    this.store$.dispatch(new fromStore.FinishEdit(null));
       this.valueChange.emit(this.value);
       this.isEditing = false;
     }

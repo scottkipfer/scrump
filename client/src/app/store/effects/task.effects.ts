@@ -43,8 +43,8 @@ export class TaskEffects {
   updateTask$ = this.actions$
     .ofType(taskActions.UPDATE_TASK).pipe(
       map((action: taskActions.UpdateTask) => action.payload),
-      switchMap((task: Task) => {
-        return this.taskService.updateTask(task).pipe(
+      switchMap((payload) => {
+        return this.taskService.updateTask(payload).pipe(
           map(task => new taskActions.UpdateTaskSuccess(task)),
           catchError(error => of(new taskActions.UpdateTaskError({ error: error })))
         );
@@ -58,7 +58,7 @@ export class TaskEffects {
       map(([action, view]) => 
         view !== 'current' ? 
         new boardActions.LoadBoard(view) :
-        new sprintActions.LoadCurrentSprint(null)
+        new sprintActions.UpdateTaskInSprint(action.payload)
       ))
     )
   );

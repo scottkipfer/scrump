@@ -10,10 +10,8 @@ const createTask = (req, res) => {
 };
 
 const updateTask = (req, res) => {
-  let taskToUpdate = Object.assign(req.task, {
-    ...req.body
-  });
-  return taskService.updateTask(taskToUpdate)
+  req.task[req.body.field] = req.body.value;
+  return taskService.updateTask(req.task, req.body.field)
     .then(sendCommandSucceeded(res, 'UpdateTask'))
     .catch((error) => {
       sendError(res, error)
