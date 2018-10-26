@@ -32,6 +32,7 @@ export class TeamCellComponent implements OnInit {
 
   getStatusIcon() {
     this.icon = this.icons[this.owner.status] || 'fa-ban';
+    return this.icon;
   }
 
   setStatus(status) {
