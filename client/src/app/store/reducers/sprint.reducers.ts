@@ -99,19 +99,25 @@ export function reducer(state: SprintState = initialState, action: sprintActions
       error: null
     }
     case sprintActions.UPDATE_TASK_IN_SPRINT:
-      state = updateTaskInList(state, 'notStarted', action.payload);
-      state = updateTaskInList(state, 'inProgress', action.payload);
-      state = updateTaskInList(state, 'onHold', action.payload);
-      state = updateTaskInList(state, 'completed', action.payload);
-      state = updateTaskInList(state, 'cancelled', action.payload);
+      if (state.currentSprint) {
+        state = updateTaskInList(state, 'notStarted', action.payload);
+        state = updateTaskInList(state, 'inProgress', action.payload);
+        state = updateTaskInList(state, 'onHold', action.payload);
+        state = updateTaskInList(state, 'completed', action.payload);
+        state = updateTaskInList(state, 'cancelled', action.payload);
+      }
       return state;
 
     case sprintActions.SPRINT_TASK_POSITION_UPDATED:
-      state = updateTaskPositionInList(state, action.payload);
+      if (state.currentSprint) {
+        state = updateTaskPositionInList(state, action.payload);
+      }
       return state;
 
     case sprintActions.TASK_STATUS_CHANGED:
-      state = updateTaskStatus(state, action.payload);
+      if (state.currentSprint) {
+        state = updateTaskStatus(state, action.payload);
+      }
       return state;
 
     case sprintActions.TASK_ADDED_TO_SPRINT:
