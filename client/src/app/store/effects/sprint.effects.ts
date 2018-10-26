@@ -101,14 +101,12 @@ export class SprintEffects {
 
   @Effect()
   taskStatusChanged$ = this.socketService.taskStatusChanged$.pipe(
-    switchMap(() => of(new sprintActions.TaskStatusChanged({})).pipe(
-      map(() => new sprintActions.LoadCurrentSprint(null)))
-    )
+    switchMap((action) => of(new sprintActions.TaskStatusChanged(action)))
   )
   
   @Effect()
   sprintTaskPositionUpdated$ = this.socketService.sprintTaskPositionUpdated$.pipe(
-    switchMap((payload) => of(new sprintActions.SprintTaskPositionUpdated(payload)))
+    switchMap((action) => of(new sprintActions.SprintTaskPositionUpdated(action)))
   )
 
   @Effect()

@@ -30,6 +30,15 @@ const updateTaskPositionInList = (state: SprintState, payload: {list: string, fr
   return state;
 }
 
+const updateTaskStatus = (state: SprintState, payload: {taskId: string, fromStatus: string, toStatus: string}) => {
+  let taskIndex = state.currentSprint[payload.fromStatus].findIndex((task) => task._id == payload.taskId);
+  if (taskIndex > -1) {
+    let popped = state.currentSprint[payload.fromStatus].splice(taskIndex, 1)[0];
+    state.currentSprint[payload.toStatus].push(popped);
+  }
+  return state;
+}
+
 export function reducer(state: SprintState = initialState, action: sprintActions.SprintActions): SprintState {
   switch(action.type) {
     case sprintActions.CREATE_SPRINT_ERROR:
@@ -81,6 +90,10 @@ export function reducer(state: SprintState = initialState, action: sprintActions
 
     case sprintActions.SPRINT_TASK_POSITION_UPDATED:
       state = updateTaskPositionInList(state, action.payload);
+      return state;
+
+    case sprintActions.TASK_STATUS_CHANGED:
+      state = updateTaskStatus(state, action.payload);
       return state;
 
     case sprintActions.UPDATE_SPRINT_TASK_POSITION:  

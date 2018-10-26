@@ -116,7 +116,7 @@ export class ChangeTaskStatusSuccess implements Action {
 
 export class TaskStatusChanged implements Action {
   public type: string = TASK_STATUS_CHANGED;
-  constructor(public payload: any) {};
+  constructor(public payload: {taskId: string, fromStatus: string, toStatus: string}) {};
 }
 
 export class LoadPastSprints implements Action {
