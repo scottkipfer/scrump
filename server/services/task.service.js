@@ -16,7 +16,7 @@ const updateTask = (task, field) => {
 }
 
 const placeTaskInBoardOrSprint = curry((boardName, task) => {
-  socketService.sendEvent('TaskCreated', task);
+  socketService.sendEvent('TaskCreated', {task, boardName: boardName === 'sprint' ? 'current' : boardName});
   if (boardName === 'sprint') {
     return sprintService.addTaskToCurrentSprint(task);
   } else {

@@ -80,13 +80,13 @@ const updateTaskStatus = (fromStatus, toStatus, taskId) => {
 const addTaskToCurrentSprint = (task) => {
   return getCurrentSprint()
     .then(addTask(task))
-    .then(sendEvent('TaskAddedToSprint'))
+    .then(sendEvent('TaskAddedToSprint', { task }))
 }
 
 const removeTaskFromCurrentSprint = (task) => {
   return getCurrentSprint()
     .then(removeTask(task))
-    .then(sendEvent('TaskAddedToSprint', { taskId: task }));
+    .then(sendEvent('TaskRemovedFromSprint', { taskId: task }));
 }
 
 const removeTask = curry((taskId, sprint) => {

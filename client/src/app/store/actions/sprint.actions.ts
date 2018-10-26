@@ -33,6 +33,7 @@ export const COMPLETE_SPRINT_ERROR = type('[Sprint] - Failed to Complete Sprint'
 export const SPRINT_COMPLETED = type('[Sprint] - Completed Sprint');
 
 export const UPDATE_TASK_IN_SPRINT = type('[Sprint] - Update Task inside Sprint');
+export const TASK_REMOVED_FROM_SPRINT = type('[Sprint] - Task Removed From Sprint');
 
 export class UpdateTaskInSprint implements Action {
   public type: string = UPDATE_TASK_IN_SPRINT;
@@ -153,6 +154,10 @@ export class SprintCompleted implements Action {
   public type: string = SPRINT_COMPLETED;
   constructor(public payload: any) {}
 }
+export class TaskRemovedFromSprint implements Action {
+  public type: string = TASK_REMOVED_FROM_SPRINT;
+  constructor(public payload: any) {}
+}
 
 export type SprintActions = 
   | CreateSprint
@@ -178,4 +183,5 @@ export type SprintActions =
   | CompleteSprintError
   | CompleteSprintSuccess
   | SprintCompleted
-  | UpdateTaskInSprint;
+  | UpdateTaskInSprint
+  | TaskRemovedFromSprint;

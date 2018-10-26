@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../lib/utils';
-import { Board } from '../../models';
+import { Board, Task } from '../../models';
 
 export const CREATE_BOARD = type('[Board] Create Board');
 export const CREATE_BOARD_ERROR = type('[Board] Create Board Failed');
@@ -94,7 +94,7 @@ export class AddTaskToBoardSuccess implements Action {
 
 export class TaskAddedToBoard implements Action {
   public type: string = TASK_ADDED_TO_BOARD;
-  constructor(public payload: any) {}
+  constructor(public payload: Task) {}
 }
 
 export class UpdateTaskPosition implements Action {

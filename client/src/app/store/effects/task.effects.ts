@@ -29,14 +29,7 @@ export class TaskEffects {
 
   @Effect()
   taskCreated$ = this.socketService.taskCreated$.pipe(
-    switchMap(task => of(new taskActions.TaskCreated(task)).pipe(
-      withLatestFrom(this.store$.select(getCurrentView)),
-      map(([action, view]) => {
-        return view !== 'current' ?
-        new boardActions.LoadBoard(view) :
-        new sprintActions.LoadCurrentSprint(null)
-      }))
-    )
+    switchMap(payload => of(new taskActions.TaskCreated(payload.task)))
   );
 
   @Effect()
@@ -72,7 +65,7 @@ export class TaskEffects {
         return this.taskService.switchBoards({
           taskId: switchBoardObj.taskId,
           newBoard: switchBoardObj.newBoard,
-          oldBoard: switchBoardObj.type == 'board' ? board.name: 'sprint'
+          oldBoard: (switchBoardObj.type == 'board') ? board.name : 'sprint'
         }).pipe(
           map(result => new taskActions.SwitchBoardsSuccess(result)),
           catchError(error => of(new taskActions.SwitchBoardsError({ error: error})))

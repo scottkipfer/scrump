@@ -14,19 +14,19 @@ const initialState: TaskState = {
 };
 
 export function reducer (state: TaskState = initialState, action: taskActions.TaskActions): TaskState {
- switch (action.type) {
+  switch (action.type) {
+    
+    case taskActions.CREATE_TASK_ERROR:
+      return {
+        ...state,
+        error: action.payload.error
+      };
 
-   case taskActions.CREATE_TASK_ERROR:
-     return {
-       ...state,
-       error: action.payload.error
-     };
-
-   case taskActions.CREATE_TASK:
-   case taskActions.CREATE_TASK_SUCCESS:
-   case taskActions.TASK_UPDATED:
-   default: return state;
- }
+    case taskActions.CREATE_TASK:
+    case taskActions.CREATE_TASK_SUCCESS:
+    case taskActions.TASK_UPDATED:
+    default: return state;
+  }
 }
 
 export const getTasksError = (state: TaskState) => state.error;

@@ -1,4 +1,4 @@
-import { Sprint } from '../../models/sprint';
+import { Sprint, Task } from '../../models';
 import * as sprintActions from '../actions/sprint.actions';
 import { StartEdit } from '../actions';
 
@@ -35,6 +35,24 @@ const updateTaskStatus = (state: SprintState, payload: {taskId: string, fromStat
   if (taskIndex > -1) {
     let popped = state.currentSprint[payload.fromStatus].splice(taskIndex, 1)[0];
     state.currentSprint[payload.toStatus].push(popped);
+  }
+  return state;
+}
+
+const addTask = (state: SprintState, newTask: Task) => {
+  let isTask = task => task._id == newTask._id;
+  let index = state.currentSprint['notStarted'].findIndex(isTask);
+  if (index === -1) {
+    state.currentSprint.notStarted.push(newTask);
+  }
+  return state;
+}
+
+const removeTask = (state: SprintState, list: string, taskId: string) => {
+  let isTask = task => task._id == taskId;
+  let index = state.currentSprint[list].findIndex(isTask);
+  if (index > -1) {
+    state.currentSprint[list] = state.currentSprint[list].splice(index, 1);
   }
   return state;
 }
@@ -94,6 +112,18 @@ export function reducer(state: SprintState = initialState, action: sprintActions
 
     case sprintActions.TASK_STATUS_CHANGED:
       state = updateTaskStatus(state, action.payload);
+      return state;
+
+    case sprintActions.TASK_ADDED_TO_SPRINT:
+      state = addTask(state, action.payload.task);
+      return state;
+
+    case sprintActions.TASK_REMOVED_FROM_SPRINT:
+      state = removeTask(state, 'notStarted', action.payload.taskId);
+      state = removeTask(state, 'inProgress', action.payload.taskId);
+      state = removeTask(state, 'onHold', action.payload.taskId);
+      state = removeTask(state, 'completed', action.payload.taskId);
+      state = removeTask(state, 'cancelled', action.payload.taskId);
       return state;
 
     case sprintActions.UPDATE_SPRINT_TASK_POSITION:  

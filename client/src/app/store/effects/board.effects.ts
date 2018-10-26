@@ -39,26 +39,12 @@ export class BoardEffects {
 
     @Effect()
     taskRemovedFromBoard$ = this.socketService.taskRemovedFromBoard$.pipe(
-      switchMap(task => of(new boardActions.TaskRemovedFromBoard(task)).pipe(
-        withLatestFrom(this.store$.select(getBoard)),
-        map(([action, board]) => { 
-          return board ? 
-          new boardActions.LoadBoard(board.name) :
-          new sprintActions.LoadCurrentSprint(null)
-        }))
-      )
+      switchMap(payload => of(new boardActions.TaskRemovedFromBoard(payload)))
     )
 
     @Effect()
     taskAddedToBoard$ = this.socketService.taskAddedToBoard$.pipe(
-      switchMap(task => of(new boardActions.TaskAddedToBoard(task)).pipe(
-        withLatestFrom(this.store$.select(getBoard)),
-        map(([action, board]) => {
-          return board ?
-          new boardActions.LoadBoard(board.name) :
-          new boardActions.LoadBoardError({error: 'No board yet'})
-        }))
-      )
+      switchMap(task => of(new boardActions.TaskAddedToBoard(task)))
     )
 
    @Effect()
