@@ -50,7 +50,7 @@ export class TaskEffects {
       withLatestFrom(this.store$.select(getCurrentView)),
       map(([action, view]) => 
         view !== 'current' ? 
-        new boardActions.LoadBoard(view) :
+        new boardActions.UpdateTaskInBoard(action.payload) :
         new sprintActions.UpdateTaskInSprint(action.payload)
       ))
     )

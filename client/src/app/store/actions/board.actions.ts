@@ -25,7 +25,13 @@ export const UPDATE_TASK_POSITION_ERROR = type('[Board] Failed To Update Task Po
 export const UPDATE_TASK_POSITION_SUCCESS = type('[Board] Successfully Updated Task Position');
 export const TASK_POSITION_UPDATED = type('[Board] Task Position Updated');
 
+export const UPDATE_TASK_IN_BOARD = type('[Board] Update Task Inside of Board');
 
+
+export class UpdateTaskInBoard implements Action {
+  public type: string = UPDATE_TASK_IN_BOARD;
+  constructor(public payload: {task: Task, field: string}) {}
+}
 
 export class CreateBoard implements Action {
   public type: string = CREATE_BOARD;
@@ -135,5 +141,5 @@ export type BoardActions =
   | UpdateTaskPosition
   | UpdateTaskPositionError
   | UpdateTaskPositionSuccess
-  | TaskPositionUpdated;
-
+  | TaskPositionUpdated
+  | UpdateTaskInBoard;

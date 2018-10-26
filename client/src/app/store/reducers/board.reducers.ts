@@ -70,6 +70,14 @@ export function reducer (state: BoardState = initialState, action: boardActions.
       }      
       return state;
 
+    case boardActions.UPDATE_TASK_IN_BOARD:
+      let isTask = task => task._id == action.payload.task._id;
+      let index = state.board.tasks.findIndex(isTask);
+      if (~index) {
+        state.board.tasks[index][action.payload.field] = action.payload.task[action.payload.field]
+      }
+      return state;
+
     case boardActions.CREATE_BOARD:
     default: return state;
   }
