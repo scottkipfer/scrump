@@ -15,12 +15,18 @@ const initialState: SprintState = {
   loading: false
 };
 
-const updateTaskInList = (state, list, payload) => {
+const updateTaskInList = (state: SprintState, list: string, payload: any) => {
   let isTask = task => task._id == payload.task._id;
   let index = state.currentSprint[list].findIndex(isTask);
   if (~index) {
     state.currentSprint[list][index][payload.field] = payload.task[payload.field];
   }
+  return state;
+}
+
+const updateTaskPositionInList = (state: SprintState, payload: {list: string, fromIndex: number, toIndex: number}) => {
+  let popped = state.currentSprint[payload.list].splice(payload.fromIndex, 1)[0];
+  state.currentSprint[payload.list].splice(payload.toIndex, 0, popped);
   return state;
 }
 
@@ -73,9 +79,12 @@ export function reducer(state: SprintState = initialState, action: sprintActions
       state = updateTaskInList(state, 'cancelled', action.payload);
       return state;
 
-    case sprintActions.CHANGE_TASK_STATUS:
     case sprintActions.SPRINT_TASK_POSITION_UPDATED:
-    case sprintActions.UPDATE_SPRINT_TASK_POSITION:
+      state = updateTaskPositionInList(state, action.payload);
+      return state;
+
+    case sprintActions.UPDATE_SPRINT_TASK_POSITION:  
+    case sprintActions.CHANGE_TASK_STATUS:
     case sprintActions.CREATE_SPRINT_SUCCESS:
     case sprintActions.CREATE_SPRINT:
     default: return state;

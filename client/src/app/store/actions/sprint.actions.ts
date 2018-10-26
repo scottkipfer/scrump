@@ -96,7 +96,7 @@ export class UpdateSprintTaskPositionSuccess implements Action {
 
 export class SprintTaskPositionUpdated implements Action {
   public type: string = SPRINT_TASK_POSITION_UPDATED;
-  constructor(public payload: any) {};
+  constructor(public payload: { list: string, fromIndex: number, toIndex: number }) {};
 }
 
 export class ChangeTaskStatus implements Action {

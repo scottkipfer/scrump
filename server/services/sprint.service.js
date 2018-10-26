@@ -60,7 +60,7 @@ const updateTaskPosition = (fromIndex, toIndex, list) => {
       let popped = sprint[list].splice(fromIndex, 1)[0];
       sprint[list].splice(toIndex, 0, popped);
       return sprint.save()
-        .then(sendEvent('SprintTaskPositionUpdated', { list }));  // TODO: return something else?
+        .then(sendEvent('SprintTaskPositionUpdated', { list, fromIndex, toIndex }));
     })
 }
 

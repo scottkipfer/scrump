@@ -99,19 +99,16 @@ export class SprintEffects {
       )
     )
 
-    @Effect()
-    taskStatusChanged$ = this.socketService.taskStatusChanged$.pipe(
-      switchMap(() => of(new sprintActions.TaskStatusChanged({})).pipe(
-        map(() => new sprintActions.LoadCurrentSprint(null)))
-      )
-    )
-  
-
   @Effect()
-  sprintTaskPositionUpdated$ = this.socketService.sprintTaskPositionUpdated$.pipe(
-    switchMap(() => of(new sprintActions.SprintTaskPositionUpdated({})).pipe(
+  taskStatusChanged$ = this.socketService.taskStatusChanged$.pipe(
+    switchMap(() => of(new sprintActions.TaskStatusChanged({})).pipe(
       map(() => new sprintActions.LoadCurrentSprint(null)))
     )
+  )
+  
+  @Effect()
+  sprintTaskPositionUpdated$ = this.socketService.sprintTaskPositionUpdated$.pipe(
+    switchMap((payload) => of(new sprintActions.SprintTaskPositionUpdated(payload)))
   )
 
   @Effect()
