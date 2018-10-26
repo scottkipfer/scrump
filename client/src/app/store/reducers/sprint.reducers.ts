@@ -24,13 +24,13 @@ const updateTaskInList = (state: SprintState, list: string, payload: any) => {
   return state;
 }
 
-const updateTaskPositionInList = (state: SprintState, payload: {list: string, fromIndex: number, toIndex: number}) => {
+const updateTaskPositionInList = (state: SprintState, payload: { list: string, fromIndex: number, toIndex: number }) => {
   let popped = state.currentSprint[payload.list].splice(payload.fromIndex, 1)[0];
   state.currentSprint[payload.list].splice(payload.toIndex, 0, popped);
   return state;
 }
 
-const updateTaskStatus = (state: SprintState, payload: {taskId: string, fromStatus: string, toStatus: string}) => {
+const updateTaskStatus = (state: SprintState, payload: { taskId: string, fromStatus: string, toStatus: string }) => {
   let taskIndex = state.currentSprint[payload.fromStatus].findIndex((task) => task._id == payload.taskId);
   if (taskIndex > -1) {
     let popped = state.currentSprint[payload.fromStatus].splice(taskIndex, 1)[0];
@@ -52,13 +52,13 @@ const removeTask = (state: SprintState, list: string, taskId: string) => {
   let isTask = task => task._id == taskId;
   let index = state.currentSprint[list].findIndex(isTask);
   if (index > -1) {
-    state.currentSprint[list] = state.currentSprint[list].splice(index, 1);
+    state.currentSprint[list].splice(index, 1);
   }
   return state;
 }
 
 export function reducer(state: SprintState = initialState, action: sprintActions.SprintActions): SprintState {
-  switch(action.type) {
+  switch (action.type) {
     case sprintActions.CREATE_SPRINT_ERROR:
       return {
         ...state,
@@ -115,15 +115,19 @@ export function reducer(state: SprintState = initialState, action: sprintActions
       return state;
 
     case sprintActions.TASK_ADDED_TO_SPRINT:
+      if (state.currentSprint) {
       state = addTask(state, action.payload.task);
+      }
       return state;
 
     case sprintActions.TASK_REMOVED_FROM_SPRINT:
+      if (state.currentSprint) {
       state = removeTask(state, 'notStarted', action.payload.taskId);
       state = removeTask(state, 'inProgress', action.payload.taskId);
       state = removeTask(state, 'onHold', action.payload.taskId);
       state = removeTask(state, 'completed', action.payload.taskId);
       state = removeTask(state, 'cancelled', action.payload.taskId);
+      }
       return state;
 
     case sprintActions.UPDATE_SPRINT_TASK_POSITION:  

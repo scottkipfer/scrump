@@ -63,7 +63,7 @@ export class TaskEffects {
       withLatestFrom(this.store$.select(getBoard)),
       switchMap(([switchBoardObj, board]) => {
         return this.taskService.switchBoards({
-          taskId: switchBoardObj.taskId,
+          task: switchBoardObj.task,
           newBoard: switchBoardObj.newBoard,
           oldBoard: (switchBoardObj.type == 'board') ? board.name : 'sprint'
         }).pipe(

@@ -34,7 +34,7 @@ export class TasksComponent implements OnInit {
 
   changeBoard(task, newBoard) {
     this.store.dispatch(new fromStore.SwitchBoards({
-      taskId: task._id,
+      task: task,
       newBoard: newBoard,
       type: this.type
     }));

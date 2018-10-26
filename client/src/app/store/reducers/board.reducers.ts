@@ -26,7 +26,7 @@ const removeTask = (state: BoardState, taskId: string) => {
   let isTask = task => task._id == taskId;
   let index = state.board.tasks.findIndex(isTask);
   if (index > -1) {
-    state.board.tasks = state.board.tasks.splice(index, 1);
+    state.board.tasks.splice(index, 1);
   }
   return state;
 }
@@ -59,13 +59,14 @@ export function reducer (state: BoardState = initialState, action: boardActions.
       };
 
     case boardActions.TASK_ADDED_TO_BOARD:
-      if (state.board.name === action.payload.boardName) {
+      if (state.board && state.board.name === action.payload.boardName) {
         state = addTask(state, action.payload.task);
       }  
       return state;
 
     case boardActions.TASK_REMOVED_FROM_BOARD:
-      if (state.board.name === action.payload.boardName) {
+      if (state.board && state.board.name === action.payload.boardName) {
+
         state = removeTask(state, action.payload.taskId);
       }      
       return state;
