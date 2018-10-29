@@ -1,7 +1,8 @@
 <div class="p-4">
-  <h5 class="font">Are you sure you want to compelte the current sprint?</h5>
-  <small class="text-danger">There is no going back!</small>
-  <div class="modal-footer">
+  <h5 class="font">Are you sure you want to complete this sprint?</h5>
+  <div class="pb-3"><strong class="text-danger mr-2">There is no going back!</strong><span class="text-secondary">Completing this sprint will also start a new one, pulling in all unfinished tasks from this sprint and all tasks in preplanning.</span>
+  </div>
+  <div class="modal-footer mb-2">
   <button class="btn btn-success" (click)="completeSprint()">sure</button>
   <button class="btn btn-danger" (click)="cancel()">nah</button>
   </div>
