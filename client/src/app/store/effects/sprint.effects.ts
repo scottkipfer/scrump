@@ -72,12 +72,22 @@ export class SprintEffects {
  
   @Effect()
   taskAddedToSprint$ = this.socketService.taskAddedToSprint$.pipe(
-    switchMap(task => of(new sprintActions.TaskAddedToSprint(task)))
+    switchMap(payload => of(new sprintActions.TaskAddedToSprint(payload)))
+  )
+
+  @Effect()
+  tasksAddedToSprint$ = this.socketService.tasksAddedToSprint$.pipe(
+    switchMap(payload => of(new sprintActions.TasksAddedToSprint(payload)))
   )
 
   @Effect()
   taskRemovedFromSprint$ = this.socketService.taskRemovedFromSprint$.pipe(
     switchMap(payload => of(new sprintActions.TaskRemovedFromSprint(payload)))
+  )
+
+  @Effect()
+  tasksRemovedFromSprint$ = this.socketService.tasksRemovedFromSprint$.pipe(
+    switchMap(payload => of(new sprintActions.TasksRemovedFromSprint(payload)))
   )
 
   @Effect()

@@ -12,6 +12,7 @@ export const LOAD_CURRENT_SPRINT_ERROR = type('[Sprint] - Failed to Load Current
 export const LOAD_CURRENT_SPRINT_SUCCESS = type('[Sprint] - Successfully Loaded Current Sprint');
 
 export const TASK_ADDED_TO_SPRINT = type('[Sprint] - Task Added To Sprint');
+export const TASKS_ADDED_TO_SPRINT = type('[Sprint] - Tasks Added To Sprint');
 
 export const UPDATE_SPRINT_TASK_POSITION = type('[Sprint] - Update Task Position');
 export const UPDATE_SPRINT_TASK_POSITION_ERROR = type('[Sprint] - Failed to update task position');
@@ -34,6 +35,7 @@ export const SPRINT_COMPLETED = type('[Sprint] - Completed Sprint');
 
 export const UPDATE_TASK_IN_SPRINT = type('[Sprint] - Update Task inside Sprint');
 export const TASK_REMOVED_FROM_SPRINT = type('[Sprint] - Task Removed From Sprint');
+export const TASKS_REMOVED_FROM_SPRINT = type('[Sprint] - Tasks Removed From Sprint');
 
 export class UpdateTaskInSprint implements Action {
   public type: string = UPDATE_TASK_IN_SPRINT;
@@ -77,6 +79,11 @@ export class LoadCurrentSprintSuccess implements Action {
 
 export class TaskAddedToSprint implements Action {
   public type: string = TASK_ADDED_TO_SPRINT;
+  constructor(public payload: Task) {}
+}
+
+export class TasksAddedToSprint implements Action {
+  public type: string = TASKS_ADDED_TO_SPRINT;
   constructor(public payload: Task) {}
 }
 
@@ -154,8 +161,14 @@ export class SprintCompleted implements Action {
   public type: string = SPRINT_COMPLETED;
   constructor(public payload: any) {}
 }
+
 export class TaskRemovedFromSprint implements Action {
   public type: string = TASK_REMOVED_FROM_SPRINT;
+  constructor(public payload: any) {}
+}
+
+export class TasksRemovedFromSprint implements Action {
+  public type: string = TASKS_REMOVED_FROM_SPRINT;
   constructor(public payload: any) {}
 }
 
@@ -168,6 +181,7 @@ export type SprintActions =
   | LoadCurrentSprintError
   | LoadCurrentSprintSuccess
   | TaskAddedToSprint
+  | TasksAddedToSprint
   | UpdateSprintTaskPosition
   | UpdateSprintTaskPositionError
   | UpdateSprintTaskPositionSuccess
@@ -184,4 +198,5 @@ export type SprintActions =
   | CompleteSprintSuccess
   | SprintCompleted
   | UpdateTaskInSprint
-  | TaskRemovedFromSprint;
+  | TaskRemovedFromSprint
+  | TasksRemovedFromSprint;

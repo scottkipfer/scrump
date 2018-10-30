@@ -15,6 +15,14 @@ const switchBoards = (req, res) => {
     .catch(sendError);
 }
 
+const switchBoardsBulk = (req, res) => {
+  let {oldBoard, newBoard, tasks} = req.body;
+  return boardService.removeTasksFromBoard(oldBoard, tasks)
+    .then(boardService.addTasksToBoard(newBoard, tasks))
+    .then(sendCommandSucceeded(res, 'Switch Boards'))
+    .catch(sendError);
+}
+
 const updateTaskPosition = (req, res) => {
   let {fromIndex, toIndex} = req.body;
   return boardService.updateTaskPosition(req.board, fromIndex, toIndex)
@@ -35,5 +43,6 @@ const sendError = curry((res, error) => {
 module.exports = {
   createBoard: createBoard,
   switchBoards: switchBoards,
+  switchBoardsBulk: switchBoardsBulk,
   updateTaskPosition: updateTaskPosition
 }

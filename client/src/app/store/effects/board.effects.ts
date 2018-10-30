@@ -43,12 +43,22 @@ export class BoardEffects {
     )
 
     @Effect()
-    taskAddedToBoard$ = this.socketService.taskAddedToBoard$.pipe(
-      switchMap(task => of(new boardActions.TaskAddedToBoard(task)))
+    tasksRemovedFromBoard$ = this.socketService.tasksRemovedFromBoard$.pipe(
+      switchMap(payload => of(new boardActions.TasksRemovedFromBoard(payload)))
     )
 
-   @Effect()
-   updateTaskPostion$ = this.actions$
+    @Effect()
+    taskAddedToBoard$ = this.socketService.taskAddedToBoard$.pipe(
+      switchMap(payload => of(new boardActions.TaskAddedToBoard(payload)))
+    )
+
+    @Effect()
+    tasksAddedToBoard$ = this.socketService.tasksAddedToBoard$.pipe(
+      switchMap(payload => of(new boardActions.TasksAddedToBoard(payload)))
+    )
+
+    @Effect()
+    updateTaskPostion$ = this.actions$
      .ofType(boardActions.UPDATE_TASK_POSITION).pipe(
        map((action: boardActions.UpdateTaskPosition) => action.payload),
        withLatestFrom(this.store$.select(getBoard)),

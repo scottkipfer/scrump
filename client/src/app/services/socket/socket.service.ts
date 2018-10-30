@@ -20,9 +20,10 @@ export class SocketService {
     // Board Events
     boardCreated$: Observable<any>;
     taskRemovedFromBoard$: Observable<any>;
+    tasksRemovedFromBoard$: Observable<any>;
     taskAddedToBoard$: Observable<any>;
+    tasksAddedToBoard$: Observable<any>;
     taskPositionUpdated$: Observable<any>;
-    taskAddedToSprint$: Observable<any>;
 
     // Sprint Events
     sprintCreated$: Observable<any>;
@@ -30,6 +31,9 @@ export class SocketService {
     taskStatusChanged$: Observable<any>;
     sprintCompleted$: Observable<any>;
     taskRemovedFromSprint$: Observable<any>;
+    tasksRemovedFromSprint$: Observable<any>;
+    taskAddedToSprint$: Observable<any>;
+    tasksAddedToSprint$: Observable<any>;
 
   constructor() {
     this.socket = socketIo(SOCKET_URL);
@@ -42,13 +46,17 @@ export class SocketService {
     this.taskUpdated$ = this.listen('TaskUpdated');
     this.taskMoved$ = this.listen('TaskMoved');
     this.taskRemovedFromBoard$ = this.listen('TaskRemovedFromBoard');
+    this.tasksRemovedFromBoard$ = this.listen('TasksRemovedFromBoard');
     this.taskRemovedFromSprint$ = this.listen('TaskRemovedFromSprint');
+    this.tasksRemovedFromSprint$ = this.listen('TasksRemovedFromSprint');
     this.taskAddedToBoard$ = this.listen('TaskAddedToBoard');
+    this.tasksAddedToBoard$ = this.listen('TasksAddedToBoard');
     this.taskPositionUpdated$ = this.listen('TaskPositionUpdated');
     this.boardCreated$ = this.listen('BoardCreated');
     this.sprintCreated$ = this.listen('SprintCreated');
     this.sprintCompleted$ = this.listen('SprintCompleted');
     this.taskAddedToSprint$ = this.listen('TaskAddedToSprint');
+    this.tasksAddedToSprint$ = this.listen('TasksAddedToSprint');
     this.sprintTaskPositionUpdated$ = this.listen('SprintTaskPositionUpdated');
     this.taskStatusChanged$ = this.listen('TaskStatusChanged');
    }

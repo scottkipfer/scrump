@@ -73,6 +73,23 @@ export class TaskEffects {
       })
     );
 
+    @Effect()
+    switchBoardsBulk$ = this.actions$
+      .ofType(taskActions.SWITCH_BOARDS_BULK).pipe(
+        map((action: taskActions.SwitchBoardsBulk) => action.payload),
+        withLatestFrom(this.store$.select(getBoard)),
+        switchMap(([switchBoardObj, board]) => {
+          return this.taskService.switchBoardsBulk({
+            tasks: switchBoardObj.tasks,
+            newBoard: switchBoardObj.newBoard,
+            oldBoard: (switchBoardObj.type == 'board') ? board.name : 'sprint'
+          }).pipe(
+            map(result => new taskActions.SwitchBoardsSuccess(result)),
+            catchError(error => of(new taskActions.SwitchBoardsError({ error: error})))
+          );
+        })
+      );
+  
   constructor(
     private actions$: Actions,
     private taskService: TaskService,

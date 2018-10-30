@@ -1,11 +1,23 @@
 <div id="tasks">
   <div class="text-left">
-    <h4>{{ tasksHeader }}</h4>
+    <span class="h4">{{ tasksHeader }}</span>
+    <span *ngIf="selectedTasks.length" class="dropright ml-4">
+      <a data-toggle="dropdown">
+        {{ selectedTasks.length }} selected <i class="fas fa-caret-square-right ml-1"></i>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li class="dropdown-item" (click)="changeBoardForSelected('sprint')">Move to Current Sprint</li>
+          <li class="dropdown-item" (click)="changeBoardForSelected('preplanning')">Move to Preplanning</li>
+          <li class="dropdown-item" (click)="changeBoardForSelected('backlog')">Move to Backlog</li>
+          <li class="dropdown-item" (click)="changeBoardForSelected('icebox')">Move to Icebox</li>
+        </ul>
+      </a>
+    </span>
   </div>
   <table class="table table-bordered">
     <thead>
       <tr>
         <th scope="col" width="20"></th>
+        <th scope="col" width="15"></th>
         <th scope="col" width="20"></th>
         <th scope="col" width="20"></th>
         <th scope="col" width="400">Summary</th>
@@ -29,6 +41,11 @@
           (dragstart)="drag(i)"
           (dragend)="dragend()">
         <td>{{ i + 1 }}</td>
+        <td class="text-center">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [id]="'check' + i" (change)="checkTaskSelection(task, $event)">
+          </div>
+        </td>
         <td><app-board-cell [board]="task.board" (boardChange)="changeBoard(task, $event);"></app-board-cell></td>
         <td><span *ngIf="type === 'sprint'"><app-status-cell [list]="listName" (listChange)="changeTaskStatus(task, $event);"></app-status-cell></span></td>
         <td class="text-left">

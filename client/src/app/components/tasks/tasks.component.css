@@ -16,6 +16,10 @@ td:hover {
   cursor: pointer;
 }
 
+ul {
+  font-size: 13px;
+}
+
 .insertFromBelow {
   border-bottom: 20px solid lightgray;
 }

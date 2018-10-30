@@ -38,6 +38,10 @@ export class TaskService {
     return this.http.post(`${this.commandUrl}/switchBoards`, switchBoardObj, httpOptions);
   }
 
+  public switchBoardsBulk(switchBoardObj): Observable<any> {
+    return this.http.post(`${this.commandUrl}/switchBoardsBulk`, switchBoardObj, httpOptions);
+  }
+
   public updateTask({task, field, value}): Observable<Task> {
     return this.http.post<Task>(`${this.commandUrl}/updateTask/${task._id}`, {field, value}, httpOptions);
   }

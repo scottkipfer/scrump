@@ -83,14 +83,45 @@ const addTaskToCurrentSprint = (task) => {
     .then(sendEvent('TaskAddedToSprint', { task }))
 }
 
+const addTasksToCurrentSprint = (tasks) => {
+  return getCurrentSprint()
+    .then(addTasks(tasks))
+    .then(sendEvent('TasksAddedToSprint', { tasks }))
+}
+
 const removeTaskFromCurrentSprint = (task) => {
   return getCurrentSprint()
     .then(removeTask(task))
     .then(sendEvent('TaskRemovedFromSprint', { taskId: task }));
 }
 
+const removeTasksFromCurrentSprint = (tasks) => {
+  return getCurrentSprint()
+    .then(removeTasks(tasks))
+    .then(sendEvent('TasksRemovedFromSprint', { tasks }));
+}
+
 const removeTask = curry((taskId, sprint) => {
   let isTask = task => task == taskId;
+  sprint.inProgress = reject(isTask, sprint.inProgress);
+  sprint.notStarted = reject(isTask, sprint.notStarted);
+  sprint.completed = reject(isTask, sprint.completed);
+  sprint.cancelled = reject(isTask, sprint.cancelled);
+  sprint.onHold = reject(isTask, sprint.onHold);
+  return sprint.save();
+});
+
+const removeTasks = curry((tasks, sprint) => {
+  let isTask = task => {
+    let ret = false;
+    for (let i=0; i < tasks.length; i++) {
+      if (tasks[i]._id == task._id) {
+        ret = true;
+        break;
+      }
+    }
+    return ret;
+  };
   sprint.inProgress = reject(isTask, sprint.inProgress);
   sprint.notStarted = reject(isTask, sprint.notStarted);
   sprint.completed = reject(isTask, sprint.completed);
@@ -108,12 +139,21 @@ const addTask = curry((task, sprint) => {
   return sprint.save();
 })
 
+const addTasks = curry((tasks, sprint) => {
+  tasks.forEach(task => {
+    sprint.notStarted.push(task._id);
+  })
+  return sprint.save();
+})
+
 module.exports = {
   createSprint: createSprint,
   completeSprint: completeSprint,
   getCurrentSprint: getCurrentSprint,
   addTaskToCurrentSprint: addTaskToCurrentSprint,
+  addTasksToCurrentSprint: addTasksToCurrentSprint,
   removeTaskFromCurrentSprint: removeTaskFromCurrentSprint,
+  removeTasksFromCurrentSprint: removeTasksFromCurrentSprint,
   updateTaskPosition: updateTaskPosition,
   updateTaskStatus: updateTaskStatus,
 };

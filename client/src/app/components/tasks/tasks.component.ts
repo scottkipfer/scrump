@@ -18,6 +18,7 @@ export class TasksComponent implements OnInit {
   @Input() listName: string; // inProgress | notStarted | ...etc
   @Input() tasks: Observable<Task[]>;
   private currentBoard$: Observable<string>;
+  private selectedTasks: Task[] = [];
 
   public boardTasks$: Observable<Task[]>;
   draggingIndex: number = -1;
@@ -25,6 +26,7 @@ export class TasksComponent implements OnInit {
   draggingDirection: string;
 
   ngOnInit() {
+    this.selectedTasks = [];
   }
 
   saveChanges(task, field, value) {
@@ -40,10 +42,31 @@ export class TasksComponent implements OnInit {
     }));
   }
 
+  changeBoardForSelected(newBoard) {
+    this.store.dispatch(new fromStore.SwitchBoardsBulk({
+      tasks: this.selectedTasks,
+      newBoard: newBoard,
+      type: this.type
+    }));
+    this.selectedTasks = [];
+  }
+
   changeTaskStatus(task, event) {
     let action = event;
     action.taskId = task._id;
     this.store.dispatch(new fromStore.ChangeTaskStatus(action));
+  }
+
+  checkTaskSelection(task, event) {
+    if (event.target.checked) {
+      this.selectedTasks.push(task);
+    } else {
+      let index = this.selectedTasks.findIndex(item => {
+        return item._id === task._id;
+      });
+      this.selectedTasks.splice(index, 1);
+    }
+    console.log("selected tasks: ", this.selectedTasks);
   }
 
   allowDrop(event, index) {

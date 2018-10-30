@@ -14,11 +14,13 @@ export const ADD_TASK_TO_BOARD = type('[Board] Add Task To Baord');
 export const ADD_TASK_TO_BOARD_ERROR = type('[Board] Failed To Add Task To Baord');
 export const ADD_TASK_TO_BOARD_SUCCESS = type('[Board] Successfully Added Task To Baord');
 export const TASK_ADDED_TO_BOARD = type('[Board] Task Added To Board');
+export const TASKS_ADDED_TO_BOARD = type('[Board] Tasks Added To Board');
 
 export const REMOVE_TASK_FROM_BOARD = type('[Board] Remove Task From Baord');
 export const REMOVE_TASK_FROM_BOARD_ERROR = type('[Board] Faied To Remove Task From Baord');
 export const REMOVE_TASK_FROM_BOARD_SUCCESS = type('[Board] Successfully Removed Task From Baord');
 export const TASK_REMOVED_FROM_BOARD = type('[Board] Task Removed From Board');
+export const TASKS_REMOVED_FROM_BOARD = type('[Board] Tasks Removed From Board');
 
 export const UPDATE_TASK_POSITION = type('[Board] Update Task Position');
 export const UPDATE_TASK_POSITION_ERROR = type('[Board] Failed To Update Task Position');
@@ -83,6 +85,11 @@ export class TaskRemovedFromBoard implements Action {
   constructor(public payload: any) {}
 }
 
+export class TasksRemovedFromBoard implements Action {
+  public type: string = TASKS_REMOVED_FROM_BOARD;
+  constructor(public payload: any) {}
+}
+
 export class AddTaskToBoard implements Action {
   public type: string = ADD_TASK_TO_BOARD;
   constructor(public payload: any) {}
@@ -100,6 +107,11 @@ export class AddTaskToBoardSuccess implements Action {
 
 export class TaskAddedToBoard implements Action {
   public type: string = TASK_ADDED_TO_BOARD;
+  constructor(public payload: Task) {}
+}
+
+export class TasksAddedToBoard implements Action {
+  public type: string = TASKS_ADDED_TO_BOARD;
   constructor(public payload: Task) {}
 }
 
@@ -131,10 +143,12 @@ export type BoardActions =
   | LoadBoardError
   | LoadBoardSuccess
   | TaskAddedToBoard
+  | TasksAddedToBoard
   | AddTaskToBoard
   | AddTaskToBoardError
   | AddTaskToBoardSuccess
   | TaskRemovedFromBoard
+  | TasksRemovedFromBoard
   | RemoveTaskFromBoard
   | RemoveTaskFromBoardError
   | RemoveTaskFromBoardSuccess

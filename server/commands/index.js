@@ -16,6 +16,9 @@ module.exports = (app) => {
   app.route('/command/switchBoards')
     .post(board.switchBoards);
 
+  app.route('/command/switchBoardsBulk')
+    .post(board.switchBoardsBulk);
+
   app.route('/command/updateTaskPosition/:boardName')
     .post(board.updateTaskPosition);
 

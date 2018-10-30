@@ -13,9 +13,19 @@ const addTaskToBoard = (boardName, task) => {
   if (boardName === 'sprint') {
     return sprintService.addTaskToCurrentSprint(task);
   } else {
-  return findBoardByName(boardName)
-    .then(addTask(task))
-    .then(sendEvent('TaskAddedToBoard', {boardName: boardName, task: task}))
+    return findBoardByName(boardName)
+      .then(addTask(task))
+      .then(sendEvent('TaskAddedToBoard', {boardName: boardName, task: task}))
+  }
+};
+
+const addTasksToBoard = (boardName, tasks) => {
+  if (boardName === 'sprint') {
+    return sprintService.addTasksToCurrentSprint(tasks);
+  } else {
+    return findBoardByName(boardName)
+      .then(addTasks(tasks))
+      .then(sendEvent('TasksAddedToBoard', {boardName: boardName, tasks: tasks}))
   }
 };
 
@@ -23,9 +33,19 @@ const removeTaskFromBoard = (boardName, taskId) => {
   if (boardName === 'sprint') {
     return  sprintService.removeTaskFromCurrentSprint(taskId);
   } else {
-  return findBoardByName(boardName)
-    .then(removeTask(taskId))
-    .then(sendEvent('TaskRemovedFromBoard', {boardName: boardName, taskId: taskId}))
+    return findBoardByName(boardName)
+      .then(removeTask(taskId))
+      .then(sendEvent('TaskRemovedFromBoard', {boardName: boardName, taskId: taskId}))
+  }
+};
+
+const removeTasksFromBoard = (boardName, tasks) => {
+  if (boardName === 'sprint') {
+    return  sprintService.removeTasksFromCurrentSprint(tasks);
+  } else {
+    return findBoardByName(boardName)
+      .then(removeTasks(tasks))
+      .then(sendEvent('TasksRemovedFromBoard', {boardName: boardName, tasks: tasks}))
   }
 };
 
@@ -38,8 +58,30 @@ const addTask = curry((task, board) => {
   return board.save();
 });
 
+const addTasks = curry((tasks, board) => {
+  tasks.forEach(task => {
+    board.tasks.push(task._id);
+  })
+  return board.save();
+})
+
 const removeTask = curry((taskId, board) => {
   let isTask = task => task._id == taskId;
+  board.tasks = reject(isTask, board.tasks);
+  return board.save();
+});
+
+const removeTasks = curry((tasks, board) => {
+  let isTask = task => {
+    let ret = false;
+    for (let i=0; i < tasks.length; i++) {
+      if (tasks[i]._id == task._id) {
+        ret = true;
+        break;
+      }
+    }
+    return ret;
+  };
   board.tasks = reject(isTask, board.tasks);
   return board.save();
 });
@@ -59,6 +101,8 @@ module.exports = {
   createBoard: createBoard,
   findBoardByName: findBoardByName,
   addTaskToBoard: addTaskToBoard,
+  addTasksToBoard: addTasksToBoard,
   removeTaskFromBoard: removeTaskFromBoard,
+  removeTasksFromBoard: removeTasksFromBoard,
   updateTaskPosition: updateTaskPosition
 };

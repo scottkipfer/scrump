@@ -13,6 +13,7 @@ export const UPDATE_TASK_SUCCESS = type('[Task] Task successfully updated');
 export const TASK_UPDATED = type('[Task] Task was updated');
 
 export const SWITCH_BOARDS = type('[Task] Switch Boards');
+export const SWITCH_BOARDS_BULK = type('[Task] Switch Boards Bulk');
 export const SWITCH_BOARDS_ERROR = type('[Task] Switch Boards Failed');
 export const SWITCH_BOARDS_SUCCESS = type('[Task] Switching Boards Succeeded');
 
@@ -61,6 +62,11 @@ export class SwitchBoards implements Action {
   constructor(public payload: any) {}
 }
 
+export class SwitchBoardsBulk implements Action {
+  public type: string = SWITCH_BOARDS_BULK;
+  constructor(public payload: any) {}
+}
+
 export class SwitchBoardsError implements Action {
   public type: string = SWITCH_BOARDS_ERROR;
   constructor(public payload: any) {}
@@ -79,5 +85,6 @@ export type TaskActions =
   | UpdateTaskError
   | UpdateTaskSuccess
   | SwitchBoards
+  | SwitchBoardsBulk
   | SwitchBoardsError
   | SwitchBoardsSuccess;

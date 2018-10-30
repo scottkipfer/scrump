@@ -64,10 +64,21 @@ export function reducer (state: BoardState = initialState, action: boardActions.
       }  
       return state;
 
+    case boardActions.TASKS_ADDED_TO_BOARD:
+      if (state.board && state.board.name === action.payload.boardName) {
+        action.payload.tasks.forEach(task => state = addTask(state, task));        
+      }  
+      return state;
+
     case boardActions.TASK_REMOVED_FROM_BOARD:
       if (state.board && state.board.name === action.payload.boardName) {
-
         state = removeTask(state, action.payload.taskId);
+      }      
+      return state;
+
+    case boardActions.TASKS_REMOVED_FROM_BOARD:
+      if (state.board && state.board.name === action.payload.boardName) {
+        action.payload.tasks.forEach(task => state = removeTask(state, task._id));
       }      
       return state;
 
