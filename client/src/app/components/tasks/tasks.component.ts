@@ -66,7 +66,6 @@ export class TasksComponent implements OnInit {
       });
       this.selectedTasks.splice(index, 1);
     }
-    console.log("selected tasks: ", this.selectedTasks);
   }
 
   allowDrop(event, index) {
