@@ -5,6 +5,7 @@ import {map, switchMap, catchError, tap, withLatestFrom} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store';
 import * as sprintActions from '../actions/sprint.actions';
+import * as taskActions from '../actions/task.actions';
 import * as boardActions from '../actions/board.actions';
 import { SprintService } from '../../services/sprint/sprint.service';
 import { SocketService } from '../../services/socket/socket.service';
@@ -28,7 +29,10 @@ export class SprintEffects {
       switchMap((sprint: Sprint) => {
         return this.sprintService.getCurrentSprint()
         .pipe(
-          map((sprint: Sprint) => new sprintActions.LoadCurrentSprintSuccess(sprint)),
+          switchMap((sprint: Sprint) => [
+            new sprintActions.LoadCurrentSprintSuccess(sprint),
+            new taskActions.UnselectAllTasks(null)
+          ]),
           catchError(error => of(new sprintActions.LoadCurrentSprintError({error: error})))
         )
       })
@@ -82,12 +86,18 @@ export class SprintEffects {
 
   @Effect()
   taskRemovedFromSprint$ = this.socketService.taskRemovedFromSprint$.pipe(
-    switchMap(payload => of(new sprintActions.TaskRemovedFromSprint(payload)))
+    switchMap(payload => [
+      (new sprintActions.TaskRemovedFromSprint(payload)),
+      (new taskActions.UnselectTask(payload)),
+    ])
   )
 
   @Effect()
   tasksRemovedFromSprint$ = this.socketService.tasksRemovedFromSprint$.pipe(
-    switchMap(payload => of(new sprintActions.TasksRemovedFromSprint(payload)))
+    switchMap(payload => [
+      (new sprintActions.TasksRemovedFromSprint(payload)),
+      (new taskActions.UnselectMultipleTasks(payload))
+    ])
   )
 
   @Effect()

@@ -43,7 +43,14 @@ export function reducer (state: TaskState = initialState, action: taskActions.Ta
       return state;
 
     case taskActions.UNSELECT_TASK:
+      console.log("payload is: ", action.payload);
       state = removeTaskFromSelection(state, action.payload);
+      return state;
+
+    case taskActions.UNSELECT_MULTIPLE_TASKS:
+      action.payload.tasks.forEach(task => {
+        state = removeTaskFromSelection(state, task);
+      })
       return state;
 
     case taskActions.SWITCH_BOARDS_SUCCESS:

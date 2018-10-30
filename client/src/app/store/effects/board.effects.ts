@@ -8,7 +8,7 @@ import * as boardActions from '../actions/board.actions';
 import * as taskActions from '../actions/task.actions';
 import * as fromStore from '../../store'
 import {getBoard} from '../../store/selectors/board.selectors';
-import {Board} from '../../models';
+import {Board, Task} from '../../models';
 import {SocketService} from '../../services/socket/socket.service';
 
 @Injectable()
@@ -42,12 +42,18 @@ export class BoardEffects {
 
     @Effect()
     taskRemovedFromBoard$ = this.socketService.taskRemovedFromBoard$.pipe(
-      switchMap(payload => of(new boardActions.TaskRemovedFromBoard(payload)))
+      switchMap(payload => [
+        (new boardActions.TaskRemovedFromBoard(payload)), 
+        (new taskActions.UnselectTask(payload))
+      ])
     )
 
     @Effect()
     tasksRemovedFromBoard$ = this.socketService.tasksRemovedFromBoard$.pipe(
-      switchMap(payload => of(new boardActions.TasksRemovedFromBoard(payload)))
+      switchMap(payload => [
+        (new boardActions.TasksRemovedFromBoard(payload)),
+        (new taskActions.UnselectMultipleTasks(payload))
+      ])
     )
 
     @Effect()

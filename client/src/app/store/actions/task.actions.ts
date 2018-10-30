@@ -21,6 +21,7 @@ export const SELECT_TASK = type('[Task] - Select Task');
 export const UNSELECT_TASK = type('[Task] - Unselect Task');
 export const SELECT_ALL_TASKS = type('[Task] - Select All Tasks');
 export const UNSELECT_ALL_TASKS = type('[Task] - Unselect All Tasks');
+export const UNSELECT_MULTIPLE_TASKS = type('[Task] - Unselect Multiple Tasks');
 
 export class TaskCreated implements Action {
   public type: string = TASK_CREATED;
@@ -97,6 +98,11 @@ export class SelectAllTasks implements Action {
   constructor(public payload: any) {}
 }
 
+export class UnselectMultipleTasks implements Action {
+  public type: string = UNSELECT_MULTIPLE_TASKS;
+  constructor(public payload: any) {}
+}
+
 export class UnselectAllTasks implements Action {
   public type: string = UNSELECT_ALL_TASKS;
   constructor(public payload: any) {}
@@ -116,4 +122,5 @@ export type TaskActions =
   | SelectTask
   | SelectAllTasks
   | UnselectTask
-  | UnselectAllTasks;
+  | UnselectAllTasks
+  | UnselectMultipleTasks;
