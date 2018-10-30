@@ -3,9 +3,9 @@
   <button class="btn btn-outline-primary mt-md-4" (click)="createSprint()">create sprint</button>
 </div>
 <div *ngIf="!(sprintError$ | async)">
-  <app-tasks tasksHeader="In Progress" [tasks]="inProgressTasks$" type="sprint" listName="inProgress"></app-tasks>
-  <app-tasks tasksHeader="Not Started" [tasks]="notStartedTasks$" type="sprint" listName="notStarted"></app-tasks>
-  <app-tasks tasksHeader="On Hold" [tasks]="onHoldTasks$" type="sprint" listName="onHold"></app-tasks>
-  <app-tasks tasksHeader="Completed" [tasks]="completedTasks$" type="sprint" listName="completed"></app-tasks>
-  <app-tasks tasksHeader="Cancelled" [tasks]="cancelledTasks$" type="sprint" listName="cancelled"></app-tasks>
+  <app-tasks tasksHeader="In Progress" boardName= "current" [tasks]="inProgressTasks$" type="sprint" listName="inProgress"></app-tasks>
+  <app-tasks tasksHeader="Not Started" boardName= "current" [tasks]="notStartedTasks$" type="sprint" listName="notStarted"></app-tasks>
+  <app-tasks tasksHeader="On Hold" boardName= "current" [tasks]="onHoldTasks$" type="sprint" listName="onHold"></app-tasks>
+  <app-tasks tasksHeader="Completed" boardName= "current" [tasks]="completedTasks$" type="sprint" listName="completed"></app-tasks>
+  <app-tasks tasksHeader="Cancelled" boardName= "current" [tasks]="cancelledTasks$" type="sprint" listName="cancelled"></app-tasks>
 </div>

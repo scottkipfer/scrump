@@ -17,7 +17,7 @@ export class TasksComponent implements OnInit {
   @Input() type: string = 'board'; // sprint | board
   @Input() listName: string; // inProgress | notStarted | ...etc
   @Input() tasks: Observable<Task[]>;
-  private currentBoard$: Observable<string>;
+  @Input() boardName: string;
   private selectedTasks: Task[] = [];
 
   public boardTasks$: Observable<Task[]>;
@@ -82,6 +82,7 @@ export class TasksComponent implements OnInit {
   }
 
   drop(event, index) {
+    this.selectedTasks = [];
     event.preventDefault();
     if (this.type === 'sprint') {
       this.store.dispatch(new fromStore.UpdateSprintTaskPosition({

@@ -5,10 +5,10 @@
       <a data-toggle="dropdown">
         {{ selectedTasks.length }} selected <i class="fas fa-caret-square-right ml-1"></i>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li class="dropdown-item" (click)="changeBoardForSelected('sprint')">Move to Current Sprint</li>
-          <li class="dropdown-item" (click)="changeBoardForSelected('preplanning')">Move to Preplanning</li>
-          <li class="dropdown-item" (click)="changeBoardForSelected('backlog')">Move to Backlog</li>
-          <li class="dropdown-item" (click)="changeBoardForSelected('icebox')">Move to Icebox</li>
+          <li *ngIf="boardName !== 'current'" class="dropdown-item" (click)="changeBoardForSelected('sprint')">Move to Current Sprint</li>
+          <li *ngIf="boardName !== 'preplanning'" class="dropdown-item" (click)="changeBoardForSelected('preplanning')">Move to Preplanning</li>
+          <li *ngIf="boardName !== 'backlog'" class="dropdown-item" (click)="changeBoardForSelected('backlog')">Move to Backlog</li>
+          <li *ngIf="boardName !== 'icebox'" class="dropdown-item" (click)="changeBoardForSelected('icebox')">Move to Icebox</li>
         </ul>
       </a>
     </span>
