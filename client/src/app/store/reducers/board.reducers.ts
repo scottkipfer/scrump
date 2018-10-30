@@ -43,6 +43,7 @@ export function reducer (state: BoardState = initialState, action: boardActions.
 
     case boardActions.CREATE_BOARD_SUCCESS:
     case boardActions.LOAD_BOARD_SUCCESS:
+      console.log("you are in load board success");
       return {
         ...state,
         error: '',

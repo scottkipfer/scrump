@@ -3,7 +3,7 @@ import { Task } from '../../models';
 import * as fromStore from '../../store';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {take, map} from 'rxjs/operators';
+import {tap, share, map} from 'rxjs/operators';
 import { getBoard } from '../../store';
 
 @Component({
@@ -18,15 +18,16 @@ export class TasksComponent implements OnInit {
   @Input() listName: string; // inProgress | notStarted | ...etc
   @Input() tasks: Observable<Task[]>;
   @Input() boardName: string;
-  private selectedTasks: Task[] = [];
 
   public boardTasks$: Observable<Task[]>;
+  public selectedTasks$: Observable<Task[]>;
+
   draggingIndex: number = -1;
   draggingHoverIndex: number;
   draggingDirection: string;
 
   ngOnInit() {
-    this.selectedTasks = [];
+    this.selectedTasks$ = this.store.select(fromStore.getSelectedTasks);
   }
 
   saveChanges(task, field, value) {
@@ -44,11 +45,9 @@ export class TasksComponent implements OnInit {
 
   changeBoardForSelected(newBoard) {
     this.store.dispatch(new fromStore.SwitchBoardsBulk({
-      tasks: this.selectedTasks,
       newBoard: newBoard,
       type: this.type
     }));
-    this.selectedTasks = [];
   }
 
   changeTaskStatus(task, event) {
@@ -59,12 +58,9 @@ export class TasksComponent implements OnInit {
 
   checkTaskSelection(task, event) {
     if (event.target.checked) {
-      this.selectedTasks.push(task);
+      this.store.dispatch(new fromStore.SelectTask(task));
     } else {
-      let index = this.selectedTasks.findIndex(item => {
-        return item._id === task._id;
-      });
-      this.selectedTasks.splice(index, 1);
+      this.store.dispatch(new fromStore.UnselectTask(task));
     }
   }
 
@@ -82,7 +78,6 @@ export class TasksComponent implements OnInit {
   }
 
   drop(event, index) {
-    this.selectedTasks = [];
     event.preventDefault();
     if (this.type === 'sprint') {
       this.store.dispatch(new fromStore.UpdateSprintTaskPosition({

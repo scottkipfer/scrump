@@ -1,9 +1,9 @@
 <div id="tasks">
   <div class="text-left mb-1">
     <span class="h4">{{ tasksHeader }}</span>
-    <span *ngIf="selectedTasks.length" class="dropright ml-4">
+    <span *ngIf="(selectedTasks$ | async)?.length" class="dropright ml-4">
       <a data-toggle="dropdown">
-        {{ selectedTasks.length }} selected <i class="fas fa-caret-square-right ml-1"></i>
+        {{ (selectedTasks$ | async)?.length }} selected <i class="fas fa-caret-square-right ml-1"></i>
         <ul class="dropdown-menu dropdown-menu-right">
           <li *ngIf="boardName !== 'current'" class="dropdown-item" (click)="changeBoardForSelected('sprint')">Move to Current Sprint</li>
           <li *ngIf="boardName !== 'preplanning'" class="dropdown-item" (click)="changeBoardForSelected('preplanning')">Move to Preplanning</li>

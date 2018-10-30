@@ -12,6 +12,7 @@ import * as taskActions from '../actions/task.actions';
 import * as boardActions from '../actions/board.actions';
 import * as sprintActions from '../actions/sprint.actions';
 import { getCurrentView } from '../selectors/view.selectors';
+import { getSelectedTasks } from '../selectors';
 
 @Injectable()
 export class TaskEffects {
@@ -77,10 +78,11 @@ export class TaskEffects {
     switchBoardsBulk$ = this.actions$
       .ofType(taskActions.SWITCH_BOARDS_BULK).pipe(
         map((action: taskActions.SwitchBoardsBulk) => action.payload),
-        withLatestFrom(this.store$.select(getBoard)),
-        switchMap(([switchBoardObj, board]) => {
+        withLatestFrom(this.store$.select(getBoard), this.store$.select(getSelectedTasks)),
+        switchMap(([switchBoardObj, board, tasks]) => {
+          console.log("other: ", board);
           return this.taskService.switchBoardsBulk({
-            tasks: switchBoardObj.tasks,
+            tasks: tasks,
             newBoard: switchBoardObj.newBoard,
             oldBoard: (switchBoardObj.type == 'board') ? board.name : 'sprint'
           }).pipe(

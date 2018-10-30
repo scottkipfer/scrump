@@ -5,7 +5,7 @@ import {of} from 'rxjs';
 import {map, switchMap, catchError, tap, withLatestFrom} from 'rxjs/operators';
 import {BoardService} from '../../services/board/board.service';
 import * as boardActions from '../actions/board.actions';
-import * as sprintActions from '../actions/sprint.actions';
+import * as taskActions from '../actions/task.actions';
 import * as fromStore from '../../store'
 import {getBoard} from '../../store/selectors/board.selectors';
 import {Board} from '../../models';
@@ -19,7 +19,10 @@ export class BoardEffects {
       map((action: boardActions.LoadBoard) => action.payload),
       switchMap((boardName: string) => {
         return this.boardService.getBoard(boardName).pipe(
-          map((board: Board) => new boardActions.LoadBoardSuccess(board)),
+          switchMap((board: Board) => [
+             new boardActions.LoadBoardSuccess(board),
+             new taskActions.UnselectAllTasks(null)
+          ]),
           catchError(error => of(new boardActions.LoadBoardError({error: error})))
         )
       })

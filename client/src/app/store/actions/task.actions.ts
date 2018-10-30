@@ -17,6 +17,11 @@ export const SWITCH_BOARDS_BULK = type('[Task] Switch Boards Bulk');
 export const SWITCH_BOARDS_ERROR = type('[Task] Switch Boards Failed');
 export const SWITCH_BOARDS_SUCCESS = type('[Task] Switching Boards Succeeded');
 
+export const SELECT_TASK = type('[Task] - Select Task');
+export const UNSELECT_TASK = type('[Task] - Unselect Task');
+export const SELECT_ALL_TASKS = type('[Task] - Select All Tasks');
+export const UNSELECT_ALL_TASKS = type('[Task] - Unselect All Tasks');
+
 export class TaskCreated implements Action {
   public type: string = TASK_CREATED;
   constructor(public payload: Task) {}
@@ -77,6 +82,26 @@ export class SwitchBoardsSuccess implements Action {
   constructor(public payload: any) {}
 }
 
+export class SelectTask implements Action {
+  public type: string = SELECT_TASK;
+  constructor(public payload: Task) {}
+}
+
+export class UnselectTask implements Action {
+  public type: string = UNSELECT_TASK;
+  constructor(public payload: Task) {}
+}
+
+export class SelectAllTasks implements Action {
+  public type: string = SELECT_ALL_TASKS;
+  constructor(public payload: any) {}
+}
+
+export class UnselectAllTasks implements Action {
+  public type: string = UNSELECT_ALL_TASKS;
+  constructor(public payload: any) {}
+}
+
 export type TaskActions =
   | CreateTask
   | CreateTaskError
@@ -87,4 +112,8 @@ export type TaskActions =
   | SwitchBoards
   | SwitchBoardsBulk
   | SwitchBoardsError
-  | SwitchBoardsSuccess;
+  | SwitchBoardsSuccess
+  | SelectTask
+  | SelectAllTasks
+  | UnselectTask
+  | UnselectAllTasks;
