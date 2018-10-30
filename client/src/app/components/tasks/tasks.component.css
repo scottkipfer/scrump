@@ -4,12 +4,12 @@
 }
 
 th {
-  padding: 3px;
+  padding: 3px 4px;
   background-color: #efefef;
 }
 
 td {
-  padding: 3px;
+  padding: 3px 4px;
 }
 
 td:hover {
@@ -26,4 +26,8 @@ ul {
 
 .insertFromAbove {
   border-top: 20px solid lightgray;
+}
+
+.select-task {
+  padding-top: 1px;
 }

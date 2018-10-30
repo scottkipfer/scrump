@@ -1,5 +1,5 @@
 <div id="tasks">
-  <div class="text-left">
+  <div class="text-left mb-1">
     <span class="h4">{{ tasksHeader }}</span>
     <span *ngIf="selectedTasks.length" class="dropright ml-4">
       <a data-toggle="dropdown">
@@ -41,9 +41,9 @@
           (dragstart)="drag(i)"
           (dragend)="dragend()">
         <td>{{ i + 1 }}</td>
-        <td class="text-center">
+        <td class="text-center select-task">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" [id]="'check' + i" (change)="checkTaskSelection(task, $event)">
+            <input class="form-check-input position-static" type="checkbox" [id]="'check' + i" (change)="checkTaskSelection(task, $event)">
           </div>
         </td>
         <td><app-board-cell [board]="task.board" (boardChange)="changeBoard(task, $event);"></app-board-cell></td>
