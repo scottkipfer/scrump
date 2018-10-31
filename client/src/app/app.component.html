@@ -24,7 +24,17 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/completed" [ngClass]="{ 'active': (currentView$ | async) === 'sprints' }">Past Sprints</a>
       </li>
-    </ul> 
+    </ul>
+    <a data-toggle="dropdown" *ngIf="(selectedTasks$ | async)?.length" class="nav-link dropdown">
+      Actions ({{ (selectedTasks$ | async)?.length }} item<span *ngIf="(selectedTasks$ | async)?.length > 1">s</span>)<i class="fas fa-caret-square-down ml-2"></i>
+      <ul class="dropdown-menu">
+        <li *ngIf="(currentView$ | async) !== 'current'" class="dropdown-item" (click)="changeBoardForSelected('sprint')">Move to Current Sprint</li>
+        <li *ngIf="(currentView$ | async) !== 'preplanning'" class="dropdown-item" (click)="changeBoardForSelected('preplanning')">Move to Preplanning</li>
+        <li *ngIf="(currentView$ | async) !== 'backlog'" class="dropdown-item" (click)="changeBoardForSelected('backlog')">Move to Backlog</li>
+        <li *ngIf="(currentView$ | async) !== 'icebox'" class="dropdown-item" (click)="changeBoardForSelected('icebox')">Move to Icebox</li>
+      </ul>
+    </a>
+
     <button *ngIf="(currentView$ | async) === 'current'" class="btn btn-outline-primary mr-3" (click)="completeSprint()"><i class="fas fa-check-circle mr-1"></i>Complete Sprint</button>
     <button *ngIf="(currentView$ | async) !== 'sprints'" class="btn btn-outline-secondary" (click)="openModal()"><i class="fas fa-plus-circle mr-1"></i>New Task</button>
   </div>

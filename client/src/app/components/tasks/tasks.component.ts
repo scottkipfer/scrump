@@ -43,13 +43,6 @@ export class TasksComponent implements OnInit {
     }));
   }
 
-  changeBoardForSelected(newBoard) {
-    this.store.dispatch(new fromStore.SwitchBoardsBulk({
-      newBoard: newBoard,
-      type: this.type
-    }));
-  }
-
   changeTaskStatus(task, event) {
     let action = event;
     action.taskId = task._id;

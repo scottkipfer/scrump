@@ -78,12 +78,12 @@ export class TaskEffects {
     switchBoardsBulk$ = this.actions$
       .ofType(taskActions.SWITCH_BOARDS_BULK).pipe(
         map((action: taskActions.SwitchBoardsBulk) => action.payload),
-        withLatestFrom(this.store$.select(getBoard), this.store$.select(getSelectedTasks)),
-        switchMap(([switchBoardObj, board, tasks]) => {
+        withLatestFrom(this.store$.select(getSelectedTasks), this.store$.select(getCurrentView)),
+        switchMap(([switchBoardObj, tasks, currentView]) => {
           return this.taskService.switchBoardsBulk({
             tasks: tasks,
             newBoard: switchBoardObj.newBoard,
-            oldBoard: (switchBoardObj.type == 'board') ? board.name : 'sprint'
+            oldBoard: (currentView == 'current') ? 'sprint' : currentView
           }).pipe(
             map(result => new taskActions.SwitchBoardsSuccess(result)),
             catchError(error => of(new taskActions.SwitchBoardsError({ error: error})))

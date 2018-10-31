@@ -5,8 +5,9 @@ import { CompleteSprintComponent } from './components/complete-sprint/complete-s
 import {Store} from '@ngrx/store';
 import * as fromStore from './store';
 import {Observable} from 'rxjs'
-import {delay} from 'rxjs/operators'
+import {delay, map} from 'rxjs/operators'
 import { SocketService } from './services/socket/socket.service';
+import { Task } from './models';
 
 @Component({
   selector: 'app-root',
@@ -18,15 +19,18 @@ export class AppComponent {
   title : string = 'ScrumP';
   activeTab : string = 'current';
   connected$: Observable<any>;
+  selectedTasks$: Observable<Task[]>;
+
   constructor (
     private modalService: NgbModal,
-    private  store$: Store<fromStore.AppState>,
+    private store: Store<fromStore.AppState>,
     private socketService: SocketService
     ) {}
 
   ngOnInit() {
-    this.currentView$ = this.store$.select(fromStore.getCurrentView).pipe(delay(0));
+    this.currentView$ = this.store.select(fromStore.getCurrentView).pipe(delay(0));
     this.connected$ = this.socketService.connected$;
+    this.selectedTasks$ = this.store.select(fromStore.getSelectedTasks);
   }
 
   openModal() {
@@ -35,6 +39,12 @@ export class AppComponent {
 
   completeSprint() {
     const completeModalRef = this.modalService.open(CompleteSprintComponent);
+  }
+
+  changeBoardForSelected(newBoard) {
+    this.store.dispatch(new fromStore.SwitchBoardsBulk({
+      newBoard: newBoard
+    }));  
   }
 
 }

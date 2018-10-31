@@ -5,3 +5,7 @@ h1 {
 .active {
   font-weight: bold;
 }
+
+.dropdown-menu {
+  font-size: 13px;
+}
