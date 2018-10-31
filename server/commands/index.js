@@ -4,6 +4,13 @@ const sprint = require('./sprint.commands');
 
 module.exports = (app) => {
 
+  app.route('/health-check')
+    .get((req, res) => {
+      return res.status(200).json({
+        "OK": "Not Not OK"
+      })
+    })
+
   app.route('/command/createTask')
     .post(task.createTask);
 
