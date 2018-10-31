@@ -1,4 +1,4 @@
-<div class="clickable" [hidden]="isEditing" (dblclick)="edit()">{{ value }}</div>
+<div class="clickable" [hidden]="isEditing" (dblclick)="edit()"><pre>{{value}}</pre></div>
 <div [hidden]="!isEditing">
   <textarea #summaryInput [(ngModel)]="value" (keydown.enter)="finishEdit();" (blur)="finishEdit()"></textarea>
 </div>

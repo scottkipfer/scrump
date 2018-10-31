@@ -14,18 +14,11 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended': 'false'}));
 
-let socketApp = express();
-socketApp.use(cors());
-socketApp.use(helmet());
-let socketServer = http.Server(socketApp);
-socketServer.listen(2701);
-
-require('./core/socket').setup(socketServer);
+let server = app.listen(2700);
+require('./core/socket').setup(server);
 
 // Set up routes
 require('./core/router')(app);
 require ('./commands')(app);
-
-app.listen(2700);
 
 console.log('listening on port 2700...');

@@ -7,7 +7,7 @@ module.exports = (app) => {
   app.route('/health-check')
     .get((req, res) => {
       return res.status(200).json({
-        "OK": "Not Not OK"
+        "OK": "Not Not OK, Im ok"
       })
     })
 
