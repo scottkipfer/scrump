@@ -14,8 +14,13 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended': 'false'}));
 
-const server = http.createServer().listen(2701);
-require('./core/socket').setup(server);
+let socketApp = express();
+socketApp.use(cors());
+socketApp.use(helmet());
+let socketServer = http.Server(socketApp);
+socketServer.listen(2701);
+
+require('./core/socket').setup(socketServer);
 
 // Set up routes
 require('./core/router')(app);
