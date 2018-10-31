@@ -1,7 +1,7 @@
 const socketio = require('socket.io');
 
 const setup = (server) => {
-  const io = socketio(server, { origins: '*:*'});
+  const io = socketio(server);
 
   io.on('connection', (client) => {
     console.log('Client Connected!');
