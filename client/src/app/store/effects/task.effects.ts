@@ -80,7 +80,6 @@ export class TaskEffects {
         map((action: taskActions.SwitchBoardsBulk) => action.payload),
         withLatestFrom(this.store$.select(getBoard), this.store$.select(getSelectedTasks)),
         switchMap(([switchBoardObj, board, tasks]) => {
-          console.log("other: ", board);
           return this.taskService.switchBoardsBulk({
             tasks: tasks,
             newBoard: switchBoardObj.newBoard,
