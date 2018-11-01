@@ -23,7 +23,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let task of (tasks | async) index as i" [ngClass]="{ 'alert-success': listName === 'completed', 'alert-warning': listName === 'onHold', 'alert-danger': listName === 'cancelled', 'bg-white': listName === 'notStarted' || listName === 'inProgress', 'insertFromAbove': draggingIndex !== i && draggingHoverIndex === i && draggingDirection === 'down', 'insertFromBelow': draggingIndex !== i && draggingHoverIndex === i && draggingDirection === 'up' }"
+      <tr *ngFor="let task of (tasks | async) index as i" [ngClass]="{ 'alert-success': listName === 'completed', 'alert-warning': listName === 'onHold', 'alert-danger': listName === 'cancelled', 'bg-white': listName === 'notStarted' || listName === 'inProgress' || listName === 'techDebt', 'insertFromAbove': draggingIndex !== i && draggingHoverIndex === i && draggingDirection === 'down', 'insertFromBelow': draggingIndex !== i && draggingHoverIndex === i && draggingDirection === 'up' }"
           (drop)="drop($event, i)"
           (dragover)="allowDrop($event, i)"
           draggable="true"

@@ -102,6 +102,7 @@ export function reducer(state: SprintState = initialState, action: sprintActions
       if (state.currentSprint) {
         state = updateTaskInList(state, 'notStarted', action.payload);
         state = updateTaskInList(state, 'inProgress', action.payload);
+        state = updateTaskInList(state, 'techDebt', action.payload);
         state = updateTaskInList(state, 'onHold', action.payload);
         state = updateTaskInList(state, 'completed', action.payload);
         state = updateTaskInList(state, 'cancelled', action.payload);
@@ -136,6 +137,7 @@ export function reducer(state: SprintState = initialState, action: sprintActions
       if (state.currentSprint) {
         state = removeTask(state, 'notStarted', action.payload.taskId);
         state = removeTask(state, 'inProgress', action.payload.taskId);
+        state = removeTask(state, 'techDebt', action.payload.taskId);
         state = removeTask(state, 'onHold', action.payload.taskId);
         state = removeTask(state, 'completed', action.payload.taskId);
         state = removeTask(state, 'cancelled', action.payload.taskId);
@@ -146,6 +148,7 @@ export function reducer(state: SprintState = initialState, action: sprintActions
       if (state.currentSprint) {
         action.payload.tasks.forEach(task => state = removeTask(state, 'notStarted', task._id));
         action.payload.tasks.forEach(task => state = removeTask(state, 'inProgress', task._id));
+        action.payload.tasks.forEach(task => state = removeTask(state, 'techDebt', task._id));
         action.payload.tasks.forEach(task => state = removeTask(state, 'onHold', task._id));
         action.payload.tasks.forEach(task => state = removeTask(state, 'completed', task._id));
         action.payload.tasks.forEach(task => state = removeTask(state, 'cancelled', task._id));

@@ -54,7 +54,7 @@ const show = (req, res) => {
 };
 
 const current = (req, res) => {
-  Sprint.findOne({active: true}).populate('notStarted completed onHold inProgress cancelled').then(sprint => {
+  Sprint.findOne({active: true}).populate('notStarted completed onHold inProgress techDebt cancelled').then(sprint => {
     if (!sprint) {
       return res.status(404).send({error: 'No active sprints'});
     }
@@ -69,8 +69,10 @@ const completeSprint = (req, res) => {
   copySprint.inProgress = sprint.inProgress;
   copySprint.onHold = sprint.onHold;
   copySprint.notStarted = sprint.notStarted;
+  copySprint.techDebt = sprint.techDebt;
   sprint.active = false;
   sprint.inProgress = [];
+  sprint.techDebt = [];
   sprint.onHold = [];
   sprint.notStarted = [];
   sprint.completedDate = Date.now();

@@ -12,6 +12,11 @@ let SprintSchema = new Schema({
     ref: 'Task',
     default: []
   }],
+  techDebt: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Task',
+    default: []
+  }],
   notStarted: [{
    type: Schema.Types.ObjectId,
    ref: 'Task',

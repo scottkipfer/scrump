@@ -8,19 +8,18 @@ const completeSprint = (sprint) => {
   return getCurrentSprint()
     .then((currentSprint) => {
       let newSprint = new Sprint();
-      let { inProgress, notStarted, onHold } = currentSprint || {};
+      let { inProgress, techDebt, notStarted, onHold } = currentSprint || {};
       newSprint.inProgress = inProgress;
+      newSprint.techDebt = techDebt;
       newSprint.notStarted = notStarted;
       newSprint.onHold = onHold;
       newSprint.name = nameSprint();
       return Board.findOne({name: 'preplanning'}).then(board => {
         newSprint.notStarted = newSprint.notStarted.concat(board.tasks);
-        console.log(newSprint);
         return newSprint.save()
           .then(spirnt => {return Board.findOne({name: 'preplanning'})})
           .then(board => {
             board.tasks = [];
-            console.log(board);
             return board.save()
           })
       })
@@ -35,6 +34,7 @@ const getCurrentSprint = () => {
 
 const completeCurrentSprint = (currentSprint) => {
   currentSprint.inProgess = [];
+  currentSprint.techDebt = [];
   currentSprint.onHold = [];
   currentSprint.notStarted = [];
   currentSprint.active = false;
@@ -104,6 +104,7 @@ const removeTasksFromCurrentSprint = (tasks) => {
 const removeTask = curry((taskId, sprint) => {
   let isTask = task => task == taskId;
   sprint.inProgress = reject(isTask, sprint.inProgress);
+  sprint.techDebt = reject(isTask, sprint.techDebt);
   sprint.notStarted = reject(isTask, sprint.notStarted);
   sprint.completed = reject(isTask, sprint.completed);
   sprint.cancelled = reject(isTask, sprint.cancelled);
@@ -123,6 +124,7 @@ const removeTasks = curry((tasks, sprint) => {
     return ret;
   };
   sprint.inProgress = reject(isTask, sprint.inProgress);
+  sprint.techDebt = reject(isTask, sprint.techDebt);
   sprint.notStarted = reject(isTask, sprint.notStarted);
   sprint.completed = reject(isTask, sprint.completed);
   sprint.cancelled = reject(isTask, sprint.cancelled);
