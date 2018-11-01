@@ -18,6 +18,10 @@ const addTask = (state: BoardState, newTask: Task) => {
   let index = state.board.tasks.findIndex(isTask);
   if (index === -1) {
     state.board.tasks.push(newTask);
+    newTask.justUpdated = true;
+    setTimeout(() => {
+      delete newTask.justUpdated;
+    }, 750);
   }
   return state;
 }
@@ -26,7 +30,11 @@ const removeTask = (state: BoardState, taskId: string) => {
   let isTask = task => task._id == taskId;
   let index = state.board.tasks.findIndex(isTask);
   if (index > -1) {
-    state.board.tasks.splice(index, 1);
+    state.board.tasks[index].justRemoved = true;
+    setTimeout(() => {
+      delete state.board.tasks[index].justRemoved;
+      state.board.tasks.splice(index, 1);
+    }, 400);
   }
   return state;
 }
@@ -88,6 +96,8 @@ export function reducer (state: BoardState = initialState, action: boardActions.
       let index = state.board.tasks.findIndex(isTask);
       if (~index) {
         state.board.tasks[index][action.payload.field] = action.payload.task[action.payload.field]
+        state.board.tasks[index].justUpdated = true;
+        setTimeout(() => delete state.board.tasks[index].justUpdated, 1000);
       }
       return state;
 

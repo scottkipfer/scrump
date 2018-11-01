@@ -20,12 +20,39 @@ ul {
   font-size: 13px;
 }
 
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes highlight-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+.highlighted {
+  animation: highlight-fade 0.75s;
+}
+
 .insertFromBelow {
   border-bottom: 20px solid lightgray;
 }
 
 .insertFromAbove {
   border-top: 20px solid lightgray;
+}
+
+.removed {
+  animation: fade-out 0.75s;
 }
 
 .select-task {

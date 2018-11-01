@@ -20,6 +20,10 @@ const updateTaskInList = (state: SprintState, list: string, payload: any) => {
   let index = state.currentSprint[list].findIndex(isTask);
   if (~index) {
     state.currentSprint[list][index][payload.field] = payload.task[payload.field];
+    state.currentSprint[list][index].justUpdated = true;
+    setTimeout(() => {
+      delete state.currentSprint[list][index].justUpdated;
+    }, 1000);
   }
   return state;
 }
@@ -27,14 +31,28 @@ const updateTaskInList = (state: SprintState, list: string, payload: any) => {
 const updateTaskPositionInList = (state: SprintState, payload: { list: string, fromIndex: number, toIndex: number }) => {
   let popped = state.currentSprint[payload.list].splice(payload.fromIndex, 1)[0];
   state.currentSprint[payload.list].splice(payload.toIndex, 0, popped);
+  state.currentSprint[payload.list][payload.fromIndex].justUpdated = true;
+  state.currentSprint[payload.list][payload.toIndex].justUpdated = true;
+  setTimeout(() => {
+    delete state.currentSprint[payload.list][payload.fromIndex].justUpdated;
+    delete state.currentSprint[payload.list][payload.toIndex].justUpdated;  
+  }, 1000);
   return state;
 }
 
 const updateTaskStatus = (state: SprintState, payload: { taskId: string, fromStatus: string, toStatus: string }) => {
   let taskIndex = state.currentSprint[payload.fromStatus].findIndex((task) => task._id == payload.taskId);
   if (taskIndex > -1) {
-    let popped = state.currentSprint[payload.fromStatus].splice(taskIndex, 1)[0];
-    state.currentSprint[payload.toStatus].push(popped);
+    state.currentSprint[payload.fromStatus][taskIndex].justRemoved = true;
+    setTimeout(() => {
+      let popped = state.currentSprint[payload.fromStatus].splice(taskIndex, 1)[0];
+      delete popped.justRemoved;
+      popped.justUpdated = true;
+      state.currentSprint[payload.toStatus].push(popped);
+      setTimeout(() => {
+        delete popped.justUpdated;
+      }, 500);
+    }, 750);
   }
   return state;
 }
@@ -44,6 +62,10 @@ const addTask = (state: SprintState, newTask: Task) => {
   let index = state.currentSprint['notStarted'].findIndex(isTask);
   if (index === -1) {
     state.currentSprint.notStarted.push(newTask);
+    newTask.justUpdated = true;
+    setTimeout(() => {
+      delete newTask.justUpdated;
+    }, 750);
   }
   return state;
 }
@@ -52,7 +74,11 @@ const removeTask = (state: SprintState, list: string, taskId: string) => {
   let isTask = task => task._id == taskId;
   let index = state.currentSprint[list].findIndex(isTask);
   if (index > -1) {
-    state.currentSprint[list].splice(index, 1);
+    state.currentSprint[list][index].justRemoved = true;
+    setTimeout(() => {
+      delete state.currentSprint[list][index].justRemoved;
+      state.currentSprint[list].splice(index, 1);
+    }, 500);
   }
   return state;
 }

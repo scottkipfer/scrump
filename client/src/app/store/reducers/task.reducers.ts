@@ -43,7 +43,6 @@ export function reducer (state: TaskState = initialState, action: taskActions.Ta
       return state;
 
     case taskActions.UNSELECT_TASK:
-      console.log("payload is: ", action.payload);
       state = removeTaskFromSelection(state, action.payload);
       return state;
 

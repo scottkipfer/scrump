@@ -14,6 +14,8 @@ export class Task {
   deadline?: Date;
   notes?: string;
   board?: string;
+  justUpdated?: boolean;
+  justRemoved?: boolean;
 }
 
 export class CreateTaskModel {
