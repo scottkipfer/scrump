@@ -20,9 +20,9 @@ const updateTaskInList = (state: SprintState, list: string, payload: any) => {
   let index = state.currentSprint[list].findIndex(isTask);
   if (~index) {
     state.currentSprint[list][index][payload.field] = payload.task[payload.field];
-    state.currentSprint[list][index].justUpdated = true;
+    state.currentSprint[list][index].justUpdatedField = payload.field;
     setTimeout(() => {
-      delete state.currentSprint[list][index].justUpdated;
+      delete state.currentSprint[list][index].justUpdatedField;
     }, 1000);
   }
   return state;

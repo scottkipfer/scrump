@@ -33,6 +33,7 @@ ul {
 @keyframes highlight-fade {
     from {
       opacity: 0;
+      background-color: lightgoldenrodyellow;
     }
     to {
       opacity: 1;
@@ -40,7 +41,7 @@ ul {
 }
 
 .highlighted {
-  animation: highlight-fade 0.75s;
+  animation: highlight-fade 1s;
 }
 
 .insertFromBelow {

@@ -96,8 +96,8 @@ export function reducer (state: BoardState = initialState, action: boardActions.
       let index = state.board.tasks.findIndex(isTask);
       if (~index) {
         state.board.tasks[index][action.payload.field] = action.payload.task[action.payload.field]
-        state.board.tasks[index].justUpdated = true;
-        setTimeout(() => delete state.board.tasks[index].justUpdated, 1000);
+        state.board.tasks[index].justUpdatedField = action.payload.field;
+        setTimeout(() => delete state.board.tasks[index].justUpdatedField, 1000);
       }
       return state;
 

@@ -16,6 +16,7 @@ export class Task {
   board?: string;
   justUpdated?: boolean;
   justRemoved?: boolean;
+  justUpdatedField?: string;
 }
 
 export class CreateTaskModel {
