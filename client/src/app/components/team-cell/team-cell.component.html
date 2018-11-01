@@ -1,4 +1,4 @@
-<div class="clickable" [ngClass]="{ 'alert-success': (owner.status === 'complete' || owner.status === 'na'), 'alert-info': owner.status === 'wip', 'alert-light': owner.status === 'ns' }" [hidden]="isEditing" (dblclick)="edit()"><span [hidden]="owner.status === 'na'">{{ owner.owner }}&nbsp;&nbsp;</span>
+<div class="clickable" [ngClass]="{ 'alert-success': (owner.status === 'complete' || owner.status === 'na'), 'alert-info': owner.status === 'wip' }" [hidden]="isEditing" (dblclick)="edit()"><span [hidden]="owner.status === 'na'">{{ owner.owner }}&nbsp;&nbsp;</span>
   <a data-toggle="dropdown">
     <i *ngIf="owner.owner" [ngClass]="getStatusIcon()"></i>
   </a>

@@ -7,7 +7,10 @@ let OwnerSchema = new Schema({
 });
 
 let TaskSchema = new Schema({
-  summary: String,
+  summary: {
+    type: String,
+    required: true
+  },
   requirementUrl: String,
   fe: OwnerSchema,
   api: OwnerSchema,
