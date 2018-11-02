@@ -1,4 +1,9 @@
 <div>
-  <input type="text" [hidden]="!isEditing" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" (dateSelect)="finishEdit()" (blur)="finishEdit();"/>
-  <div (click)="edit(); d.toggle()" [hidden]="isEditing">{{ date | date:'shortDate' }}</div>
+  <input [hidden]="!isEditing" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" (dateSelect)="finishEdit()" (blur)="finishEdit();"/>
+  <div *ngIf="!date" (click)="edit(); d.toggle()" [hidden]="isEditing">{{ date | date:'shortDate' }}
+    <span *ngIf="date"><i class="far fa-times-circle"></i></span>
+  </div>
+  <div *ngIf="date" [hidden]="isEditing"><span (click)="edit(); d.toggle()">{{ date | date:'shortDate' }}</span>
+    <span *ngIf="date"><i class="far fa-times-circle ml-1" (click)="clearDate();"></i></span>
+  </div>
 </div>

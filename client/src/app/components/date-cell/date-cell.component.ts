@@ -22,6 +22,11 @@ export class DateCellComponent implements OnInit {
     this.isEditing = true;
   }
 
+  clearDate() {
+    this.date = null;
+    this.dateChange.emit(this.date);
+  }
+
   finishEdit() {
     if (this.isEditing) {
       this.dateChange.emit(this.date);
