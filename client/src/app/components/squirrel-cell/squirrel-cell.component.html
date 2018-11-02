@@ -1,4 +1,4 @@
-<div class="clickable" data-toggle="dropdown">
+<div class="clickable" data-toggle="dropdown" [ngClass]="{'alert-danger': value === 'waiting'}">
   <a><img [src]="getStatusImg()" width="20" *ngIf="value"></a>
   <ul class="dropdown-menu">
     <li class="dropdown-item" (click)="setStatus('waiting')"><i class="fas fa-hourglass-half"></i> - Needs Squirrel</li>
