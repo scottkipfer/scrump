@@ -36,7 +36,8 @@ import {SprintService} from './services/sprint/sprint.service';
 import {SocketService} from './services/socket/socket.service';
 import { PastSprintsComponent } from './components/past-sprints/past-sprints.component';
 import { TasksRoComponent } from './components/tasks-ro/tasks-ro.component';
-import { CompleteSprintComponent } from './components/complete-sprint/complete-sprint.component'
+import { CompleteSprintComponent } from './components/complete-sprint/complete-sprint.component';
+import { SquirrelCellComponent } from './components/squirrel-cell/squirrel-cell.component'
 
 const appRoutes: Routes = [
   { path: 'current', component: CurrentTasksComponent },
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
     BoardCellComponent,
     PastSprintsComponent,
     TasksRoComponent,
-    CompleteSprintComponent
+    CompleteSprintComponent,
+    SquirrelCellComponent
   ],
   imports: [
 BrowserModule,

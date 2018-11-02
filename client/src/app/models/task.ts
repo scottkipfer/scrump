@@ -12,6 +12,7 @@ export class Task {
   eta?: Date;
   deployed?: Date;
   deadline?: Date;
+  squirrel?: string;
   notes?: string;
   board?: string;
   justUpdated?: boolean;

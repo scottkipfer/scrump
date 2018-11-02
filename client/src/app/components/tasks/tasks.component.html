@@ -6,7 +6,7 @@
     <thead>
       <tr>
         <th scope="col" width="20"></th>
-        <th scope="col" width="15"></th>
+        <th scope="col" width="29"></th>
         <th scope="col" width="20"></th>
         <th scope="col" width="20"></th>
         <th scope="col" width="400">Summary</th>
@@ -19,6 +19,7 @@
         <th scope="col" width="6%">ETA</th>
         <th scope="col" width="6%">Deployed</th>
         <th scope="col" width="6%">Deadline</th>
+        <th scope="col" width="25"><img src="/assets/img/squirrel.png" width="20"></th>
         <th scope="col" width="350">Notes</th>
       </tr>
     </thead>
@@ -66,6 +67,9 @@
         </td>
         <td [ngClass]="{'highlighted': task.justUpdatedField === 'deadline'}">
           <app-date-cell [date]=task.deadline (dateChange)="saveChanges(task, 'deadline', $event);"></app-date-cell>
+        </td>
+        <td [ngClass]="{'highlighted': task.justUpdatedField === 'squirrel'}">
+          <app-squirrel-cell [value]="task.squirrel" (valueChange)="saveChanges(task, 'squirrel', $event);"></app-squirrel-cell>
         </td>
         <td class="text-left" [ngClass]="{'highlighted': task.justUpdatedField === 'notes'}">
           <app-text-cell [value]="task.notes" (valueChange)="saveChanges(task, 'notes', $event);"></app-text-cell>

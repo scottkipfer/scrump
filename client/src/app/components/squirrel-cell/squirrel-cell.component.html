@@ -1,0 +1,8 @@
+<div class="clickable" data-toggle="dropdown">
+  <a><img [src]="getStatusImg()" width="20" *ngIf="value"></a>
+  <ul class="dropdown-menu">
+    <li class="dropdown-item" (click)="setStatus('waiting')"><i class="fas fa-hourglass-half"></i> - Needs Squirrel</li>
+    <li class="dropdown-item" (click)="setStatus('squirrelled')"><i class="fa fa-check-circle"></i> - Squirrelled</li>
+    <li class="dropdown-item" (click)="setStatus(null)"><i class="fas fa-times-circle"></i> - Clear</li>
+  </ul>
+</div>
