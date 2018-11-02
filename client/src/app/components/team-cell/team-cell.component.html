@@ -1,10 +1,11 @@
-<div class="clickable" [ngClass]="{ 'alert-success': (owner.status === 'complete' || owner.status === 'na'), 'alert-info': owner.status === 'wip' }" [hidden]="isEditing" (dblclick)="edit()"><span [hidden]="owner.status === 'na'">{{ owner.owner }}&nbsp;&nbsp;</span>
+<div class="clickable" [ngClass]="{ 'alert-success': (owner.status === 'complete' || owner.status === 'na'), 'alert-info': owner.status === 'wip', 'alert-danger': owner.status === 'review' }" [hidden]="isEditing" (dblclick)="edit()"><span [hidden]="owner.status === 'na'">{{ owner.owner }}&nbsp;&nbsp;</span>
   <a data-toggle="dropdown">
     <i *ngIf="owner.owner" [ngClass]="getStatusIcon()"></i>
   </a>
   <ul class="dropdown-menu" [hidden]="owner.status === 'na'">
     <li class="dropdown-item" (click)="setStatus('ns')"><i class="far fa-clock"></i> - Not Started</li>
     <li class="dropdown-item" (click)="setStatus('wip')"><i class="fas fa-laptop-code"></i> - Work in Progress</li>
+    <li class="dropdown-item" (click)="setStatus('review')"><i class="fab fa-github"></i> - Needs Review</li>
     <li class="dropdown-item" (click)="setStatus('complete')"><i class="fa fa-check-circle"></i> - Complete</li>
   </ul>
 </div>

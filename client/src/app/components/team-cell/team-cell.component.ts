@@ -18,6 +18,7 @@ export class TeamCellComponent implements OnInit {
     na: 'fa fa-ban',
     ns: 'far fa-clock',
     wip: 'fas fa-laptop-code',
+    review: 'fab fa-github',
     complete: 'fa fa-check-circle'
   }
 
