@@ -37,7 +37,8 @@ import {SocketService} from './services/socket/socket.service';
 import { PastSprintsComponent } from './components/past-sprints/past-sprints.component';
 import { TasksRoComponent } from './components/tasks-ro/tasks-ro.component';
 import { CompleteSprintComponent } from './components/complete-sprint/complete-sprint.component';
-import { SquirrelCellComponent } from './components/squirrel-cell/squirrel-cell.component'
+import { SquirrelCellComponent } from './components/squirrel-cell/squirrel-cell.component';
+import { DeleteTasksConfirmComponent } from './components/delete-tasks-confirm/delete-tasks-confirm.component'
 
 const appRoutes: Routes = [
   { path: 'current', component: CurrentTasksComponent },
@@ -63,7 +64,8 @@ const appRoutes: Routes = [
     PastSprintsComponent,
     TasksRoComponent,
     CompleteSprintComponent,
-    SquirrelCellComponent
+    SquirrelCellComponent,
+    DeleteTasksConfirmComponent
   ],
   imports: [
 BrowserModule,
@@ -78,7 +80,8 @@ BrowserModule,
   ],
   entryComponents: [
     NewTaskComponent,
-    CompleteSprintComponent
+    CompleteSprintComponent,
+    DeleteTasksConfirmComponent
   ],
   providers: [
     {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter},

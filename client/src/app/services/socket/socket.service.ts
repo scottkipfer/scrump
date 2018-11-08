@@ -34,6 +34,7 @@ export class SocketService {
     tasksRemovedFromSprint$: Observable<any>;
     taskAddedToSprint$: Observable<any>;
     tasksAddedToSprint$: Observable<any>;
+    taskDeleted$: Observable<any>;
 
   constructor() {
     this.socket = socketIo(SOCKET_URL);
@@ -59,24 +60,25 @@ export class SocketService {
     this.tasksAddedToSprint$ = this.listen('TasksAddedToSprint');
     this.sprintTaskPositionUpdated$ = this.listen('SprintTaskPositionUpdated');
     this.taskStatusChanged$ = this.listen('TaskStatusChanged');
-   }
+    this.taskDeleted$ = this.listen('TaskDeleted');
+  }
 
-   join(room: string) {
+  join(room: string) {
       this.connected$.subscribe(connected => {
       if (connected) {
         this.socket.emit('join', {room});
       }
     });
-   }
+  }
 
-   disconnect() {
-     this.socket.disconnect();
-     this.connected$.next(false)
-   }
+  disconnect() {
+    this.socket.disconnect();
+    this.connected$.next(false)
+  }
 
-   emit(event: string, data?: any) {
-      this.socket.emit(event, data);
-   }
+  emit(event: string, data?: any) {
+    this.socket.emit(event, data);
+  }
 
   listen(event: string): Observable<any> {
     return new Observable(observer => {
@@ -89,9 +91,8 @@ export class SocketService {
 
         observer.next(data);
       });
-      // displose of the event listener when unsubscribed
+      // dispose of the event listener when unsubscribed
       return () => this.socket.off(event);
     });
   }
-
 } 

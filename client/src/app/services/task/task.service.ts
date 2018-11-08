@@ -34,6 +34,10 @@ export class TaskService {
     return this.http.post<Task>(`${this.commandUrl}/createTask`, task, httpOptions);
   }
 
+  public deleteTasks(tasks: Task[], currentView: string): Observable<any> {
+    return this.http.post<Task>(`${this.commandUrl}/deleteTasks`, {tasks, currentView}, httpOptions);
+  }
+
   public switchBoards(switchBoardObj): Observable<any> {
     return this.http.post(`${this.commandUrl}/switchBoards`, switchBoardObj, httpOptions);
   }

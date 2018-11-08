@@ -32,9 +32,10 @@ const removeTask = (state: BoardState, taskId: string) => {
   if (index > -1) {
     state.board.tasks[index].justRemoved = true;
     setTimeout(() => {
+      let index = state.board.tasks.findIndex(isTask);
       delete state.board.tasks[index].justRemoved;
       state.board.tasks.splice(index, 1);
-    }, 400);
+    }, 500);
   }
   return state;
 }

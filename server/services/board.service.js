@@ -30,7 +30,7 @@ const addTasksToBoard = (boardName, tasks) => {
 };
 
 const removeTaskFromBoard = (boardName, taskId) => {
-  if (boardName === 'sprint') {
+  if (boardName === 'sprint' || boardName === 'current') {
     return  sprintService.removeTaskFromCurrentSprint(taskId);
   } else {
     return findBoardByName(boardName)
@@ -40,7 +40,7 @@ const removeTaskFromBoard = (boardName, taskId) => {
 };
 
 const removeTasksFromBoard = (boardName, tasks) => {
-  if (boardName === 'sprint') {
+  if (boardName === 'sprint' || boardName === 'current') {
     return  sprintService.removeTasksFromCurrentSprint(tasks);
   } else {
     return findBoardByName(boardName)

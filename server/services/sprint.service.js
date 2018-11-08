@@ -17,7 +17,7 @@ const completeSprint = (sprint) => {
       return Board.findOne({name: 'preplanning'}).then(board => {
         newSprint.notStarted = newSprint.notStarted.concat(board.tasks);
         return newSprint.save()
-          .then(spirnt => {return Board.findOne({name: 'preplanning'})})
+          .then(sprint => {return Board.findOne({name: 'preplanning'})})
           .then(board => {
             board.tasks = [];
             return board.save()
@@ -33,7 +33,7 @@ const getCurrentSprint = () => {
 }
 
 const completeCurrentSprint = (currentSprint) => {
-  currentSprint.inProgess = [];
+  currentSprint.inProgress = [];
   currentSprint.techDebt = [];
   currentSprint.onHold = [];
   currentSprint.notStarted = [];

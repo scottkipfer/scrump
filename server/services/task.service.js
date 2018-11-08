@@ -15,6 +15,16 @@ const updateTask = (task, field) => {
     .then(socketService.sendEvent('TaskUpdated', {task, field}));
 }
 
+const findTaskById = (taskId) => {
+  return Task.findOne({_id: taskId});
+}
+
+const deleteTask = (task) => {
+  return findTaskById(task._id)
+    .then(task => task.delete())
+    .then(socketService.sendEvent('TaskDeleted', {task}))
+}
+
 const placeTaskInBoardOrSprint = curry((boardName, task) => {
   socketService.sendEvent('TaskCreated', {task, boardName: boardName === 'sprint' ? 'current' : boardName});
   if (boardName === 'sprint') {
@@ -26,5 +36,6 @@ const placeTaskInBoardOrSprint = curry((boardName, task) => {
 
 module.exports = {
   createTask: createTask,
-  updateTask: updateTask
+  updateTask: updateTask,
+  deleteTask: deleteTask
 };

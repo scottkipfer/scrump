@@ -32,6 +32,7 @@
         <li *ngIf="(currentView$ | async) !== 'preplanning'" class="dropdown-item" (click)="changeBoardForSelected('preplanning')">Move to Preplanning</li>
         <li *ngIf="(currentView$ | async) !== 'backlog'" class="dropdown-item" (click)="changeBoardForSelected('backlog')">Move to Backlog</li>
         <li *ngIf="(currentView$ | async) !== 'icebox'" class="dropdown-item" (click)="changeBoardForSelected('icebox')">Move to Icebox</li>
+        <li class="dropdown-item text-danger" (click)="openDeleteTasksConfirm()">Delete Tasks</li>
       </ul>
     </a>
 

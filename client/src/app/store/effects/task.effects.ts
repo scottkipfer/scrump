@@ -90,6 +90,31 @@ export class TaskEffects {
           );
         })
       );
+
+  /*@Effect()
+  taskDeleted$ = this.socketService.taskDeleted$.pipe(
+    switchMap(task => of(new taskActions.TasksDeleted(task)).pipe(
+      withLatestFrom(this.store$.select(getCurrentView)),
+      map(([action, view]) =>
+        view !== 'current' ?
+          [new boardActions.TasksRemovedFromBoard(action.payload), new taskActions.UnselectMultipleTasks(action.payload)] :
+          [new sprintActions.TasksRemovedFromSprint(action.payload), new taskActions.UnselectMultipleTasks(action.payload)]
+      ))
+    )
+  )*/
+
+  @Effect()
+  deleteTasks$ = this.actions$
+    .ofType(taskActions.DELETE_TASKS).pipe(
+      map((action: taskActions.DeleteTasks) => action.payload),
+      withLatestFrom(this.store$.select(getSelectedTasks), this.store$.select(getCurrentView)),
+      switchMap(([action, tasks, currentView]) => {
+        return this.taskService.deleteTasks(tasks, currentView).pipe(
+          map(result => new taskActions.DeleteTasksSuccess(result)),
+          catchError(error => of(new taskActions.DeleteTasksError({error: error})))
+        )
+      })
+    )
   
   constructor(
     private actions$: Actions,

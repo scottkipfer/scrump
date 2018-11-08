@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {NewTaskComponent} from './components/new-task/new-task.component';
 import { CompleteSprintComponent } from './components/complete-sprint/complete-sprint.component';
+import { DeleteTasksConfirmComponent } from './components/delete-tasks-confirm/delete-tasks-confirm.component';
 import {Store} from '@ngrx/store';
 import * as fromStore from './store';
 import {Observable} from 'rxjs'
@@ -39,6 +40,10 @@ export class AppComponent {
 
   completeSprint() {
     const completeModalRef = this.modalService.open(CompleteSprintComponent);
+  }
+
+  openDeleteTasksConfirm() {
+    const deleteTasksConfirm = this.modalService.open(DeleteTasksConfirmComponent);
   }
 
   changeBoardForSelected(newBoard) {

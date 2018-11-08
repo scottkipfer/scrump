@@ -76,6 +76,7 @@ const removeTask = (state: SprintState, list: string, taskId: string) => {
   if (index > -1) {
     state.currentSprint[list][index].justRemoved = true;
     setTimeout(() => {
+      let index = state.currentSprint[list].findIndex(isTask);
       delete state.currentSprint[list][index].justRemoved;
       state.currentSprint[list].splice(index, 1);
     }, 500);

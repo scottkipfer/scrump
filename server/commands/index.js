@@ -41,4 +41,7 @@ module.exports = (app) => {
   app.route('/command/completeSprint')
     .post(sprint.completeSprint);
 
+  app.route('/command/deleteTasks')
+    .post(task.deleteTasks);
+
 }

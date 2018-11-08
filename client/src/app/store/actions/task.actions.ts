@@ -7,6 +7,11 @@ export const CREATE_TASK_ERROR = type('[Task] Create Task Error');
 export const CREATE_TASK_SUCCESS = type('[Task] Create Task Success');
 export const TASK_CREATED = type('[Task] Task was Created Event');
 
+export const DELETE_TASKS = type('[Task] Delete Tasks');
+export const DELETE_TASKS_ERROR = type('[Task] Delete Tasks Error');
+export const DELETE_TASKS_SUCCESS = type('[Task] Delete Tasks Success');
+export const TASKS_DELETED = type('[Task] Task was Deleted Event');
+
 export const UPDATE_TASK = type('[Task] Update Task')
 export const UPDATE_TASK_ERROR = type('[Task] Task failed to update');
 export const UPDATE_TASK_SUCCESS = type('[Task] Task successfully updated');
@@ -40,6 +45,26 @@ export class CreateTaskError implements Action {
 
 export class CreateTaskSuccess implements Action {
   public type: string = CREATE_TASK_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class TasksDeleted implements Action {
+  public type: string = TASKS_DELETED;
+  constructor(public payload: Task[]) {}
+}
+
+export class DeleteTasks implements Action {
+  public type: string = DELETE_TASKS;
+  constructor(public payload: any) {}
+}
+
+export class DeleteTasksError implements Action {
+  public type: string = DELETE_TASKS_ERROR;
+  constructor(public payload: any) {}
+}
+
+export class DeleteTasksSuccess implements Action {
+  public type: string = DELETE_TASKS_SUCCESS;
   constructor(public payload: any) {}
 }
 
@@ -123,4 +148,8 @@ export type TaskActions =
   | SelectAllTasks
   | UnselectTask
   | UnselectAllTasks
-  | UnselectMultipleTasks;
+  | UnselectMultipleTasks
+  | TasksDeleted
+  | DeleteTasks
+  | DeleteTasksSuccess
+  | DeleteTasksError;

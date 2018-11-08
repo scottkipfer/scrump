@@ -20,10 +20,10 @@ export class BoardEffects {
       switchMap((boardName: string) => {
         return this.boardService.getBoard(boardName).pipe(
           switchMap((board: Board) => [
-             new boardActions.LoadBoardSuccess(board),
-             new taskActions.UnselectAllTasks(null)
+            new boardActions.LoadBoardSuccess(board),
+            new taskActions.UnselectAllTasks(null)
           ]),
-          catchError(error => of(new boardActions.LoadBoardError({error: error})))
+          catchError(error => of(new boardActions.LoadBoardError({ error: error })))
         )
       })
     );
