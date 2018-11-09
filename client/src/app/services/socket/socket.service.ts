@@ -10,6 +10,7 @@ const SOCKET_URL = `${environment.socketServer}`;
 export class SocketService {
   private socket: socketIo.SocketIOClient.Socket
   public connected$ = new BehaviorSubject<boolean>(false);
+  public connectedObs$: Observable<boolean> = this.connected$.asObservable();
 
   // Events
     // Task Events

@@ -73,7 +73,7 @@ export class SprintEffects {
       (new boardActions.LoadBoard(board?board.name : 'backlog'))
     ])
   )
- 
+
   @Effect()
   taskAddedToSprint$ = this.socketService.taskAddedToSprint$.pipe(
     switchMap(payload => of(new sprintActions.TaskAddedToSprint(payload)))

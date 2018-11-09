@@ -91,18 +91,6 @@ export class TaskEffects {
         })
       );
 
-  /*@Effect()
-  taskDeleted$ = this.socketService.taskDeleted$.pipe(
-    switchMap(task => of(new taskActions.TasksDeleted(task)).pipe(
-      withLatestFrom(this.store$.select(getCurrentView)),
-      map(([action, view]) =>
-        view !== 'current' ?
-          [new boardActions.TasksRemovedFromBoard(action.payload), new taskActions.UnselectMultipleTasks(action.payload)] :
-          [new sprintActions.TasksRemovedFromSprint(action.payload), new taskActions.UnselectMultipleTasks(action.payload)]
-      ))
-    )
-  )*/
-
   @Effect()
   deleteTasks$ = this.actions$
     .ofType(taskActions.DELETE_TASKS).pipe(

@@ -21,6 +21,7 @@ export class AppComponent {
   activeTab : string = 'current';
   connected$: Observable<any>;
   selectedTasks$: Observable<Task[]>;
+  disconnectedOverlay$: Observable<boolean>;
 
   constructor (
     private modalService: NgbModal,
@@ -32,6 +33,7 @@ export class AppComponent {
     this.currentView$ = this.store.select(fromStore.getCurrentView).pipe(delay(0));
     this.connected$ = this.socketService.connected$;
     this.selectedTasks$ = this.store.select(fromStore.getSelectedTasks);
+    this.disconnectedOverlay$ = this.store.select(fromStore.showOverlay);
   }
 
   openModal() {

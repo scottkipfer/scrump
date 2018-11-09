@@ -4,3 +4,4 @@ import * as fromView from '../reducers/view.reducers';
 
 export const getCurrentView = createSelector(fromApp.getViewState, fromView.getCurrentView);
 export const isEditing = createSelector(fromApp.getViewState, fromView.isEditing);
+export const showOverlay = createSelector(fromApp.getViewState, fromView.showOverlay);
